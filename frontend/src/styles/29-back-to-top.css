@@ -1,0 +1,105 @@
+/* 29-back-to-top.css — nút mũi tên đưa trang về đầu.
+ *
+ * KHÔNG dựng ngôn ngữ hình mới cho một cái nút. Dùng lại đúng nút tròn đã có ở khối
+ * ViVi (.vivi-journey__controls button trong 28-home-journey.css): vòng tròn, viền tóc,
+ * nền giấy, di chuột thì đảo sang nền mực. Cùng token --line / --paper / --ink / --ease-soft
+ * của 01-foundation.css nên nó thuộc về web này chứ không phải một widget dán vào.
+ *
+ * Tầng z: 60. Nằm dưới .menu-overlay (70) và .site-nav (80) để trình đơn mobile mở ra là
+ * che nó đi, và dưới .factory-film-dialog (2200) để dialog video vẫn phủ toàn màn.
+ */
+.back-to-top {
+  position: fixed;
+  z-index: 60;
+  right: clamp(16px, 2.2vw, 30px);
+  bottom: clamp(16px, 2.2vw, 30px);
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  /* Nền mờ có blur để nút đọc được cả trên các chương nền sáng lẫn chương nền tối
+     (phim nhà máy, cảnh xe tiến ra) mà không cần đổi màu theo từng khối. */
+  background: rgba(244, 244, 244, 0.86);
+  box-shadow: 0 18px 40px -22px rgba(23, 26, 32, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  cursor: pointer;
+  transition:
+    opacity 260ms var(--ease-soft),
+    transform 260ms var(--ease-soft),
+    visibility 260ms,
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease;
+  transform: translateY(10px);
+  backdrop-filter: blur(14px) saturate(130%);
+  -webkit-backdrop-filter: blur(14px) saturate(130%);
+}
+
+/* visibility: hidden kéo nút ra khỏi cả thứ tự Tab lẫn cây trợ năng khi chưa hiện,
+   nên không cần thêm aria-hidden hay tabindex trong JSX. */
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  border-color: var(--ink);
+  color: #fff;
+  background: var(--ink);
+  transform: translateY(-2px);
+}
+
+.back-to-top:active { transform: translateY(0) scale(0.94); }
+
+.back-to-top:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* scrollPageToTop() trả tiêu điểm bàn phím về <main>. <main> không phải phần tử tương tác
+   nên không được vẽ viền tiêu điểm quanh cả trang. */
+#main-content:focus { outline: none; }
+
+/* Mobile: nhỏ một nấc và né vạch home indicator của iOS. Không thu dưới 44px —
+   đó là ngưỡng vùng chạm tối thiểu, nhỏ hơn là ngón tay bấm trượt. */
+@media (max-width: 720px) {
+  .back-to-top {
+    right: max(14px, env(safe-area-inset-right, 0px));
+    bottom: calc(max(14px, env(safe-area-inset-bottom, 0px)) + 4px);
+    width: 46px;
+    height: 46px;
+  }
+
+  .back-to-top svg { width: 19px; height: 19px; }
+}
+
+@media (max-width: 430px) {
+  .back-to-top { width: 44px; height: 44px; }
+  .back-to-top svg { width: 18px; height: 18px; }
+}
+
+/* Màn chạm không có trạng thái hover; giữ nguyên nền sáng để nút không "kẹt" ở
+   trạng thái đảo màu sau khi bấm. */
+@media (hover: none) {
+  .back-to-top:hover {
+    border-color: var(--line);
+    color: var(--ink);
+    background: rgba(244, 244, 244, 0.86);
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-to-top,
+  .back-to-top.is-visible,
+  .back-to-top:hover,
+  .back-to-top:active { transform: none; }
+
+  .back-to-top { transition: opacity 160ms linear, visibility 160ms; }
+}

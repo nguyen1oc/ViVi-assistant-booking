@@ -1,0 +1,1568 @@
+/* 26-mobile-hardening.css
+ *
+ * Lớp responsive cuối cùng. Desktop vẫn là chuẩn hình ảnh; các rule ngoài breakpoint chỉ
+ * tạo "vùng an toàn" để chữ và xe không thể va nhau. Dưới 900px, bố cục chuyển sang các
+ * hàng có kích thước thật thay vì đặt chữ/ảnh bằng tọa độ phần trăm của viewport.
+ */
+
+/* Hai sân khấu có xe đặt tuyệt đối từng cho hình tràn vào vùng chữ trên desktop. Giữ nguyên
+   tinh thần chữ trái / xe phải, nhưng giới hạn mỗi bên vào đúng nửa không gian của mình. */
+.home-hero__copy {
+  min-width: 0;
+}
+
+.home-hero__visual:has(.home-hero__car--lachong) {
+  min-width: 0;
+  margin-right: 0;
+}
+
+@media (min-width: 1101px) {
+  .home-hero__copy {
+    max-width: min(100%, 650px);
+  }
+
+  .home-hero__car--lachong {
+    right: 0;
+    width: min(43vw, 650px);
+  }
+}
+
+@media (min-width: 901px) {
+  .home-action__content > div {
+    max-width: min(47vw, 680px);
+  }
+
+  .home-action__model {
+    right: -2vw;
+    width: min(52vw, 820px);
+    height: 78%;
+  }
+}
+
+/* Khoảng 901–1100px trước đây đã chuyển hero sang một cột nhưng vẫn giữ xe absolute,
+   tạo ra đúng kiểu va chạm như mobile. Ở khoảng này vẫn đủ chỗ cho bố cục desktop hai cột. */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    align-content: normal;
+    align-items: center;
+    min-height: 100dvh;
+    padding: 128px 26px 68px;
+  }
+
+  .home-hero__copy {
+    align-self: center;
+    max-width: 520px;
+    padding-bottom: 0;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(3.2rem, 6.6vw, 4.7rem);
+  }
+
+  .home-hero__visual,
+  .home-hero__visual:has(.home-hero__car--lachong) {
+    position: relative;
+    inset: auto;
+    width: auto;
+    height: clamp(420px, 52vw, 610px);
+    margin: 0;
+  }
+
+  .home-hero__car,
+  .home-hero__car--lachong {
+    top: 50%;
+    right: 0;
+    width: min(51vw, 590px);
+    transform: translateY(-46%);
+  }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --mobile-gutter: max(clamp(14px, 4.6vw, 22px), env(safe-area-inset-left), env(safe-area-inset-right));
+    --booking-mobile-dock-space: calc(72px + env(safe-area-inset-bottom));
+    --public-mobile-nav-height: calc(74px + env(safe-area-inset-top));
+  }
+
+  html {
+    scroll-padding-top: calc(var(--public-mobile-nav-height) + 52px);
+  }
+
+  .section-frame {
+    padding-inline: var(--mobile-gutter);
+  }
+
+  /* Header public vẫn giữ logo + hamburger như desktop, nhưng chiều cao phải khớp
+     với offset của sub-nav và vùng an toàn của máy có tai thỏ. */
+  .site-nav {
+    top: 0;
+    min-height: var(--public-mobile-nav-height);
+    padding-top: calc(8px + env(safe-area-inset-top));
+    padding-right: max(10px, env(safe-area-inset-right));
+    padding-bottom: 8px;
+    padding-left: max(10px, env(safe-area-inset-left));
+  }
+
+  .site-nav__inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 58px;
+    padding: 5px 5px 5px 14px;
+  }
+
+  .site-nav .brand__logo {
+    width: clamp(108px, 34vw, 126px);
+    height: 30px;
+  }
+
+  .ownership-subnav {
+    top: var(--public-mobile-nav-height);
+  }
+
+  .menu-overlay {
+    min-height: 100dvh;
+    padding:
+      calc(var(--public-mobile-nav-height) + 16px)
+      max(20px, env(safe-area-inset-right))
+      max(24px, env(safe-area-inset-bottom))
+      max(20px, env(safe-area-inset-left));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .menu-overlay__inner {
+    min-height: calc(100dvh - var(--public-mobile-nav-height) - 40px - env(safe-area-inset-bottom));
+  }
+
+  .menu-overlay nav {
+    padding-block: 14px;
+  }
+
+  .menu-overlay nav a {
+    min-height: 44px;
+    font-size: clamp(1.7rem, 8.5vw, 3.2rem);
+    line-height: 1.02;
+  }
+
+  .site-footer nav a,
+  .ownership-hero__scroll,
+  .electronic-book__copy a,
+  .charger-lineup__intro a,
+  .road-chapter__copy a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .site-footer {
+    padding-bottom: max(45px, calc(24px + env(safe-area-inset-bottom)));
+  }
+
+  .ownership-footer {
+    padding-bottom: max(44px, calc(24px + env(safe-area-inset-bottom)));
+  }
+
+  .ownership-subnav .section-frame {
+    scroll-padding-inline: var(--mobile-gutter);
+  }
+
+  .ownership-page h2 {
+    font-size: clamp(2.25rem, 10vw, 3.4rem);
+    line-height: 0.98;
+    overflow-wrap: break-word;
+  }
+
+  .policy-intro__grid,
+  .electronic-book__grid,
+  .parts-policy__heading,
+  .policy-accordion__grid,
+  .policy-faq__grid,
+  .charging-notice__grid,
+  .charging-price__grid,
+  .charger-lineup__grid,
+  .battery-care__grid,
+  .legacy-rental__grid,
+  .ownership-contact__grid {
+    gap: clamp(30px, 9vw, 44px);
+  }
+
+  .policy-intro__grid,
+  .charging-notice__grid {
+    margin-bottom: 48px;
+  }
+
+  .battery-warranty .section-heading,
+  .home-charging .section-heading {
+    margin-bottom: 44px;
+  }
+
+  .charger-card__visual {
+    min-height: clamp(260px, 82vw, 340px);
+  }
+
+  .charging-network__stats strong {
+    font-size: clamp(1.55rem, 7.4vw, 2rem);
+  }
+
+  .ownership-contact__actions strong,
+  .ownership-footer p {
+    overflow-wrap: anywhere;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  img,
+  video,
+  canvas,
+  model-viewer {
+    max-width: 100%;
+  }
+
+  /* ─── Booking: một viewport, hai bề mặt chuyển đổi ───────────────────── */
+  .agent-booking-page {
+    grid-template-rows: minmax(0, 1fr);
+    gap: 0;
+    height: 100dvh;
+    min-height: 100dvh;
+    padding: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  /* Chỉ trang Agent bỏ toàn bộ header trên mobile. Selector được neo dưới
+     `.agent-booking-page` nên header trang chủ và các trang catalogue không bị đụng. */
+  .agent-booking-page > .booking-topbar--studio {
+    display: none !important;
+  }
+
+  .booking-studio,
+  .booking-studio--split,
+  .booking-studio--agent {
+    height: 100dvh;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .booking-studio--split {
+    display: block;
+    height: calc(100dvh - var(--booking-mobile-dock-space));
+  }
+
+  .booking-studio--split[data-mobile-surface='assistant'] .booking-workspace,
+  .booking-studio--split[data-mobile-surface='workspace'] .vivi-studio {
+    display: none;
+  }
+
+  .booking-studio--split .booking-workspace,
+  .booking-studio--split .vivi-studio,
+  .booking-studio--agent .vivi-studio {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .booking-workspace {
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
+  }
+
+  .workspace-toolbar {
+    gap: 10px;
+    min-height: calc(58px + env(safe-area-inset-top));
+    padding: calc(8px + env(safe-area-inset-top)) var(--mobile-gutter) 8px;
+  }
+
+  .workspace-switcher {
+    top: auto;
+    left: auto;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .workspace-switcher::-webkit-scrollbar { display: none; }
+
+  .workspace-switcher button,
+  .workspace-switcher__back {
+    flex: 0 0 auto;
+    min-height: 44px;
+  }
+
+  .workspace-switcher__close,
+  .workspace-restore-button {
+    display: none !important;
+  }
+
+  .workspace-toolbar__title {
+    flex: 1;
+    margin-left: 0;
+    font-size: 0.92rem;
+  }
+
+  .booking-workspace__content,
+  .vivi-studio__messages,
+  .vivi-studio__composer {
+    min-height: 0;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .vivi-studio {
+    grid-template-rows: calc(64px + env(safe-area-inset-top)) minmax(0, 1fr) auto;
+    border: 0;
+  }
+
+  .vivi-studio__head {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px;
+    min-height: calc(64px + env(safe-area-inset-top));
+    padding: calc(9px + env(safe-area-inset-top)) var(--mobile-gutter) 9px;
+  }
+
+  .vivi-studio__head > div:nth-child(2) {
+    min-width: 0;
+  }
+
+  .vivi-studio__head > button,
+  .vivi-studio__head-actions > button,
+  .vivi-studio__home-link,
+  .vivi-capabilities button,
+  .booking-upsell button,
+  .vivi-review-actions button,
+  .vivi-customer-form__actions button,
+  .booking-history__action,
+  .booking-history__back {
+    min-height: 44px;
+  }
+
+  /* Mobile dùng header như một app bar: bỏ tagline dài và luôn có lối thoát rõ
+     về trang chủ. Desktop vẫn giữ nguyên tagline + header studio hiện tại. */
+  .vivi-studio__head small {
+    display: none;
+  }
+
+  /* Rule desktop `.vivi-studio__head > div` có specificity cao hơn class đơn và
+     từng ép cụm action thành grid, làm hai nút xếp dọc rồi kéo cả app bar xuống.
+     Selector này chỉ áp dụng mobile và giữ hai hành động trên đúng một hàng. */
+  .vivi-studio__head > .vivi-studio__head-actions {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    min-width: max-content;
+  }
+
+  .vivi-studio__home-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 11px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink-soft);
+    background: #fff;
+    font-size: 0.68rem;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+
+  .vivi-studio__head-actions > button {
+    padding-inline: 10px;
+    white-space: nowrap;
+  }
+
+  .booking-action-menu {
+    place-items: end center;
+    padding: 12px max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+    backdrop-filter: blur(9px);
+  }
+
+  .booking-action-menu__panel {
+    width: 100%;
+    max-height: calc(100dvh - max(22px, env(safe-area-inset-top)));
+    padding: 20px var(--mobile-gutter) calc(18px + env(safe-area-inset-bottom));
+    border-radius: 24px;
+  }
+
+  .booking-action-menu__header {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .booking-action-menu__header h2 {
+    max-width: 13ch;
+    font-size: clamp(1.42rem, 7vw, 1.82rem);
+  }
+
+  .booking-action-menu__list {
+    gap: 7px;
+  }
+
+  .booking-action-menu__list > button {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    min-height: 72px;
+    gap: 11px;
+    padding: 9px 12px 9px 9px;
+    border-radius: 15px;
+  }
+
+  .booking-action-menu__icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+  }
+
+  .vivi-studio__messages {
+    overflow-y: auto;
+    padding: 16px var(--mobile-gutter) 20px;
+    scroll-padding-block: 16px;
+  }
+
+  .vivi-message {
+    max-width: min(94%, 34rem);
+  }
+
+  .vivi-message p {
+    font-size: 0.88rem;
+    line-height: 1.58;
+  }
+
+  .vivi-studio__composer {
+    max-height: min(46dvh, 420px, calc(100dvh - 150px));
+    overflow-y: auto;
+    padding: 8px var(--mobile-gutter) 10px;
+    background: rgba(255, 255, 255, 0.96);
+    scroll-padding-bottom: 108px;
+    scrollbar-gutter: stable;
+  }
+
+  /* Giữ ô nhắn như một điều khiển chính, luôn nằm ở đáy vùng composer sau khi JS
+     đưa vùng cuộn về cuối. Các lựa chọn ngữ cảnh vẫn cuộn độc lập phía sau nó. */
+  .vivi-prompt {
+    position: sticky;
+    z-index: 4;
+    bottom: 0;
+    padding-top: 8px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 -14px 24px -24px rgba(16, 23, 32, 0.7);
+  }
+
+  /* Chọn model trên mobile là một dải ngang gọn. Mỗi thẻ vẫn có trọn viền và snap
+     vào lề, không quay lại lưới dọc gây chiếm gần hết vùng prompt. */
+  .booking-upsell__grid {
+    grid-template-columns: none;
+    grid-auto-columns: minmax(196px, 72vw);
+    grid-auto-flow: column;
+    gap: 8px;
+    margin-inline: -2px;
+    padding: 2px 2px 8px;
+    overflow-x: auto;
+    overflow-y: visible;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: 2px;
+    scroll-snap-type: inline proximity;
+    scrollbar-width: none;
+  }
+
+  .booking-upsell__grid::-webkit-scrollbar { display: none; }
+
+  .booking-upsell__card {
+    width: 100%;
+    min-width: 0;
+    min-height: 66px;
+    scroll-snap-align: start;
+  }
+
+  /* Showroom và lịch được chọn trên bản đồ/calendar ở màn workspace. Các bản sao
+     dạng follow-up trong prompt chỉ ẩn trên mobile để tránh hai điểm thao tác khác nhau. */
+  .agent-context {
+    display: none;
+  }
+
+  .agent-context__heading {
+    flex-wrap: wrap;
+    gap: 3px 10px;
+  }
+
+  .agent-context__rail,
+  .agent-context__rail--slots {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    overflow: visible;
+    padding: 1px;
+  }
+
+  .agent-context__rail button,
+  .agent-context__rail--slots button {
+    width: 100%;
+    min-width: 0;
+    min-height: 56px;
+    overflow: hidden;
+    padding: 9px;
+  }
+
+  .vivi-capabilities {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vivi-capabilities button {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  /* Định vị là hành động chính duy nhất ở bước nhập khu vực. Cho nút chiếm trọn
+     một hàng giúp cân hai mép và tránh cảm giác một ô của lưới đang bị bỏ trống. */
+  .vivi-capabilities__location {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+  }
+
+  .vivi-studio__composer button {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .booking-upsell__browse {
+    min-height: 44px;
+    margin-top: 4px;
+  }
+
+  .studio-schedule__back,
+  .studio-ticket__calendar-btn,
+  .vivi-inline-otp__resend-btn {
+    min-height: 44px;
+  }
+
+  .vivi-inline-otp__resend-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 10px;
+  }
+
+  .booking-access-action-field > div {
+    grid-template-columns: minmax(0, 1fr) 44px;
+  }
+
+  .booking-access-action-field > div button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .vivi-prompt > div {
+    min-height: 52px;
+    padding: 6px 7px 6px 13px;
+  }
+
+  .vivi-prompt textarea,
+  .vivi-customer-form input:not([type='checkbox']),
+  .booking-access-action-field input,
+  .vivi-inline-otp__box {
+    min-height: 44px;
+    font-size: 16px;
+  }
+
+  .vivi-prompt textarea {
+    max-height: 112px;
+    padding-block: 7px;
+  }
+
+  .vivi-prompt > div > button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .vivi-prompt > small {
+    font-size: 0.67rem;
+    line-height: 1.4;
+  }
+
+  .vivi-customer-form {
+    max-height: min(36dvh, 340px);
+    padding: 1px 3px 6px;
+    scroll-padding-bottom: 12px;
+  }
+
+  .vivi-customer-form__grid {
+    gap: 8px;
+  }
+
+  .vivi-customer-form__grid label {
+    gap: 4px;
+  }
+
+  .vivi-customer-form input:not([type='checkbox']) {
+    height: 44px;
+    padding-inline: 10px;
+    border-radius: 10px;
+  }
+
+  .vivi-customer-form .license-check {
+    gap: 8px;
+    margin-top: 7px;
+    padding: 8px 9px;
+    border-radius: 10px;
+  }
+
+  .vivi-customer-form .license-check p {
+    line-height: 1.38;
+  }
+
+  .booking-mobile-tabs {
+    position: fixed;
+    z-index: 60;
+    right: max(10px, env(safe-area-inset-right));
+    bottom: max(8px, env(safe-area-inset-bottom));
+    left: max(10px, env(safe-area-inset-left));
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 5px;
+    min-height: 58px;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    border-radius: 20px;
+    background: rgba(246, 247, 246, 0.94);
+    box-shadow: inset 0 1px 0 #fff, 0 18px 42px -24px rgba(16, 23, 32, 0.62);
+    backdrop-filter: blur(18px) saturate(125%);
+    -webkit-backdrop-filter: blur(18px) saturate(125%);
+  }
+
+  .booking-mobile-tabs button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+    min-height: 48px;
+    padding: 0 12px;
+    border-radius: 15px;
+    color: var(--muted);
+    background: transparent;
+    font-size: 0.78rem;
+    font-weight: 680;
+    transition: color 0.2s var(--ease-soft), background 0.2s var(--ease-soft), transform 0.16s ease;
+  }
+
+  .booking-mobile-tabs button[aria-selected='true'] {
+    color: #fff;
+    background: var(--ink);
+    box-shadow: 0 8px 20px -14px rgba(16, 23, 32, 0.72);
+  }
+
+  .booking-mobile-tabs button:active { transform: scale(0.98); }
+  .booking-mobile-tabs button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* Workspace compact nhưng không cắt dữ liệu. */
+  .studio-vehicle {
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: 100%;
+    min-height: 0;
+    padding: 16px var(--mobile-gutter) 14px;
+    overflow-y: auto;
+  }
+
+  .studio-vehicle__heading strong {
+    font-size: clamp(2.25rem, 11vw, 3.7rem);
+  }
+
+  .studio-vehicle__stage {
+    min-height: 180px;
+    margin-top: -6px;
+  }
+
+  .studio-vehicle__image {
+    width: min(100%, 680px);
+    max-height: min(31dvh, 300px);
+    transform: none;
+  }
+
+  .studio-vehicle__specs { display: none; }
+
+  .studio-vehicle__more {
+    min-height: 44px;
+    margin-top: 4px;
+  }
+
+  .studio-map,
+  .studio-schedule,
+  .studio-ticket,
+  .booking-history {
+    height: auto;
+    min-height: 100%;
+  }
+
+  .studio-map--familiar {
+    grid-template: minmax(250px, 48%) minmax(0, 1fr) / minmax(0, 1fr);
+    height: 100%;
+  }
+
+  .studio-map--familiar .studio-map__canvas {
+    min-height: 250px;
+  }
+
+  .studio-map--familiar .studio-map__list {
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .studio-schedule--calendar {
+    padding: 14px 10px 18px;
+  }
+
+  .schedule-calendar__viewport {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-gutter: stable;
+  }
+
+  .schedule-calendar__matrix {
+    width: 640px;
+    min-width: 640px;
+  }
+
+  .schedule-calendar__week,
+  .schedule-calendar__row {
+    grid-template-columns: 52px repeat(7, 84px);
+  }
+
+  .schedule-calendar__day span,
+  .schedule-calendar__day small,
+  .schedule-calendar__time,
+  .schedule-calendar__cell > button strong,
+  .schedule-calendar__cell > button small {
+    font-size: 0.7rem;
+  }
+
+  .schedule-calendar__cell > button { min-height: 68px; }
+
+  .booking-history {
+    padding: 16px var(--mobile-gutter) 24px;
+  }
+
+  .booking-history__list { margin-top: 0; }
+
+  .booking-history__update-mobile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 44px;
+    margin-left: auto;
+    padding: 0 15px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    color: var(--surface);
+    background: var(--ink);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .booking-history__update-mobile:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+
+  .booking-success-documents {
+    grid-template-rows: minmax(220px, 42dvh) auto;
+    min-height: 0;
+  }
+
+  .booking-success-documents .studio-vehicle {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.46fr) minmax(150px, 0.54fr);
+    grid-template-rows: 1fr;
+    min-height: 220px;
+    padding: 20px var(--mobile-gutter);
+  }
+
+  .booking-success-documents .studio-ticket {
+    padding: 22px var(--mobile-gutter) 28px;
+  }
+
+  /* ─── Dialog/bottom sheet: luôn thấy và luôn cuộn tới được hành động ───── */
+  .recipient-modal,
+  .slot-confirm-modal,
+  .vehicle-switcher {
+    align-items: end;
+    padding:
+      max(8px, env(safe-area-inset-top))
+      max(8px, env(safe-area-inset-right))
+      max(8px, env(safe-area-inset-bottom))
+      max(8px, env(safe-area-inset-left));
+    overflow: hidden;
+    overscroll-behavior: contain;
+    backdrop-filter: blur(10px);
+  }
+
+  .recipient-modal__panel,
+  .slot-confirm-modal > div,
+  .vehicle-switcher__panel,
+  .reschedule-modal > div,
+  .cancellation-confirm-modal > div {
+    width: min(100%, 720px);
+    max-height: calc(100dvh - max(16px, env(safe-area-inset-top)) - max(16px, env(safe-area-inset-bottom)));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-gutter: stable;
+    border-radius: 24px;
+  }
+
+  .recipient-modal__panel {
+    padding: 20px var(--mobile-gutter) 18px;
+  }
+
+  .recipient-modal__back {
+    top: 14px;
+    right: var(--mobile-gutter);
+    width: 44px;
+    height: 44px;
+  }
+
+  .recipient-modal__mark,
+  .slot-confirm-modal > div > span {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+  }
+
+  .recipient-modal__panel > p { margin-bottom: 6px; }
+
+  .recipient-modal h1 {
+    max-width: 14ch;
+    margin-bottom: 16px;
+    font-size: clamp(1.75rem, 8.5vw, 2.5rem);
+    line-height: 1;
+  }
+
+  .recipient-modal__choices { gap: 8px; }
+
+  .recipient-modal__choices button {
+    min-height: 72px;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 17px;
+  }
+
+  .recipient-modal__choices small,
+  .recipient-modal__panel > small {
+    font-size: 0.72rem;
+  }
+
+  .recipient-modal__panel > small { margin-top: 12px; }
+
+  .slot-confirm-modal > div {
+    padding: 24px var(--mobile-gutter) 16px;
+  }
+
+  .slot-confirm-modal > div > button,
+  .vehicle-switcher__close {
+    width: 44px;
+    height: 44px;
+  }
+
+  .slot-confirm-modal h2 {
+    padding-right: 34px;
+    margin-bottom: 16px;
+    font-size: clamp(1.65rem, 7vw, 2.2rem);
+  }
+
+  .slot-confirm-modal dl { margin-bottom: 12px; }
+
+  .slot-confirm-modal dl div {
+    grid-template-columns: minmax(82px, 0.34fr) minmax(0, 0.66fr);
+    gap: 12px;
+    padding: 10px 0;
+  }
+
+  .slot-confirm-actions {
+    position: sticky;
+    bottom: -16px;
+    z-index: 2;
+    display: grid !important;
+    grid-template-columns: 1fr;
+    padding: 10px 0 max(4px, env(safe-area-inset-bottom));
+    background: linear-gradient(to bottom, rgba(248, 249, 248, 0), #f8f9f8 18%);
+  }
+
+  .slot-confirm-actions button { width: 100%; min-height: 48px; }
+
+  .vehicle-switcher__panel {
+    grid-template-rows: auto minmax(0, 1fr);
+    padding: 22px var(--mobile-gutter) 0;
+  }
+
+  .vehicle-switcher h2 {
+    max-width: 13ch;
+    font-size: clamp(1.65rem, 7vw, 2.2rem);
+  }
+
+  .vehicle-switcher__body {
+    margin-top: 16px;
+    padding-bottom: max(22px, env(safe-area-inset-bottom));
+  }
+
+  .vehicle-switcher__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .vehicle-switcher__grid button {
+    min-height: 170px;
+    padding: 10px;
+  }
+
+  .vehicle-switcher__shot { height: 72px; }
+
+  /* ─── Hero: chữ và xe có hai hàng thật, không còn chồng lớp ───────────── */
+  .home-hero {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-content: start;
+    min-height: calc(100svh - 80px);
+    padding: clamp(52px, 13vw, 78px) var(--mobile-gutter) 28px;
+  }
+
+  .home-hero__copy {
+    z-index: 4;
+    max-width: min(100%, 34rem);
+    padding-bottom: 0;
+  }
+
+  .home-hero__kicker { margin-bottom: 12px; }
+
+  .home-hero h1 {
+    font-size: clamp(2.65rem, 12.4vw, 4.7rem);
+    line-height: 0.92;
+  }
+
+  .home-hero__lead {
+    max-width: 44ch;
+    margin-top: 14px;
+    font-size: clamp(0.82rem, 3.6vw, 0.96rem);
+    line-height: 1.48;
+  }
+
+  .home-hero__actions { margin-top: 16px; }
+
+  .home-hero__actions .island-button {
+    width: min(100%, 320px);
+    min-height: 48px;
+  }
+
+  .home-hero__visual,
+  .home-hero__visual:has(.home-hero__car--lachong) {
+    position: relative;
+    inset: auto;
+    display: grid;
+    width: 100%;
+    height: auto;
+    min-height: clamp(235px, 62vw, 390px);
+    place-items: center;
+    margin: 8px 0 0;
+  }
+
+  .home-hero__car,
+  .home-hero__car--lachong {
+    position: relative;
+    inset: auto;
+    width: min(100%, 560px);
+    max-width: 100%;
+    margin-inline: auto;
+    transform: none;
+  }
+
+  .home-hero__car--lachong img {
+    width: 100%;
+    max-height: none;
+  }
+
+  /* Tiêu đề dài không được co cột đến mức mỗi từ thành một dòng. */
+  .factory-origin {
+    padding-block: clamp(76px, 19vw, 100px);
+  }
+
+  .factory-origin__grid {
+    gap: clamp(28px, 8vw, 40px);
+  }
+
+  .factory-origin__copy {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .factory-origin__copy h2 {
+    max-width: min(18ch, 100%);
+    font-size: clamp(2.25rem, 9.8vw, 3.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.058em;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    text-wrap: balance;
+  }
+
+  /* Ảnh Lạc Hồng xanh từng rộng 108vw rồi dịch bằng right/transform nên mất lề phải. */
+  .drive-out {
+    padding: clamp(82px, 22vw, 112px) var(--mobile-gutter) clamp(72px, 19vw, 96px);
+  }
+
+  .drive-out__layout {
+    width: 100%;
+    gap: clamp(26px, 8vw, 42px);
+  }
+
+  .drive-out__visual {
+    display: grid;
+    width: 100%;
+    min-height: clamp(250px, 76vw, 430px);
+    place-items: center;
+  }
+
+  .drive-out__car {
+    position: relative;
+    inset: auto;
+    width: min(100%, 680px);
+    max-width: 100%;
+    margin: 0;
+    transform: none;
+  }
+
+  .drive-out__car img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* CTA cuối trang giữ đúng nền tối và kiểu chữ desktop, nhưng xe đi thành hàng riêng. */
+  .home-action {
+    display: grid;
+    grid-template: auto auto / minmax(0, 1fr);
+    min-height: auto;
+    align-items: stretch;
+  }
+
+  .home-action__content {
+    grid-area: 1 / 1;
+    padding-block: clamp(76px, 20vw, 104px) 18px;
+  }
+
+  .home-action__content > div {
+    max-width: 36rem;
+  }
+
+  .home-action h2 {
+    max-width: 11ch;
+    font-size: clamp(2.8rem, 13vw, 4.8rem);
+  }
+
+  .home-action__model {
+    position: relative;
+    inset: auto;
+    grid-area: 2 / 1;
+    width: min(100%, 720px);
+    height: auto;
+    min-height: clamp(235px, 68vw, 410px);
+    margin: -8px auto 0;
+    opacity: 0.8;
+  }
+
+  .home-action__model img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  .page--detail .detail-hero {
+    display: grid;
+    grid-template: auto auto auto / minmax(0, 1fr);
+    align-content: start;
+    min-height: auto;
+    gap: 10px;
+    padding: 68px var(--mobile-gutter) 24px;
+  }
+
+  .page--detail .detail-back {
+    top: 14px;
+    left: var(--mobile-gutter);
+    min-height: 44px;
+    padding-right: 10px;
+  }
+
+  .page--detail .detail-hero__copy {
+    position: relative;
+    inset: auto;
+    grid-area: 1 / 1;
+    width: 100%;
+    max-width: 31rem;
+    padding: 0;
+  }
+
+  .page--detail .detail-hero__copy > p { margin-bottom: 7px; }
+
+  .page--detail .detail-hero h1,
+  .page--detail .detail-hero.is-long-name h1 {
+    max-width: 12ch;
+    font-size: clamp(3.05rem, 15vw, 5.4rem);
+    line-height: 0.88;
+  }
+
+  .page--detail .detail-hero.is-long-name h1 {
+    font-size: clamp(2.65rem, 12.5vw, 4.3rem);
+    line-height: 0.93;
+  }
+
+  .page--detail .detail-hero__copy > span {
+    max-width: 30ch;
+    margin-top: 10px;
+    font-size: clamp(0.86rem, 3.7vw, 1.05rem);
+    line-height: 1.35;
+    text-wrap: pretty;
+  }
+
+  .page--detail .detail-hero__car,
+  .page--detail .detail-hero.is-long-name .detail-hero__car {
+    position: relative;
+    inset: auto;
+    grid-area: 2 / 1;
+    width: 100%;
+    height: auto;
+    min-height: clamp(215px, 60vw, 390px);
+    aspect-ratio: 16 / 9;
+    margin: 6px 0 2px;
+    border-radius: 20px;
+    transform: none;
+  }
+
+  .page--detail .detail-hero__car img,
+  .page--detail .detail-hero__car.is-static-asset img {
+    object-fit: contain;
+  }
+
+  .page--detail .detail-hero__actions {
+    position: relative;
+    inset: auto;
+    grid-area: 3 / 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    width: 100%;
+    gap: 8px;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .page--detail .detail-hero__actions .island-button,
+  .page--detail .detail-hero__actions > a:last-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+  }
+
+  .page--detail .detail-hero__actions > a:last-child {
+    padding-inline: 14px;
+  }
+
+  .page--detail .detail-hero__model-word {
+    top: 48%;
+  }
+
+  .page--detail .detail-hero__road {
+    right: 0;
+    bottom: 76px;
+    left: 0;
+  }
+
+  /* Media nặng dưới fold không cần blur/scrub trên thiết bị cảm ứng. */
+  .factory-film video,
+  .road-chapter__media img,
+  .factory-origin__media,
+  .technology-panel,
+  .home-action__model,
+  .drive-out__car,
+  .drive-out__copy {
+    filter: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .workspace-switcher button svg { display: block; }
+
+  .workspace-switcher button {
+    padding-inline: 11px;
+    font-size: 0.7rem;
+  }
+
+  .workspace-toolbar__title { display: none; }
+
+  .studio-ticket {
+    padding: 18px var(--mobile-gutter) 24px;
+  }
+
+  .studio-ticket__vehicle {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+
+  .studio-ticket__vehicle .smart-image { width: 92px; }
+
+  .vivi-review-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vivi-customer-form__actions {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .vivi-customer-form__actions > button:last-child:not(:first-child) {
+    min-width: 72px;
+    padding-inline: 14px;
+  }
+
+  .booking-history__actions-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .booking-history__action { justify-content: center; }
+
+  .schedule-calendar__toolbar {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .schedule-calendar__navigation button { min-height: 44px; }
+
+  .reschedule-modal__vehicles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Điện thoại rộng 380px trở lên đủ chỗ cho hai trường ngắn cạnh nhau. Đây là điểm dùng
+   CSS theo không gian thực, không đọc loại thiết bị bằng JS; máy 320/360px vẫn giữ một cột. */
+@media (min-width: 380px) and (max-width: 600px) {
+  .vivi-customer-form__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 360px) {
+  :root { --mobile-gutter: max(14px, env(safe-area-inset-left), env(safe-area-inset-right)); }
+
+  .booking-mobile-tabs {
+    right: 8px;
+    left: 8px;
+  }
+
+  .booking-mobile-tabs button {
+    gap: 6px;
+    padding-inline: 8px;
+    font-size: 0.72rem;
+  }
+
+  .vivi-studio__head small { display: none; }
+
+  .recipient-modal__choices button {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    min-height: 68px;
+    padding: 10px 12px;
+  }
+
+  .recipient-modal__choices button > svg:first-child { width: 21px; height: 21px; }
+
+  .vehicle-switcher__grid { grid-template-columns: minmax(0, 1fr); }
+
+  .vehicle-switcher__grid button {
+    grid-template-columns: 94px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    min-height: 112px;
+    align-items: center;
+  }
+
+  .vehicle-switcher__shot {
+    grid-row: 1 / -1;
+    width: 94px;
+    height: 82px;
+  }
+
+  .vivi-inline-otp {
+    padding-inline: 4px;
+  }
+
+  .vivi-inline-otp__boxes {
+    gap: 2px;
+  }
+
+  .vivi-inline-otp__box {
+    min-width: 44px;
+  }
+
+  .vivi-studio__head {
+    gap: 6px;
+  }
+
+  .vivi-studio__head > .vivi-studio__head-actions {
+    gap: 4px;
+  }
+
+  .vivi-studio__head-actions > button,
+  .vivi-studio__home-link {
+    padding-inline: 8px;
+    font-size: 0.62rem;
+  }
+
+  .reschedule-modal__vehicles,
+  .reschedule-left-grid,
+  .page--detail .detail-hero__actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page--detail .detail-hero__actions > a:last-child {
+    width: 100%;
+  }
+
+  .cancellation-confirm-modal__vehicle {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 10px;
+    padding-inline: 10px;
+  }
+
+  .charging-network__stats span {
+    padding-inline: 10px;
+  }
+
+  .charging-network__stats strong {
+    font-size: 1.45rem;
+  }
+
+  .home-hero { padding-top: 48px; }
+  .home-hero h1 { font-size: clamp(2.45rem, 13.2vw, 3.4rem); }
+  .home-hero__lead { font-size: 0.8rem; }
+  .home-hero__visual { height: auto; min-height: 220px; }
+
+  .page--detail .detail-hero { padding-top: 64px; }
+  .page--detail .detail-hero__copy { inset: auto; }
+  .page--detail .detail-hero h1 { font-size: clamp(2.8rem, 15vw, 3.8rem); }
+  .page--detail .detail-hero.is-long-name h1 { font-size: clamp(2.35rem, 12vw, 3.15rem); }
+  .page--detail .detail-hero__car,
+  .page--detail .detail-hero.is-long-name .detail-hero__car {
+    inset: auto;
+    min-height: 190px;
+  }
+}
+
+/* Trên màn cảm ứng, trạng thái :hover có thể bị giữ lại sau một lần chạm. Không dịch
+   thẻ lên trên vì mép viền sẽ chạm vùng cuộn và trông như bị lẹm. */
+@media (max-width: 900px) and (hover: none) {
+  .booking-upsell__card:hover,
+  .agent-context__rail button:hover {
+    transform: none;
+  }
+}
+
+/* Màn hình ngang thấp: ưu tiên thao tác, giảm khoảng trống nhưng không bỏ nội dung. */
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --booking-mobile-dock-space: calc(62px + env(safe-area-inset-bottom));
+    --public-mobile-nav-height: calc(64px + env(safe-area-inset-top));
+  }
+
+  .site-nav {
+    padding-top: calc(8px + env(safe-area-inset-top));
+    padding-bottom: 8px;
+  }
+
+  .site-nav__inner { min-height: 48px; }
+  .site-nav .menu-toggle { width: 44px; height: 44px; }
+
+  .menu-overlay {
+    padding-top: calc(var(--public-mobile-nav-height) + 6px);
+  }
+
+  .menu-overlay__inner {
+    grid-template-rows: 1fr;
+    min-height: calc(100dvh - var(--public-mobile-nav-height) - 12px);
+  }
+
+  .menu-overlay__intro,
+  .menu-overlay__foot { display: none; }
+
+  .menu-overlay nav { align-self: start; padding-block: 0; }
+  .menu-overlay nav a {
+    min-height: 44px;
+    padding-block: 2px;
+    font-size: clamp(1.25rem, 4.6vw, 1.85rem);
+  }
+
+  .booking-studio,
+  .booking-studio--agent { height: 100dvh; }
+  .booking-studio--split { height: calc(100dvh - var(--booking-mobile-dock-space)); }
+
+  .booking-mobile-tabs {
+    min-height: 50px;
+    padding: 4px;
+    border-radius: 17px;
+  }
+
+  .booking-mobile-tabs button { min-height: 42px; }
+
+  .vivi-studio { grid-template-rows: calc(54px + env(safe-area-inset-top)) minmax(0, 1fr) auto; }
+  .vivi-studio__head {
+    min-height: calc(54px + env(safe-area-inset-top));
+    padding-top: calc(5px + env(safe-area-inset-top));
+    padding-bottom: 5px;
+  }
+  .vivi-studio__avatar { width: 38px; height: 38px; }
+  .vivi-studio__composer { max-height: 58dvh; padding-block: 7px; }
+  .workspace-toolbar {
+    min-height: calc(50px + env(safe-area-inset-top));
+    padding-top: calc(4px + env(safe-area-inset-top));
+    padding-bottom: 4px;
+  }
+
+  .recipient-modal,
+  .slot-confirm-modal,
+  .vehicle-switcher {
+    align-items: center;
+    padding: 6px max(8px, env(safe-area-inset-right)) 6px max(8px, env(safe-area-inset-left));
+  }
+
+  .recipient-modal__panel,
+  .slot-confirm-modal > div,
+  .vehicle-switcher__panel {
+    max-height: calc(100dvh - 12px);
+    border-radius: 18px;
+  }
+
+  .recipient-modal__panel { width: min(100%, 800px); padding: 14px 18px; }
+  .recipient-modal__back { top: 9px; right: 12px; }
+  .recipient-modal__mark { display: none; }
+  .recipient-modal__panel > p,
+  .recipient-modal h1 { padding-right: 52px; }
+  .recipient-modal h1 { max-width: none; margin-bottom: 11px; font-size: 1.65rem; }
+  .recipient-modal__choices { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .recipient-modal__choices button {
+    grid-template-columns: auto minmax(0, 1fr);
+    min-height: 94px;
+    padding: 10px;
+  }
+  .recipient-modal__choices button > svg:last-child { display: none; }
+  .recipient-modal__panel > small { margin-top: 8px; }
+
+  .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    grid-template-rows: auto;
+    align-items: center;
+    min-height: calc(100svh - var(--public-mobile-nav-height));
+    padding: 24px 18px 16px;
+  }
+
+  .home-hero__copy { align-self: center; }
+  .home-hero__kicker { margin-bottom: 7px; font-size: 0.58rem; }
+  .home-hero h1 { font-size: clamp(2.15rem, 6vw, 3.3rem); }
+  .home-hero__lead { max-width: 36ch; margin-top: 9px; font-size: 0.72rem; line-height: 1.38; }
+  .home-hero__actions { margin-top: 10px; }
+  .home-hero__actions .island-button { min-height: 42px; }
+  .home-hero__visual,
+  .home-hero__visual:has(.home-hero__car--lachong) {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    min-height: min(72svh, 330px);
+    margin: 0;
+  }
+
+  .home-hero__car,
+  .home-hero__car--lachong {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    transform: none;
+  }
+
+  .page--detail .detail-back {
+    top: 6px;
+    left: 18px;
+  }
+
+  .page--detail .detail-hero {
+    display: grid;
+    grid-template: minmax(0, 1fr) auto / minmax(0, 0.84fr) minmax(0, 1.16fr);
+    align-items: center;
+    min-height: calc(100svh - 64px);
+    gap: 8px 18px;
+    padding: 54px 18px 14px;
+  }
+
+  .page--detail .detail-hero__copy {
+    position: relative;
+    inset: auto;
+    grid-area: 1 / 1;
+    width: 100%;
+  }
+
+  .page--detail .detail-hero h1,
+  .page--detail .detail-hero.is-long-name h1 {
+    max-width: 10ch;
+    font-size: clamp(2.7rem, 7vw, 4rem);
+    line-height: 0.86;
+  }
+
+  .page--detail .detail-hero.is-long-name h1 { font-size: clamp(2.15rem, 5.4vw, 3.15rem); }
+  .page--detail .detail-hero__copy > p { margin-bottom: 4px; font-size: 0.58rem; }
+  .page--detail .detail-hero__copy > span { max-width: 30ch; margin-top: 7px; font-size: 0.72rem; }
+  .page--detail .detail-hero__car,
+  .page--detail .detail-hero.is-long-name .detail-hero__car {
+    position: relative;
+    inset: auto;
+    grid-area: 1 / 2 / 3 / 3;
+    width: 100%;
+    height: 100%;
+    min-height: min(66svh, 300px);
+    margin: 0;
+    transform: none;
+  }
+
+  .page--detail .detail-hero__actions {
+    position: relative;
+    inset: auto;
+    grid-area: 2 / 1;
+    width: 100%;
+  }
+
+  .page--detail .detail-hero__actions .island-button,
+  .page--detail .detail-hero__actions > a:last-child { min-height: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking-mobile-tabs,
+  .recipient-modal,
+  .recipient-modal__panel,
+  .slot-confirm-modal,
+  .slot-confirm-modal > div,
+  .vehicle-switcher,
+  .vehicle-switcher__panel,
+  .booking-workspace__content,
+  .studio-vehicle__stage {
+    animation: none !important;
+  }
+}

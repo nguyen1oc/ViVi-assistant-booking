@@ -1,0 +1,1137 @@
+/* 06-vehicle-detail.css — Trang chi tiết xe: hero, thông số, thư viện, bảng màu
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 1829–2927.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* Vehicle detail */
+.detail-hero {
+  position: relative;
+  display: grid;
+  min-height: 100dvh;
+  align-items: end;
+  overflow: hidden;
+  padding: 148px max(32px, calc((100vw - 1440px) / 2 + 32px)) 78px;
+  color: var(--surface);
+  background: #101318;
+}
+
+.detail-hero__backdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.detail-hero__backdrop img {
+  filter: saturate(0.68) contrast(1.08);
+}
+
+.detail-hero__wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10, 13, 17, 0.92) 0%, rgba(10, 13, 17, 0.53) 40%, rgba(10, 13, 17, 0.2) 72%),
+    linear-gradient(0deg, rgba(10, 13, 17, 0.87), transparent 48%);
+}
+
+.detail-back {
+  position: absolute;
+  top: 122px;
+  left: max(32px, calc((100vw - 1440px) / 2 + 32px));
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 4px;
+  color: rgba(255, 255, 255, 0.68);
+  background: transparent;
+  font-size: 0.76rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: color 0.45s var(--ease-heavy), transform 0.45s var(--ease-heavy);
+}
+
+.detail-back:hover {
+  color: var(--surface);
+  transform: translateX(-3px);
+}
+
+.detail-hero__copy {
+  position: relative;
+  z-index: 3;
+  max-width: 760px;
+  padding-bottom: 116px;
+}
+
+.detail-hero__copy > p {
+  margin: 0 0 13px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.detail-hero h1 {
+  max-width: 1000px;
+  margin: 0;
+  font-size: clamp(4.2rem, 10vw, 11rem);
+  font-weight: 510;
+  letter-spacing: -0.085em;
+  line-height: 0.82;
+}
+
+.detail-hero__copy > span {
+  display: block;
+  margin-top: 28px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+}
+
+.detail-hero__car {
+  position: absolute;
+  right: -3vw;
+  bottom: 10%;
+  z-index: 2;
+  width: min(69vw, 1160px);
+  height: min(62vh, 650px);
+  overflow: visible;
+  filter: drop-shadow(0 38px 34px rgba(5, 8, 12, 0.45));
+}
+
+.detail-hero__car img {
+  object-fit: contain;
+}
+
+.detail-hero__actions {
+  position: absolute;
+  bottom: 70px;
+  left: max(32px, calc((100vw - 1440px) / 2 + 32px));
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 23px;
+}
+
+.detail-hero__actions > a:last-child {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.81rem;
+  font-weight: 650;
+}
+
+.car-manifesto {
+  padding: 178px 0;
+  background: var(--surface);
+}
+
+.car-manifesto p {
+  max-width: 1240px;
+  margin: 0;
+  font-size: clamp(2.6rem, 5.7vw, 6.2rem);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 1.01;
+}
+
+.manifesto-word {
+  display: inline;
+}
+
+/* Vehicle detail IA: overview and non-sticky section index. */
+#overview,
+#colors,
+#exterior,
+#interior,
+#technology,
+#specifications {
+  scroll-margin-top: 112px;
+}
+
+.detail-overview {
+  background: var(--surface);
+}
+
+.detail-overview__intro {
+  padding-top: clamp(112px, 10vw, 152px);
+}
+
+.detail-overview__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.55fr);
+  gap: clamp(42px, 8vw, 124px);
+  align-items: end;
+}
+
+.detail-overview__heading .eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: -18px;
+}
+
+.detail-overview__heading h2 {
+  max-width: 980px;
+  margin: 0;
+  font-size: clamp(2.8rem, 5.2vw, 5.6rem);
+  font-weight: 520;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.detail-overview__heading > p:last-child {
+  max-width: 48ch;
+  margin: 0 0 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: clamp(0.95rem, 0.9rem + 0.22vw, 1.08rem);
+  line-height: 1.65;
+}
+
+.detail-overview__facts {
+  display: grid;
+  grid-template-columns: minmax(240px, 1.35fr) repeat(3, minmax(0, 1fr));
+  margin: clamp(72px, 7vw, 104px) 0 0;
+  border-block: 1px solid var(--line);
+}
+
+.detail-overview__facts > div {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  align-content: stretch;
+  justify-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 148px;
+  padding: 23px 24px 24px 0;
+  text-align: center;
+}
+
+.detail-overview__facts > div + div {
+  padding-left: 24px;
+  border-left: 1px solid var(--line);
+}
+
+.detail-overview__facts dt,
+.detail-overview__facts dd {
+  margin: 0;
+}
+
+.detail-overview__facts dt {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.035em;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.detail-overview__facts dd {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  width: 100%;
+  min-height: 0;
+  overflow-wrap: anywhere;
+  font-family: var(--font-display);
+  font-size: clamp(1.12rem, 1.65vw, 1.72rem);
+  font-weight: 590;
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+}
+
+.detail-overview__facts .is-missing dd {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.detail-overview__anchors {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.detail-overview__anchors a {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  padding: 0 24px;
+  border-left: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  font-weight: 650;
+  transition: color 0.4s var(--ease-heavy), background 0.4s var(--ease-heavy);
+}
+
+.detail-overview__anchors a:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.detail-overview__anchors a:hover {
+  color: var(--blue);
+}
+
+.detail-overview__anchors a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+
+.detail-overview .car-manifesto {
+  padding: clamp(96px, 9vw, 138px) 0 clamp(126px, 12vw, 178px);
+}
+
+.detail-specs {
+  padding: 168px 0 150px;
+  background: var(--paper);
+}
+
+.detail-specs__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.42fr);
+  gap: 9vw;
+  align-items: end;
+}
+
+.detail-specs__heading .eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: -2vw;
+}
+
+.detail-specs__heading h2 {
+  max-width: 970px;
+  font-size: clamp(2.6rem, 5vw, 5.3rem);
+}
+
+.detail-specs__heading > p:last-child {
+  margin: 0 0 7px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.spec-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 82px;
+  border-block: 1px solid var(--line);
+}
+
+.spec-strip__item {
+  display: flex;
+  min-height: 180px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 27px 28px;
+}
+
+.spec-strip__item + .spec-strip__item {
+  border-left: 1px solid var(--line);
+}
+
+.spec-strip__item strong {
+  font-size: clamp(1.8rem, 3.3vw, 3.55rem);
+  font-weight: 540;
+  letter-spacing: -0.05em;
+}
+
+.spec-strip__item span {
+  color: var(--muted);
+  font-size: 0.79rem;
+}
+
+.detail-overview__facts .vehicle-price-variants {
+  display: grid;
+  gap: 0.2em;
+  width: 100%;
+}
+
+.detail-overview__facts .vehicle-price-variants__row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.8em;
+}
+
+.detail-overview__facts .vehicle-price-variants__row > span:last-child {
+  white-space: nowrap;
+}
+
+.detail-overview__facts .vehicle-price-variants__detail {
+  color: var(--muted);
+}
+
+.detail-story {
+  padding: 176px 0;
+  color: var(--surface);
+  background: #101318;
+}
+
+.detail-story__grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.64fr) minmax(0, 1.36fr);
+  gap: 9vw;
+  align-items: start;
+}
+
+.detail-story__aside {
+  position: sticky;
+  top: 140px;
+  max-width: 490px;
+  align-self: start;
+}
+
+.detail-story__aside h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 4.5vw, 4.8rem);
+  font-weight: 520;
+  letter-spacing: -0.06em;
+  line-height: 0.98;
+}
+
+.detail-story__aside > p:last-child {
+  margin: 26px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.detail-story__chapters {
+  display: grid;
+  gap: 140px;
+  padding-bottom: 80px;
+}
+
+.detail-story--structured {
+  padding: 0;
+}
+
+.detail-story-group {
+  padding: clamp(120px, 13vw, 176px) 0;
+}
+
+.detail-story-group + .detail-story-group {
+  border-top: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+/*
+ * Mục CHỈ có phần dẫn chuyện, không có chapter ảnh nào — ví dụ "Ngoại thất" của VF 9: backend
+ * không trả chapter ngoại thất, mục vẫn hiện vì bên dưới còn bộ xem 3D.
+ * Giữ nguyên lưới 2 cột trong trường hợp này sẽ chừa lại một mảng tối rỗng to bằng nửa màn
+ * hình bên phải, nhìn hệt như ảnh bị lỗi không tải được. Đổ về một cột.
+ */
+.detail-story-group.is-empty {
+  padding-block: clamp(84px, 8vw, 112px);
+}
+
+.detail-story-group.is-empty .detail-story__grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.detail-story-group.is-empty .detail-story__aside {
+  position: static;
+  max-width: 760px;
+}
+
+.detail-story-group--interior {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.detail-story--structured .detail-story__chapters {
+  padding-bottom: 0;
+}
+
+.detail-story-group__feature {
+  margin-top: clamp(88px, 10vw, 144px);
+}
+
+.detail-story-group__feature:empty {
+  display: none;
+}
+
+/* .detail-story__empty đã xoá cùng ô "Chưa có chương hình ảnh…" trong CarDetailPage.jsx:
+   mục rỗng nay ẩn hẳn hoặc đổ về một cột, không in dòng báo thiếu ảnh nữa. */
+
+/*
+ * Dải ảnh sản phẩm bổ sung trong từng mục của trang chi tiết xe.
+ * Component: DetailGalleryStrip (CarDetailPage.jsx) · dữ liệu: data/vehicle-gallery.js
+ *
+ * Nằm trên nền TỐI #101318 của .detail-story, nên cách đóng khung phải theo từng loại ảnh:
+ *   .is-cutout → đế SÁNG + contain. Ảnh tách nền đặt thẳng lên nền tối thì xe đen biến mất.
+ *   .is-dark   → viền tối, ảnh tràn khung. Viền sáng sẽ cắt ngang ảnh nội thất tối.
+ *   .is-photo  → viền trung tính, ảnh tràn khung.
+ *
+ * auto-fill + dense: ô không bao giờ hở giữa lưới, kể cả khi mục chỉ có 1–2 ảnh.
+ * Cố ý KHÔNG dùng lưới 3 thẻ bằng nhau — cứ 3 ô lại có 1 ô rộng gấp đôi để có nhịp.
+ */
+/*
+ * ══ CÁCH VINFAST TRÌNH BÀY ẢNH — đã đọc CSS bản crawl để làm theo ══
+ * Toàn bộ quy tắc của họ gói gọn trong một dòng:
+ *     .car-preview .vf-swiper-collection img { width: 100% }
+ * Không aspect-ratio, không object-fit, không khung, không đế màu, không cắt.
+ * Ảnh nhận bề rộng của cột, chiều cao tự do theo tỉ lệ gốc — thấy TRỌN ảnh, chỉ nhỏ lại.
+ *
+ * Bản trước em làm ngược: ép aspect-ratio + object-fit + đế sáng cho ảnh tách nền. Kết quả
+ * là ảnh bị cắt/phóng và mỗi tấm nằm trong một hộp trắng — anh Minh phản ánh đúng.
+ *
+ * Chiều cao khác nhau thì dùng CSS columns (masonry) để xếp khít, thay vì ép mọi ảnh
+ * về chung một chiều cao.
+ */
+/*
+ * Lưới ảnh bổ sung — quy tắc do anh Minh chốt:
+ *   1 ảnh  → chiếm trọn bề ngang cho cân, không nằm lệch một bên.
+ *   2 ảnh  → một trái một phải.
+ *   3+ ảnh → hai cột; ảnh cuối bị lẻ hàng thì kéo dài hết bề ngang.
+ *
+ * Dùng GRID chứ KHÔNG dùng CSS `columns`: `columns` để trình duyệt tự cân theo chiều cao,
+ * nên hai ảnh chênh lệch chiều cao có thể bị dồn hết vào một cột và bỏ trống cột kia —
+ * đúng lỗi đã gặp ở mục Ngoại thất VF 7.
+ */
+.detail-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 22px;
+  margin-top: 26px;
+}
+
+.detail-gallery[data-count="1"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Ảnh cuối đứng lẻ một mình ở hàng cuối → trải hết bề ngang thay vì bỏ trống nửa bên. */
+.detail-gallery__item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 780px) {
+  .detail-gallery { grid-template-columns: minmax(0, 1fr); }
+}
+
+.detail-gallery__item {
+  margin: 0;
+  min-width: 0;
+}
+
+/*
+ * Đúng công thức của VinFast: ảnh rộng bằng cột, cao tự do. Không object-fit nên KHÔNG
+ * có gì bị cắt; không nền nên ảnh tách nền hoà thẳng vào nền section thay vì nằm trong hộp.
+ */
+/* Bo góc bằng lưới ảnh của trang (26px) để hai khối ảnh trên cùng trang cùng một ngôn ngữ. */
+.detail-gallery__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 26px;
+}
+
+.detail-gallery__item .smart-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  background: none;
+}
+
+.detail-gallery__item figcaption {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.detail-chapter__media .double-bezel__core {
+  aspect-ratio: 16 / 10;
+  background: #1b1f24;
+}
+
+/* Ảnh studio nền sáng cần khung sáng, nếu không sẽ thành mảng trắng trên nền tối.
+   Dùng nền trắng phẳng để những ảnh gốc còn bệ trắng không lộ cạnh. */
+.detail-chapter__frame.is-light {
+  background: #fff;
+}
+
+.detail-chapter__frame.is-light .smart-image {
+  padding: 4% 6%;
+}
+
+.detail-chapter__frame.is-light img {
+  object-fit: contain;
+}
+
+.detail-chapter__media .smart-image {
+  height: 100%;
+}
+
+.detail-chapter__copy {
+  display: grid;
+  grid-template-columns: 0.42fr 0.58fr;
+  gap: 34px;
+  padding: 25px 8px 0;
+}
+
+.detail-chapter__copy h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 560;
+  letter-spacing: -0.035em;
+}
+
+.detail-chapter__copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.52);
+  line-height: 1.55;
+}
+
+.color-explorer {
+  padding: clamp(112px, 12vw, 176px) 0;
+  background: var(--surface);
+}
+
+.color-explorer__stage {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(34px, 4vw, 68px);
+  border: 1px solid rgba(23, 26, 32, 0.08);
+  border-radius: clamp(26px, 3vw, 42px);
+  background:
+    radial-gradient(circle at 76% 31%, rgba(255, 255, 255, 0.96) 0, rgba(255, 255, 255, 0.42) 27%, transparent 54%),
+    linear-gradient(132deg, #f1f0ed 0%, #e4e5e3 100%);
+  box-shadow: 0 32px 90px -64px rgba(23, 26, 32, 0.62), inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.color-explorer__stage::after {
+  position: absolute;
+  right: 5%;
+  bottom: 23%;
+  width: 55%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(23, 26, 32, 0.12), transparent);
+  content: '';
+  pointer-events: none;
+}
+
+.color-explorer__grid {
+  display: grid;
+  position: relative;
+  z-index: 1;
+  grid-template-areas:
+    'intro visual'
+    'specs visual'
+    '. palette';
+  grid-template-columns: minmax(290px, 0.7fr) minmax(0, 1.3fr);
+  grid-template-rows: auto 1fr auto;
+  column-gap: clamp(42px, 6vw, 96px);
+  min-height: clamp(640px, 52vw, 790px);
+}
+
+.color-explorer__copy {
+  grid-area: intro;
+  align-self: start;
+  padding-top: clamp(4px, 1vw, 18px);
+}
+
+.color-explorer__copy h2 {
+  max-width: 12ch;
+  margin: 0;
+  font-size: clamp(2.35rem, 4vw, 4.8rem);
+  font-weight: 510;
+  letter-spacing: -0.06em;
+  line-height: 0.96;
+  text-wrap: balance;
+}
+
+.color-explorer__copy > p:not(.eyebrow) {
+  max-width: 46ch;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  line-height: 1.7;
+}
+
+.color-explorer__specs {
+  display: grid;
+  grid-area: specs;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-self: end;
+  gap: 0;
+  margin: clamp(38px, 5vw, 72px) 0 8px;
+  border-top: 1px solid rgba(23, 26, 32, 0.16);
+}
+
+.color-explorer__spec {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-width: 0;
+  padding: 20px 20px 22px 0;
+  border-bottom: 1px solid rgba(23, 26, 32, 0.12);
+}
+
+.color-explorer__spec:nth-child(even) {
+  padding-right: 0;
+  padding-left: 20px;
+  border-left: 1px solid rgba(23, 26, 32, 0.12);
+}
+
+.color-explorer__spec dd,
+.color-explorer__spec dt {
+  margin: 0;
+}
+
+.color-explorer__spec dd {
+  order: -1;
+  overflow-wrap: anywhere;
+  font-family: var(--font-display);
+  font-size: clamp(1.55rem, 2.2vw, 2.45rem);
+  font-weight: 620;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.color-explorer__spec dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.color-explorer__visual {
+  display: grid;
+  grid-area: visual;
+  min-width: 0;
+  min-height: 430px;
+  place-items: center;
+  padding: 10px 0 0;
+}
+
+.color-explorer__image {
+  --color-image-scale: 1.08;
+  width: 100%;
+  height: clamp(390px, 38vw, 560px);
+  overflow: visible;
+  background: transparent;
+  animation: color-image-enter 0.24s var(--ease-soft) both;
+}
+
+.color-explorer__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 24px rgba(25, 32, 42, 0.18));
+  transform: scale(var(--color-image-scale));
+}
+
+@keyframes color-image-enter {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Một cột: cột thứ hai trước đây dành cho .color-explorer__action (nút đặt lịch đã gỡ).
+   Để nguyên "minmax(0,1fr) auto" thì track rỗng vẫn ăn column-gap tới 60px, làm dải swatch
+   hụt bề ngang và thừa khoảng trắng bên phải. Khôi phục nút thì trả lại 2 track ở đây. */
+.color-explorer__palette {
+  display: grid;
+  grid-area: palette;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  align-items: end;
+  padding-top: 4px;
+}
+
+.color-explorer__name {
+  grid-column: 1 / -1;
+  margin: 0;
+  text-align: center;
+}
+
+.color-explorer__name span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.color-explorer__name strong {
+  display: block;
+  font-size: clamp(1.45rem, 2.2vw, 2.25rem);
+  font-weight: 540;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+.color-explorer__groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px clamp(30px, 4vw, 66px);
+  min-width: 0;
+}
+
+.color-explorer__groups.has-multiple-groups {
+  align-items: start;
+}
+
+.color-explorer__group {
+  display: grid;
+  gap: 12px;
+}
+
+.color-explorer__group > p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  font-weight: 570;
+}
+
+.color-explorer__swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+}
+
+.color-explorer__single-color {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--muted);
+}
+
+.color-explorer__single-color > span {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border: 4px solid var(--surface);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+
+.color-explorer__single-color small {
+  font-size: 0.72rem;
+}
+
+.color-explorer__swatches button {
+  position: relative;
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  padding: 4px;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s var(--ease-heavy);
+}
+
+.color-explorer__swatches button > span {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(23, 26, 32, 0.15), inset 0 2px 3px rgba(255, 255, 255, 0.25);
+}
+
+/* Ô màu vẽ bằng ảnh chip chính hãng. Dùng chung kích thước và bo tròn với ô tô bằng hex,
+   chỉ khác là ảnh nên cần overflow: hidden để cắt tròn. */
+.color-explorer__swatch-image {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.color-explorer__swatch-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.color-explorer__swatches button:hover {
+  transform: translateY(-2px) scale(1.035);
+}
+
+.color-explorer__swatches button.is-active {
+  border-color: var(--blue);
+  transform: scale(1.05);
+}
+
+.color-explorer__swatches button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.color-explorer__action {
+  justify-self: end;
+}
+
+.color-explorer__action .island-button {
+  min-width: 208px;
+}
+
+.color-explorer__empty {
+  display: grid;
+  gap: 20px;
+  padding: clamp(52px, 7vw, 96px) 0;
+  border-block: 1px solid var(--line);
+}
+
+.color-explorer.color-explorer--empty {
+  padding-block: clamp(80px, 8vw, 112px);
+}
+
+.color-explorer__empty h2 {
+  max-width: 1000px;
+  margin: 0;
+}
+
+.color-explorer__empty > p:not(.eyebrow) {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.color-explorer__empty > span {
+  width: fit-content;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.detail-specs__groups {
+  display: grid;
+  gap: 76px;
+  margin-top: 82px;
+}
+
+.detail-specs__group > h3 {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.detail-specs__group .spec-strip {
+  margin-top: 18px;
+}
+
+.spec-strip__item dt,
+.spec-strip__item dd {
+  margin: 0;
+}
+
+.spec-strip__item dd {
+  order: -1;
+  font-size: clamp(1.8rem, 3.3vw, 3.55rem);
+  font-weight: 540;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
+
+.spec-strip__item dt {
+  color: var(--muted);
+  font-size: 0.79rem;
+}
+
+.spec-strip__item:nth-child(4n + 1) {
+  border-left: 0;
+}
+
+.spec-strip__item:nth-child(n + 5) {
+  border-top: 1px solid var(--line);
+}
+
+.detail-specs__empty {
+  margin-top: 82px;
+  padding: 42px 0;
+  border-block: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.detail-specs__empty p {
+  margin: 0;
+}
+
+.brochure-note {
+  padding: 105px 0;
+  background: var(--paper);
+}
+
+.brochure-note__inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 34px;
+  align-items: start;
+}
+
+.brochure-note__inner > svg {
+  margin-top: 4px;
+  color: var(--blue);
+}
+
+.brochure-note h2 {
+  font-size: clamp(1.9rem, 3.5vw, 3.7rem);
+}
+
+.brochure-note__inner > div > p:last-child {
+  max-width: 72ch;
+  margin: 20px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.detail-action > .smart-image {
+  position: absolute;
+  inset: 0;
+}
+
+.detail-action > .smart-image img {
+  filter: saturate(0.65) contrast(1.08);
+}
+
+.detail-action__wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 14, 18, 0.94), rgba(11, 14, 18, 0.2) 72%), linear-gradient(0deg, rgba(11, 14, 18, 0.7), transparent 50%);
+}
+
+.detail-booking-dock {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 410px;
+  padding: 7px 7px 7px 21px;
+  border-radius: 999px;
+  background: rgba(244, 244, 244, 0.88);
+  box-shadow: inset 0 0 0 1px rgba(23, 26, 32, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 28px 58px -38px rgba(23, 26, 32, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.detail-booking-dock > div {
+  display: flex;
+  min-width: 120px;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-booking-dock strong {
+  font-size: 0.84rem;
+}
+
+.detail-booking-dock > div span {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.detail-booking-dock > a {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 8px 8px 8px 17px;
+  border-radius: 999px;
+  color: var(--surface);
+  background: var(--blue);
+  font-size: 0.76rem;
+  font-weight: 650;
+}
+
+.detail-booking-dock > a > span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.not-found {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: 140px 32px 80px;
+}
+
+.detail-state {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: 140px 32px 80px;
+  background: var(--paper);
+}
+
+.detail-state__inner {
+  width: min(100%, 820px);
+  padding-block: 42px;
+  border-block: 1px solid var(--line);
+}
+
+.detail-state h1 {
+  max-width: 780px;
+  margin: 0;
+  font-size: clamp(2.7rem, 6vw, 5.8rem);
+  font-weight: 520;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.detail-state__inner > p:not(.eyebrow) {
+  max-width: 58ch;
+  margin: 24px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.detail-state button {
+  min-height: 48px;
+  margin-top: 28px;
+  padding: 0 22px;
+  border-radius: 999px;
+  color: var(--surface);
+  background: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform 0.35s var(--ease-heavy), background 0.35s var(--ease-heavy);
+}
+
+.detail-state button:hover {
+  background: var(--blue);
+  transform: translateY(-2px);
+}
+
+.detail-state button:active {
+  transform: scale(0.98);
+}
+
+.detail-state button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.not-found__inner {
+  max-width: 760px;
+  text-align: center;
+}
+
+.not-found h1 {
+  margin: 0;
+  font-size: clamp(2.7rem, 6vw, 6rem);
+  font-weight: 520;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.not-found p:not(.eyebrow) {
+  margin: 24px auto 30px;
+  color: var(--muted);
+}

@@ -1,0 +1,125 @@
+name: Backend CI
+
+permissions:
+  contents: read
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+      - 'eval/benchmarks/**'
+      - 'eval/golden/**'
+      - 'eval/data/fixtures/golden_agent_cases.csv'
+      - 'eval/data/fixtures/negative_cases.csv'
+      - '.github/workflows/backend-ci.yml'
+    branches: [main]
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'eval/benchmarks/**'
+      - 'eval/golden/**'
+      - 'eval/data/fixtures/golden_agent_cases.csv'
+      - 'eval/data/fixtures/negative_cases.csv'
+      - '.github/workflows/backend-ci.yml'
+    branches: [testing, develop, main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: pip install --retries 5 --default-timeout 100 -r backend/requirements.txt
+
+      - name: Lint with ruff
+        run: ruff check backend/src/ backend/tests/
+
+      - name: Static type checking with mypy
+        run: mypy --ignore-missing-imports backend/src/
+
+      - name: Security scanning with bandit
+        run: bandit -r backend/src/ -ll --skip B104,B608
+
+      - name: Run deterministic guardrail benchmark
+        run: >
+          python backend/scripts/run_guardrail_benchmark.py
+          --fail-under 1.0
+          --verify-baseline eval/benchmarks/results/baseline.json
+          --json-output artifacts/guardrail-benchmark/report.json
+          --markdown-output artifacts/guardrail-benchmark/report.md
+        env:
+          APP_ENV: test
+
+      - name: Upload guardrail benchmark report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: guardrail-benchmark-${{ github.sha }}
+          path: artifacts/guardrail-benchmark/
+          if-no-files-found: warn
+
+      - name: Run tests with coverage
+        run: |
+          mkdir -p artifacts
+          pytest backend/tests/ -v --tb=short --cov=backend/src/ --cov-fail-under=60 --cov-report=term-missing --cov-report=json:artifacts/backend-coverage.json
+        env:
+          APP_ENV: test
+          OPENAI_API_KEY: test-key
+
+      - name: Build offline agent evaluation report
+        run: >
+          python backend/scripts/run_agent_evaluation.py
+          --run-negative-fixtures
+          --coverage-json artifacts/backend-coverage.json
+          --predictions-output artifacts/agent-evaluation/predictions.json
+          --json-output artifacts/agent-evaluation/report.json
+          --markdown-output artifacts/agent-evaluation/report.md
+          --fail-under-negative-accuracy 1.0
+          --fail-under-line-coverage 60
+
+      - name: Upload agent evaluation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-evaluation-${{ github.sha }}
+          path: |
+            artifacts/agent-evaluation/
+            artifacts/backend-coverage.json
+          if-no-files-found: warn
+
+      - name: Verify Docker build
+        run: docker build -t backend-test ./backend
+
+# Historical production deployment (intentionally disabled in this public repository).
+# The project was deployed to Google Cloud Run from `main` after CI completed.
+#
+# deploy:
+#   name: Deploy to Google Cloud Run
+#   needs: test
+#   if: github.event_name == 'push' && github.ref_name == 'main'
+#   runs-on: self-hosted
+#   steps:
+#     - uses: actions/checkout@v4
+#     - uses: google-github-actions/auth@v2
+#       with:
+#         credentials_json: ${{ secrets.GCP_SA_KEY }}
+#     - uses: google-github-actions/setup-gcloud@v2
+#     - run: |
+#         gcloud run deploy vinfast-backend \
+#           --source ./backend \
+#           --region asia-southeast1 \
+#           --allow-unauthenticated \
+#           --port 8000 \
+#           --memory 1Gi \
+#           --cpu 1 \
+#           --update-env-vars "APP_ENV=production"

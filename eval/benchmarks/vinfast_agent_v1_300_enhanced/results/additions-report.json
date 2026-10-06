@@ -1,0 +1,5792 @@
+{
+  "schema_version": "1.2",
+  "generated_at": "2026-08-25T03:26:47Z",
+  "dataset": {
+    "name": "vinfast_booking_agent_golden_v1_300_enhanced",
+    "version": "5.2-postgres-enriched-baseline+benchmark-v1x",
+    "sha256": "4a27a5fba39c1e351ef371e4141d4f27a88a184064e00b3ce575c3f35ab8f1b9",
+    "total_cases": 81,
+    "active_cases": 81,
+    "challenge_cases": 16,
+    "known_gap_cases": 0,
+    "scope_coverage_rate": 1.0
+  },
+  "run": {
+    "status": "PARTIAL",
+    "status_counts": {
+      "failed": 2,
+      "not_run": 57,
+      "passed": 22
+    },
+    "attempted_active_cases": 24,
+    "scored_active_cases": 24,
+    "mode": "merged:live",
+    "model": "gpt-5.6-luna",
+    "judge_source": null
+  },
+  "quality": {
+    "task_success_rate": 0.9167,
+    "task_success_scored_cases": 24,
+    "task_success_confidence_interval_95": {
+      "lower": 0.7415,
+      "upper": 0.9768
+    },
+    "regression_task_success_rate": 0.95,
+    "regression_task_success_scored_cases": 20,
+    "challenge_task_success_rate": 0.75,
+    "challenge_task_success_scored_cases": 4,
+    "intent_accuracy": 0.9583,
+    "intent_scored_cases": 24,
+    "skill_accuracy": 1.0,
+    "skill_scored_cases": 24,
+    "tool_accuracy": 1.0,
+    "tool_scored_cases": 24,
+    "action_error_accuracy": 1.0,
+    "action_error_scored_cases": 24,
+    "intent_macro_f1": 0.7949,
+    "argument_exact_match_rate": 0.9167,
+    "argument_required_match_rate": 0.9583,
+    "argument_mean_field_f1": 0.9778,
+    "argument_scored_cases": 24,
+    "response_requirement_pass_rate": 1.0,
+    "response_scored_cases": 24,
+    "database_assertion_pass_rate": 1.0,
+    "database_scored_cases": 4,
+    "clean_execution_rate": 1.0,
+    "clean_execution_scored_cases": 24,
+    "first_tool_outcome_accuracy": 1.0,
+    "first_tool_outcome_scored_cases": 24,
+    "tool_retry_case_rate": 0.0,
+    "tool_retry_scored_cases": 24,
+    "unexpected_tool_error_case_rate": 0.0,
+    "unexpected_tool_error_scored_cases": 24,
+    "forbidden_behavior_violation_rate": null,
+    "forbidden_behavior_scored_cases": 0,
+    "mean_groundedness": null,
+    "groundedness_scored_cases": 0,
+    "hallucination_rate": null,
+    "hallucination_scored_cases": 0
+  },
+  "performance": {
+    "latency_p50_ms": 10615.01,
+    "latency_p95_ms": 17228.44,
+    "latency_p99_ms": 18352.14,
+    "latency_scored_cases": 24,
+    "turn_count_median": 2.0,
+    "turn_count_p95": 3.0,
+    "error_rate": 0.0
+  },
+  "usage": {
+    "status": "COMPLETE",
+    "scored_cases": 24,
+    "input_tokens": 428479,
+    "output_tokens": 5940,
+    "total_tokens": 434419,
+    "judge_scored_cases": 0,
+    "judge_input_tokens": null,
+    "judge_output_tokens": null,
+    "judge_total_tokens": null,
+    "estimated_cost": 0.092824,
+    "cost_currency": "USD",
+    "input_cost_per_million": 0.2,
+    "output_cost_per_million": 1.2,
+    "estimated_cost_per_case": 0.003868,
+    "estimated_cost_per_success": 0.004219,
+    "note": "Cost is null until explicit provider/model rates are supplied; rates are never hard-coded."
+  },
+  "business_metrics": {
+    "booking_task_success": {
+      "status": "PARTIAL",
+      "rate": 0.9167,
+      "successful_cases": 22,
+      "scored_cases": 24,
+      "confidence_interval_95": {
+        "lower": 0.7415,
+        "upper": 0.9768
+      },
+      "scope": "All active booking-agent tasks; this is not a production conversion funnel.",
+      "confirmed_booking_completion": {
+        "rate": 1.0,
+        "completed_bookings": 2,
+        "positive_confirmation_attempts": 2,
+        "status": "PARTIAL"
+      }
+    },
+    "intent_accuracy": {
+      "status": "PARTIAL",
+      "rate": 0.9583,
+      "scored_cases": 24
+    },
+    "tool_selection_accuracy": {
+      "status": "PARTIAL",
+      "rate": 1.0,
+      "scored_cases": 24
+    },
+    "argument_accuracy": {
+      "status": "PARTIAL",
+      "required_match_rate": 0.9583,
+      "exact_match_rate": 0.9167,
+      "mean_field_f1": 0.9778,
+      "scored_cases": 24
+    },
+    "slot_availability_accuracy": {
+      "status": "PARTIAL",
+      "rate": 1.0,
+      "available_slots": 187,
+      "checked_slots": 187,
+      "scored_cases": 4,
+      "expected_cases": 10,
+      "method": "Each offered slot is checked against isolated DB state and bookability rules."
+    },
+    "double_booking_rate": {
+      "status": "NOT_RUN",
+      "vehicle_slot_violation_rate": null,
+      "vehicle_slot_scored_cases": 0,
+      "vehicle_slot_total_cases": 4,
+      "staff_capacity_violation_rate": null,
+      "staff_capacity_scored_cases": 0,
+      "staff_capacity_total_cases": 1,
+      "reason": "Vehicle/slot conflicts and sales-staff capacity are measured by executable fixtures."
+    },
+    "hallucination_constraint_violation_rate": {
+      "status": "NOT_RUN",
+      "rate": null,
+      "violations": 0,
+      "evidence_checks": 0,
+      "hallucination_rate": null,
+      "hallucination_scored_cases": 0,
+      "forbidden_behavior_rate": null,
+      "forbidden_behavior_scored_cases": 0
+    },
+    "authorization_otp_violation_rate": {
+      "status": "NOT_RUN",
+      "rate": null,
+      "violations": 0,
+      "scored_cases": 0,
+      "total_cases": 8
+    },
+    "p95_end_to_end_latency": {
+      "status": "COMPLETE",
+      "latency_ms": 17228.44,
+      "scored_cases": 24
+    },
+    "cost_per_completed_booking": {
+      "status": "COMPLETE",
+      "currency": "USD",
+      "cost": 0.0,
+      "tokens_per_completed_booking": 0.0,
+      "completed_bookings": 2,
+      "positive_confirmation_attempts": 2,
+      "usage_scored_cases": 2,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "total_tokens": 0,
+      "input_cost_per_million": 0.2,
+      "output_cost_per_million": 1.2,
+      "reason": "Structured booking actions used zero agent-model tokens; infrastructure cost is excluded."
+    }
+  },
+  "negative_security": {
+    "total_cases": 16,
+    "scored_cases": 0,
+    "accuracy": null,
+    "violation_rate": null,
+    "failed_case_ids": [],
+    "status": "NOT_RUN",
+    "groups": {
+      "authorization_otp": {
+        "total_cases": 8,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "concurrency_consistency": {
+        "total_cases": 1,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "double_booking": {
+        "total_cases": 5,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "reliability": {
+        "total_cases": 1,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "slot_availability": {
+        "total_cases": 1,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "staff_capacity": {
+        "total_cases": 1,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "vehicle_slot": {
+        "total_cases": 4,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      }
+    }
+  },
+  "human": {
+    "status": "NOT_RUN",
+    "review_count": 0,
+    "unique_reviewers": 0,
+    "case_coverage": null,
+    "task_success_rate": null,
+    "mean_correctness_1_5": null,
+    "mean_relevance_1_5": null,
+    "mean_groundedness_1_5": null,
+    "mean_safety_1_5": null,
+    "mean_satisfaction_1_5": null,
+    "csat_4_or_5_rate": null,
+    "task_success_inter_rater_agreement": null
+  },
+  "coverage": {
+    "status": "COMPLETE",
+    "line_coverage_percent": 74.01,
+    "covered_lines": 7567,
+    "missing_lines": 2657,
+    "num_statements": 10224
+  },
+  "cases": [
+    {
+      "case_id": "SEARCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFLICT-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "conflict"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD_EXPIRED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold_expired"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "OTP_BAD-001",
+      "evaluation_status": "active",
+      "tags": [
+        "otp",
+        "security"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "OTP_EXPIRED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "otp",
+        "expired"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CANCEL-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "cancel",
+        "otp"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "RESCHEDULE-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "reschedule",
+        "otp"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "INJECTION-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "prompt_injection"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "PII-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "pii"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-005",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-005",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-006",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-006",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-007",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-007",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-008",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-008",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-009",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-009",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-010",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-010",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "MODEL-NOT-IN-SHOWROOM-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "vehicle_coverage",
+        "alternate_showroom"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "MODEL-UNSUPPORTED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "catalogue",
+        "ineligible"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "STAFF-CAPACITY-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "staff_capacity",
+        "availability"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "BOOK-FOR-OTHER-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "booker_driver",
+        "other_person"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "MULTITURN-SEARCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_retention"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "ACCESS-REQUEST-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "access",
+        "otp"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "ACCESS-DETAILS-MULTITURN-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "access",
+        "otp",
+        "multi_turn",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-INJECTION-MIXED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "prompt_injection",
+        "mixed_intent",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-INJECTION-ROLE-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "role_injection",
+        "mixed_intent",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-INJECTION-ENCODED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "encoded_injection",
+        "secret_exfiltration",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-PII-AUTHORITY-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "pii",
+        "social_engineering",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-BENIGN-QUOTE-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "benign_near_miss",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-BENIGN-NEGATION-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "benign_near_miss",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SEARCH-TYPO-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "typo",
+        "colloquial",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SEARCH-CORRECTION-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "self_correction",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SEARCH-DATETIME-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "date_time",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SEARCH-CODE-SWITCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "code_switch",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-MULTITURN-CORRECTION-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_correction",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SHOWROOM-NOTFOUND-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "unknown_showroom",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-005",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-006",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-007",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-008",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-009",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-010",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-SEARCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_retention"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id"
+          ],
+          "resolution_evidence": {
+            "showroom_id": {
+              "source_field": "showroom_query",
+              "actual": "vinfast quốc tế hà đông",
+              "accepted_values": [
+                "vinfast quốc tế hà đông"
+              ]
+            }
+          },
+          "expected_fields": 2,
+          "actual_fields": 4,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "address",
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 3 theo dữ liệu vừa kiểm tra:\n- VinFast Quốc Tế Hà Đông",
+        "action_error": ""
+      },
+      "latency_ms": 15615.91,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15862,
+        "output_tokens": 259,
+        "total_tokens": 16121
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-SEARCH-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_retention"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id"
+          ],
+          "resolution_evidence": {
+            "showroom_id": {
+              "source_field": "showroom_query",
+              "actual": "vinfast thăng long hoài đức",
+              "accepted_values": [
+                "vinfast thăng long hoài đức"
+              ]
+            }
+          },
+          "expected_fields": 2,
+          "actual_fields": 4,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "address",
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 1,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 5 theo dữ liệu vừa kiểm tra:\n- VinFast Thăng Long Hoài Đức",
+        "action_error": ""
+      },
+      "latency_ms": 11670.61,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 14085,
+        "output_tokens": 267,
+        "total_tokens": 14352
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-SEARCH-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "date_time",
+        "context_retention"
+      ],
+      "run_status": "failed",
+      "task_success": false,
+      "checks": {
+        "intent": false,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 4,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id",
+            "preferred_date",
+            "preferred_time"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 4,
+          "actual_fields": 6,
+          "scored_actual_fields": 4,
+          "allowed_extra_field_names": [
+            "showroom_limit",
+            "slot_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 4,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": 1.0,
+          "passed": 5,
+          "total": 5,
+          "checks": [
+            {
+              "slot_id": "eval-slot-V1X-MT-SEARCH-003",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "held"
+              }
+            },
+            {
+              "slot_id": "seed_slot_08a35f53127ea7d1ead04999",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_94711a2f4284974dd137f0ee",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_aebb0969dd07f3415685f94d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_0fbd87fb8db9cf19b68a56c9",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            }
+          ]
+        }
+      },
+      "observed": {
+        "intent": "hold_slot",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options",
+          "hold_test_drive_slot",
+          "get_booking_draft"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options",
+          "hold_test_drive_slot",
+          "get_booking_draft"
+        ],
+        "response": "ViVi đã giữ chỗ lái thử VF 7 vào Thứ 3, ngày 01/09/2026 lúc 10:48 tại VinFast Quốc Tế Hà Đông trong 5 phút.\n\nQuý khách vui lòng cung cấp thông tin người đặt lịch, người lái và xác nhận người lái có giấy phép lái xe hợp lệ để ViVi hoàn tất hồ sơ.",
+        "action_error": ""
+      },
+      "latency_ms": 18602.79,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 46908,
+        "output_tokens": 528,
+        "total_tokens": 47436
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_correction",
+        "challenge"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id"
+          ],
+          "resolution_evidence": {
+            "showroom_id": {
+              "source_field": "showroom_query",
+              "actual": "vinfast thăng long hoài đức",
+              "accepted_values": [
+                "vinfast thăng long hoài đức"
+              ]
+            }
+          },
+          "expected_fields": 2,
+          "actual_fields": 4,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "address",
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 5 theo dữ liệu vừa kiểm tra:\n- VinFast Thăng Long Hoài Đức",
+        "action_error": ""
+      },
+      "latency_ms": 14674.9,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 16048,
+        "output_tokens": 274,
+        "total_tokens": 16322
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "showroom_correction"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 4,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit",
+            "slot_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": 1.0,
+          "passed": 20,
+          "total": 20,
+          "checks": [
+            {
+              "slot_id": "seed_slot_4419caeb337c53d35f4e88e5",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_4f3d857400d66e7174379ec4",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_69a952bd9ba0c8ab812b212d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_e81e3d1eaaf053be196bf3af",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_2309ba58914806e8af93fd75",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_4e74104a987e1d348294ac8b",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_a26c2f6eefe99186c3af2df7",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_ec7b671d68641512d558839c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_444bd43c82180c60437e2ded",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_da096d5fb0ffb2d43408ac50",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_4312e4a7ef424b9882431a97",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_4e8b5722e555de2a7368a6d0",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_39b0430b1b5341c5336b33f7",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_8b9272e4355b4b2eaaf75cda",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d43df9f619615623baca94b6",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_edba9813f6792c60506a8548",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_2ec83f6ad4996286448aa671",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_85afeaa888de7d404b8624d9",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5eb5f8a206db8fb7c2ea5bb5",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_4570bdf151982f2d5d4faf5c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            }
+          ]
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các khung giờ còn trống cho VinFast VF 6 tại VinFast Quốc Tế Vạn Phúc:\n- Thứ 3, 25/08 10:30\n- Thứ 3, 25/08 10:30\n- Thứ 3, 25/08 13:30\n- Thứ 3, 25/08 13:30\n- Thứ 3, 25/08 15:00",
+        "action_error": ""
+      },
+      "latency_ms": 9807.21,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 28729,
+        "output_tokens": 330,
+        "total_tokens": 29059
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "vehicle_correction"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": 1.0,
+          "passed": 142,
+          "total": 142,
+          "checks": [
+            {
+              "slot_id": "seed_slot_2378cf68703e95f0fe9812b3",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_691f96b2348863d192d9e2b3",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d91f544b30720d872d4d456d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_12610b3d2ad03e2e8bae78d7",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_563430c5b623598256b1b38b",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d89d16dc3c59ae72add30a34",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_2e1aa0d1795152132d01abe5",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_67291d7f9139dce0afce8c29",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_9360819426c5d599a2662e4d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d88ba51a70dc6bd41a856974",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_138bfd85edb4f1b4ced82d80",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c5583fff3dbceace342f9a65",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f5e37307273df9d0d6ba4422",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5f5350dd35f09dd1bbb24604",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_fca9c1a94e22a07aecc42aec",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_24a2fd10e1e6db5d5290fe7d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_592763cc7bc0754a7ed985b3",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_063bb1e7cc4c798b36d822a9",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_3e7c79d8cc4153702266bb36",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5cf85427b38d497ff38cada6",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_4c5be34cab6a9043b06db4d3",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5a8a4fcd9f5f8b36e6cedd23",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f546b9d5bafdb30e79eee08c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_61b5860eb6f8a8d8017095b9",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_145af5dd9cf6ab9ffb19a5f4",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_6f1beb6762fada82ef67d2e1",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c5fbe0f0ebcd825ae1342795",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_e61b7f514721cc723182737e",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_effad494bd8c877784a555a3",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_01bd26a4a6e1c07f57a8294e",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_bbf8261f2f79a58e6d46cf4c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_8dfeead023cb4f7813dd0821",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_30a3618dad5743d1f1116071",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_18d1407e637110cf40abb95c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_72b53f566e0fdfc2b5dee851",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f328fc0c175a2401eb3c0e87",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_[phone]e3b1927c12559d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_ac0f9d48871503c8d110362f",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f4a8e17f38a4497a7886f3fe",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_1e19824dab3ab96c8ecbee55",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_612249dc7c624a1b74403239",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5e01d3a06ee932b8d82c7945",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5f799ae49a83a30061af4091",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d31fec903b6dee23f5d665ac",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_a697217480b00d7f273651d8",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_149e454650be9b680d894188",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f09fe08359a1bcde1e4e9e30",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_cbad22e1bdd96bfabd38eddd",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_cdaaa32eefd94d1d6217fcca",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_ed00d793c260b50aa1855ced",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_dba308f5b4f9154f73800598",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c528bd3d11aa67201944c577",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_7018c602be2231c1b0f33fac",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c6bcdd2ee9911b401bedcb26",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_17b2bc820c31de4bbac3152f",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_b5446b61b5fe5a71da28ae0d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_da8761e8197673fba89d385e",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_473c4158bfbc5651d5c0be7b",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_b4404e04507f82c4ecce188a",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_b[phone]a5824b4e280d79",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_652157177a058a67223620aa",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_2f2654edfb4d23e5f21af889",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_643f6dcfd701af144969f538",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_dc5f6a3f5827e70ae9a6d5a1",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_1021e0141a0d1551da11e5eb",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c63ba5f9ff129e3308ec9105",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_857e94debb66973a271127f4",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_cfea45074eda6e8b57349ae0",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5f46a49c16ccf792ba76e819",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c216ed40cf84bec1412b0f64",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_364179c78fd4ec5ec75094eb",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_fe074f231ac67299b79b373d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_bd489c4a2558f072f6b4dd2a",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_2848136fe8304eff85f56669",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_fbc8b6f2f83145274ba92662",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_de48dad79d8c297ff1d8d148",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_3d0e93bfaca83650d0bbe101",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5d1559438ca9c293d2861ee4",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_8e6642fd49fd1843b08c4791",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_449c3364d6d5370bd8ce3d4c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_10f6adbbb7caecad9b0ec1f6",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_19d5ff17c29c72bd7a783660",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c243488375b2037ac2bf615d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_cff068266e2fa939f1eabb76",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_97553550b1a74a135a5f7439",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_32929169cceb4cffd748261d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_0f92e4eae25086e9de773c70",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_a22062129442684b6cdf19f5",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_2a143cfab478f822269cca41",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_7de86ddee0edd36b326b34d4",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_19bd48f8db904b92f45aed95",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f7a196760cbbdc7d6c68f66e",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f3ce8b4f37ad4963480e021d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_44401f2c48b687ed722d0bb0",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_77fcc7c162e274c21baaf2bd",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_1de7ab2d6f5c5b249d90c7da",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_6d5deb825c9288f5c66aa848",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_55989ee82c7b3f86833edc44",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_66a5bc6f8805c982e7efc6ab",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_14a80a05c8f5c07a32715f3f",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_794588dbd35b9cc11d7164fb",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_6e8464bd48926ce5073c3885",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_af02faf5ee12b16385ac7985",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_8a2803d229d8a39e695f493c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_613c67d08f2e5010a99a6c1d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_4b29a9b5d509a8bb1f575cfe",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_e4eee38e3bced9c4fec8221f",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_62aebccdb2801e1a5d4f0368",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d1e98e998adb2ff236ae4e1d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_a4a34a31667d84375d219db0",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_77b83cda8abc090c9fd2ab99",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_bb49af8362aeb734d9e1fd3c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_a8bdd4404ba2e09fe8ebc684",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_0e99b7b78359999ac7d04c37",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_27110e295214b7ec586f8157",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_655258dd8bb55881392cc5b9",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_695d396ce8e0a55c7b54ee3b",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_592a21d20b7e27fb7f47f1c6",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_7f9d9ea6511a8c2314663643",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_8038e98a29536227a7ee13fb",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_308048ef3d7ea3fa1e38e2af",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_96ddb802edd2584e3450acc2",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_153c79a0cbcf4103078e9200",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_dd0bbeb306abd68f305de014",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_2e32402230ad387474cdb740",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d8eed4bb24077124839e0956",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_039011adbd56377633a2300e",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_7288ed945138a67491bf9815",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_a0ca6df8dbef398d947ccc48",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_52e9ca1b98efb204efddcb7f",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c4797e0dfafe8afc1dc35d21",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d29a12551bfba7e1e2ff8083",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d236fa39d62e574ed7fb1375",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_67fd9008209765e27044e54b",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_8e64018b3e3dcd91374c8b2c",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_b23dbfd6b961cc0fa73b7d8e",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5bfef776617009794b0ed9fe",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f0c7d3380cc638ea65a09f44",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d3399551f51b2b7e75cde710",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_1e1466124bb2c9a4c5dbfcdb",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_c11afdc127baafb443051197",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_5214e63b10c9057709452ad0",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            }
+          ]
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các khung giờ còn trống cho VinFast VF 3 tại VinFast Thăng Long Hoài Đức:\n- Thứ 3, 25/08 10:30\n- Thứ 3, 25/08 13:30\n- Thứ 3, 25/08 15:00\n- Thứ 3, 25/08 16:30\n- Thứ 4, 26/08 09:00",
+        "action_error": ""
+      },
+      "latency_ms": 13257.32,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 52835,
+        "output_tokens": 338,
+        "total_tokens": 53173
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "showroom_correction"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": false,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 5,
+          "scored_actual_fields": 3,
+          "allowed_extra_field_names": [
+            "showroom_limit",
+            "slot_limit"
+          ],
+          "unexpected_extra_field_names": [
+            "showroom_query"
+          ],
+          "precision": 0.6667,
+          "recall": 1.0,
+          "f1": 0.8,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": 1.0,
+          "passed": 20,
+          "total": 20,
+          "checks": [
+            {
+              "slot_id": "seed_slot_8ffa2e546f31d32525aab136",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_ced99e913b6ce358dfa0c004",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_0bd81a47f63b1b6bf1b0a7dd",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_14ad51586e647cc51187965d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_438749c39a4d8841302eb214",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_31c446b96db214e343c97a72",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_8d54bfb719c499fdb23ec69f",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_869acca6cd0aa6154745749a",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d201b97ce6db4805f5d5f7a8",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_16f928b23081a5e221498b9a",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_a767bf4faf1fbef46b063cf4",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_d86a6fdef0ef2ca44d002143",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_95828b85d835efd5306412c0",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_61d5358f11d0786e7fad523e",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_f4c02812b739fdef07f39aee",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_bc03a3cb4e6ed20f482cd85d",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_fea97b8bcca7248d7e7a40b8",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_7fad23421189dc15471fcc20",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_b3ce9f4bf01add21061e4576",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            },
+            {
+              "slot_id": "seed_slot_efe9591fb632865f08c31911",
+              "passed": true,
+              "evidence": {
+                "identity_matches": true,
+                "showroom_active": true,
+                "vehicle_ready": true,
+                "time_valid": true,
+                "state_bookable_after_workflow": true,
+                "active_overlapping_slot_ids": [],
+                "final_status": "available"
+              }
+            }
+          ]
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các khung giờ còn trống cho VinFast VF 3 tại VinFast Quốc Tế Vạn Phúc:\n- Thứ 3, 25/08 10:30\n- Thứ 3, 25/08 13:30\n- Thứ 3, 25/08 15:00\n- Thứ 3, 25/08 16:30\n- Thứ 4, 26/08 09:00",
+        "action_error": ""
+      },
+      "latency_ms": 11130.86,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 28375,
+        "output_tokens": 339,
+        "total_tokens": 28714
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-CODESWITCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "code_switch",
+        "challenge"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id"
+          ],
+          "resolution_evidence": {
+            "showroom_id": {
+              "source_field": "showroom_query",
+              "actual": "quốc tế hà đông",
+              "accepted_values": [
+                "quốc tế hà đông",
+                "vinfast quốc tế hà đông"
+              ]
+            }
+          },
+          "expected_fields": 2,
+          "actual_fields": 4,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "address",
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 6 theo dữ liệu vừa kiểm tra:\n- VinFast Quốc Tế Hà Đông",
+        "action_error": ""
+      },
+      "latency_ms": 14234.2,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15972,
+        "output_tokens": 269,
+        "total_tokens": 16241
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-TYPO-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "typo",
+        "challenge"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 3 theo dữ liệu vừa kiểm tra:\n- VinFast Quốc Tế Hà Đông\n- VinFast Quốc Tế Vạn Phúc\n- VinFast Huy Tiến Dũng Sa Đéc\n- VinFast Tâm Phong Tiền Giang\n- VinFast Khánh Hà Diễn Châu",
+        "action_error": ""
+      },
+      "latency_ms": 14277.74,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15867,
+        "output_tokens": 262,
+        "total_tokens": 16129
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "date_time",
+        "context_retention"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 4,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id",
+            "preferred_date",
+            "preferred_time"
+          ],
+          "resolution_evidence": {
+            "showroom_id": {
+              "source_field": "showroom_query",
+              "actual": "vinfast quốc tế hà đông",
+              "accepted_values": [
+                "vinfast quốc tế hà đông"
+              ]
+            }
+          },
+          "expected_fields": 4,
+          "actual_fields": 6,
+          "scored_actual_fields": 4,
+          "allowed_extra_field_names": [
+            "address",
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 1,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options"
+        ],
+        "response": "Yêu cầu thời gian: ngày 01/09/2026 lúc 09:59.\nCác showroom phù hợp cho VinFast VF 3 theo dữ liệu vừa kiểm tra:\n- VinFast Quốc Tế Hà Đông",
+        "action_error": ""
+      },
+      "latency_ms": 8490.23,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 14151,
+        "output_tokens": 284,
+        "total_tokens": 14435
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "date_time",
+        "context_retention"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 4,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id",
+            "preferred_date",
+            "preferred_time"
+          ],
+          "resolution_evidence": {
+            "showroom_id": {
+              "source_field": "showroom_query",
+              "actual": "vinfast quốc tế vạn phúc",
+              "accepted_values": [
+                "vinfast quốc tế vạn phúc"
+              ]
+            }
+          },
+          "expected_fields": 4,
+          "actual_fields": 6,
+          "scored_actual_fields": 4,
+          "allowed_extra_field_names": [
+            "showroom_limit",
+            "slot_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Yêu cầu thời gian: ngày 01/09/2026 lúc 10:15.\nCác showroom phù hợp cho VinFast VF 6 theo dữ liệu vừa kiểm tra:\n- VinFast Quốc Tế Vạn Phúc",
+        "action_error": ""
+      },
+      "latency_ms": 11170.54,
+      "turn_count": 3,
+      "token_usage": {
+        "input_tokens": 25064,
+        "output_tokens": 370,
+        "total_tokens": 25434
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_correction",
+        "date_time",
+        "challenge"
+      ],
+      "run_status": "failed",
+      "task_success": false,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": false,
+          "required_match": false,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "showroom_id"
+          ],
+          "resolution_evidence": {
+            "showroom_id": {
+              "source_field": "showroom_query",
+              "actual": "vinfast quốc tế hà đông",
+              "accepted_values": [
+                "vinfast quốc tế hà đông"
+              ]
+            }
+          },
+          "expected_fields": 4,
+          "actual_fields": 4,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "address",
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 0.5,
+          "f1": 0.6667,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Quý khách vui lòng chọn showroom VinFast Quốc Tế Hà Đông trên bảng bên trái; ViVi sẽ kiểm tra ngày 01/09/2026 lúc 11:08 ngay sau đó.",
+        "action_error": ""
+      },
+      "latency_ms": 17513.01,
+      "turn_count": 3,
+      "token_usage": {
+        "input_tokens": 27292,
+        "output_tokens": 431,
+        "total_tokens": 27723
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-GEO-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 3 theo dữ liệu vừa kiểm tra:\n- VinFast Thủ Thiêm An Khánh\n- VinFast Phú Thuận Nguyễn Văn Linh\n- VinFast Phan Trọng Tuệ Quận 7\n- VinFast Minh Đạo Phát Ba Tháng Hai\n- VinFast An Phú Thạnh Mỹ Lợi",
+        "action_error": ""
+      },
+      "latency_ms": 9137.17,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15862,
+        "output_tokens": 252,
+        "total_tokens": 16114
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-GEO-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 5 theo dữ liệu vừa kiểm tra:\n- VinFast Hải Châu Đà Nẵng\n- VinFast Năng Lượng Xanh Đà Nẵng\n- VinFast Năng Lượng Xanh Tam Kỳ\n- VinFast Hoàng Thành Auto Huế\n- VinFast Thế Hệ Mới Huế",
+        "action_error": ""
+      },
+      "latency_ms": 10537.27,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15882,
+        "output_tokens": 261,
+        "total_tokens": 16143
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-GEO-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 6 theo dữ liệu vừa kiểm tra:\n- VinFast Minh Ngân Bạch Đằng\n- VinFast Gia Thịnh Quảng Yên\n- VinFast Gia Thịnh Mạo Khê\n- VinFast Bình Bảo Minh Ngô Quyền\n- VinFast Bình Bảo Minh Chí Linh",
+        "action_error": ""
+      },
+      "latency_ms": 8885.53,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15955,
+        "output_tokens": 261,
+        "total_tokens": 16216
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-GEO-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 7 theo dữ liệu vừa kiểm tra:\n- VinFast Hiệp Thành Cần Thơ\n- VinFast Miền Nam Phú Lợi\n- VinFast Hiệp Thành Vị Thanh\n- VinFast Hiệp Thành Châu Thành\n- VinFast VGC Phúc Yên",
+        "action_error": ""
+      },
+      "latency_ms": 9976.6,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15936,
+        "output_tokens": 229,
+        "total_tokens": 16165
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-GEO-005",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 8 theo dữ liệu vừa kiểm tra:\n- VinFast Thế Hệ Mới Phú Xuân\n- VinFast Thế Hệ Mới Phú Bài\n- VinFast Thế Hệ Mới Phong Điền\n- VinFast Quảng Trị Triệu Phong\n- VinFast Quảng Trị Nam Đông Hà",
+        "action_error": ""
+      },
+      "latency_ms": 12214.19,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15959,
+        "output_tokens": 266,
+        "total_tokens": 16225
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-GEO-006",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 9 theo dữ liệu vừa kiểm tra:\n- VinFast Phan Trọng Tuệ Nghi Phú\n- VinFast Merry Hà Tĩnh\n- VinFast Vũ Gia Đồng Tiến\n- VinFast Nguyễn Phúc Đông Quang\n- VinFast Nguyễn Phúc Quảng Phú",
+        "action_error": ""
+      },
+      "latency_ms": 10692.76,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15986,
+        "output_tokens": 260,
+        "total_tokens": 16246
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-GEO-007",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 3 theo dữ liệu vừa kiểm tra:\n- VinFast Âu Lạc Thủy Nguyên\n- VinFast Minh Ngân Bạch Đằng\n- VinFast Âu Lạc An Hải\n- VinFast Gia Thịnh Mạo Khê\n- VinFast Gia Thịnh Mạo Khê",
+        "action_error": ""
+      },
+      "latency_ms": 8648.51,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15849,
+        "output_tokens": 229,
+        "total_tokens": 16078
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-GEO-008",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 2,
+          "matched_field_names": [
+            "vehicle_model",
+            "address"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 2,
+          "actual_fields": 3,
+          "scored_actual_fields": 2,
+          "allowed_extra_field_names": [
+            "showroom_limit"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": null,
+          "passed": 0,
+          "total": 0,
+          "graded": 0
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 2,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "successful_tools": [
+          "search_test_drive_options",
+          "search_test_drive_options"
+        ],
+        "response": "Các showroom phù hợp cho VinFast VF 5 theo dữ liệu vừa kiểm tra:\n- VinFast Phan Trọng Tuệ Cam Ranh\n- VinFast VFG Lâm Đồng\n- VinFast Bắc Tây Nguyên Phú Yên\n- VinFast Thành Công Đắk Lắk\n- VinFast Lai Hương Đắk Lắk",
+        "action_error": ""
+      },
+      "latency_ms": 9108.59,
+      "turn_count": 2,
+      "token_usage": {
+        "input_tokens": 15862,
+        "output_tokens": 231,
+        "total_tokens": 16093
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-FLOW-CONFIRM-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "multi_turn",
+        "full_funnel",
+        "confirm"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 3,
+          "matched_field_names": [
+            "booking_id",
+            "expected_version",
+            "ui_action_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 3,
+          "actual_fields": 3,
+          "scored_actual_fields": 3,
+          "allowed_extra_field_names": [],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": true,
+          "passed": 2,
+          "total": 2,
+          "graded": 2
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 3,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "confirm_booking",
+        "skill": "booking",
+        "tools": [
+          "hold_test_drive_slot",
+          "update_booking_draft",
+          "confirm_test_drive_booking"
+        ],
+        "successful_tools": [
+          "hold_test_drive_slot",
+          "update_booking_draft",
+          "confirm_test_drive_booking"
+        ],
+        "response": "Đặt lịch lái thử đã được xác nhận. Mã đặt lịch: VF2608257AB89D.",
+        "action_error": ""
+      },
+      "latency_ms": 315.55,
+      "turn_count": 3,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-FLOW-CONFIRM-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "multi_turn",
+        "full_funnel",
+        "confirm"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 3,
+          "matched_field_names": [
+            "booking_id",
+            "expected_version",
+            "ui_action_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 3,
+          "actual_fields": 3,
+          "scored_actual_fields": 3,
+          "allowed_extra_field_names": [],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": true,
+          "passed": 2,
+          "total": 2,
+          "graded": 2
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 3,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "confirm_booking",
+        "skill": "booking",
+        "tools": [
+          "hold_test_drive_slot",
+          "update_booking_draft",
+          "confirm_test_drive_booking"
+        ],
+        "successful_tools": [
+          "hold_test_drive_slot",
+          "update_booking_draft",
+          "confirm_test_drive_booking"
+        ],
+        "response": "Đặt lịch lái thử đã được xác nhận. Mã đặt lịch: VF260825152CBC.",
+        "action_error": ""
+      },
+      "latency_ms": 262.28,
+      "turn_count": 3,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-FLOW-CANCEL-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "multi_turn",
+        "cancel",
+        "otp"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 3,
+          "matched_field_names": [
+            "booking_id",
+            "access_session_token",
+            "ui_action_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 3,
+          "actual_fields": 4,
+          "scored_actual_fields": 3,
+          "allowed_extra_field_names": [
+            "reason"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": true,
+          "passed": 2,
+          "total": 2,
+          "graded": 2
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 1,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "cancel_booking",
+        "skill": "booking",
+        "tools": [
+          "cancel_booking"
+        ],
+        "successful_tools": [
+          "cancel_booking"
+        ],
+        "response": "Đã hủy lịch lái thử và giải phóng khung giờ.",
+        "action_error": ""
+      },
+      "latency_ms": 258.13,
+      "turn_count": 1,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    },
+    {
+      "case_id": "V1X-FLOW-RESCHEDULE-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "multi_turn",
+        "reschedule",
+        "otp"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 4,
+          "matched_field_names": [
+            "current_booking_id",
+            "new_slot_id",
+            "access_session_token",
+            "ui_action_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 4,
+          "actual_fields": 4,
+          "scored_actual_fields": 4,
+          "allowed_extra_field_names": [],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": true,
+          "passed": 3,
+          "total": 3,
+          "graded": 3
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 1,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "reschedule_booking",
+        "skill": "booking",
+        "tools": [
+          "reschedule_booking"
+        ],
+        "successful_tools": [
+          "reschedule_booking"
+        ],
+        "response": "Lịch lái thử đã được đổi sang khung giờ mới.",
+        "action_error": ""
+      },
+      "latency_ms": 308.32,
+      "turn_count": 1,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {}
+    }
+  ],
+  "limitations": [
+    "Component scores may be available while task success remains null until every required DB/policy check is graded.",
+    "Task success requires a clean execution path: unexpected tool errors and same-turn retries fail the case even if a later retry recovers.",
+    "Challenge cases are reported separately so easier regression cases cannot hide their failures.",
+    "LLM-as-judge scores and human ratings must identify their source; missing reviews are not converted to zero.",
+    "Token totals are only complete when the runtime/provider returns usage metadata for every model call."
+  ]
+}

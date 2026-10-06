@@ -1,0 +1,300 @@
+{
+  "schema_version": "1.0",
+  "dataset_name": "vinfast_profile_sales_brief_focused",
+  "dataset_version": "2026-09-01",
+  "language": "vi-VN",
+  "case_count": 10,
+  "challenge_case_count": 7,
+  "human_review_required": true,
+  "provenance": {
+    "source": "Focused post-booking regressions derived from observed user failures and semantic boundary cases",
+    "note": "This dataset is separate from the official 61-case baseline. It grades the current public signal contract, persisted typed signals, and the stored sales brief without requiring one exact LLM paraphrase."
+  },
+  "cases": [
+    {
+      "case_id": "PROFILE-BRIEF-DURABLE-HOUSEHOLD-001",
+      "source_case_ids": ["POSTBOOK-PROFILE-SIGNAL-001"],
+      "turns": [
+        {"role": "user", "content": "Nhà mình có năm thành viên."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"profile_signals": [{"key": "household_size", "value": 5, "subject": "self"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "active_profile_signal", "key": "household_size", "value": 5},
+          {"assertion": "no_active_booking_signal", "key": "additional_guest_count", "subject": "group"},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["5 người"], "forbidden_terms": ["tổng cộng 5 người tham gia", "4 người đi cùng"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "profile_signal", "sales_brief", "durable_vs_booking"],
+      "review_status": "TARGETED_SYNTHETIC_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 611}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-FAMILY-ATTENDANCE-001",
+      "source_case_ids": ["OBSERVED-FAMILY-ATTENDANCE"],
+      "turns": [
+        {"role": "user", "content": "Hôm đó gia đình tôi có 5 người đến lái thử."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"booking_signals": [{"key": "booker_attending", "value": true, "subject": "booker"}, {"key": "additional_guest_count", "value": 4, "subject": "group"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "no_active_profile_signal", "key": "household_size"},
+          {"assertion": "active_booking_signal", "key": "booker_attending", "value": true, "subject": "booker"},
+          {"assertion": "active_booking_signal", "key": "additional_guest_count", "value": 4, "subject": "group"},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["5 người", "4 người đi cùng"], "forbidden_terms": ["tổng cộng 6 người"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "profile_signal", "booking_signal", "sales_brief"],
+      "review_status": "TARGETED_SYNTHETIC_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 613}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-SPOUSE-CHILD-001",
+      "source_case_ids": ["OBSERVED-USER-SPOUSE-CHILD"],
+      "turns": [
+        {"role": "user", "content": "Sẽ có chồng và em bé 2 tuổi đi cùng tôi."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"booking_signals": [{"key": "booker_attending", "value": true, "subject": "booker"}, {"key": "additional_guest_count", "value": 2, "subject": "group"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "active_booking_signal", "key": "booker_attending", "value": true, "subject": "booker"},
+          {"assertion": "active_booking_signal", "key": "additional_guest_count", "value": 2, "subject": "group"},
+          {"assertion": "active_booking_signal", "key": "additional_guest_context", "subject": "group", "value_contains": ["chồng", "2 tuổi"]},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["người đi cùng", "chồng", "2 tuổi"], "forbidden_terms": ["Chưa có thông tin về người đi cùng", "người đi cùng cũng lái thử", "từng người lái"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "booking_signal", "sales_brief", "observed_failure", "challenge"],
+      "review_status": "USER_OBSERVED_NOT_INDEPENDENTLY_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 617}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-HOUSEHOLD-VS-ATTENDEES-001",
+      "source_case_ids": ["SEMANTIC-HOUSEHOLD-VS-ATTENDEES"],
+      "turns": [
+        {"role": "user", "content": "Gia đình tôi có 6 người nhưng hôm đó chỉ chồng và em bé 2 tuổi đi cùng tôi."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"profile_signals": [{"key": "household_size", "value": 6, "subject": "self"}], "booking_signals": [{"key": "additional_guest_count", "value": 2, "subject": "group"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "active_profile_signal", "key": "household_size", "value": 6},
+          {"assertion": "active_booking_signal", "key": "booker_attending", "value": true, "subject": "booker"},
+          {"assertion": "active_booking_signal", "key": "additional_guest_count", "value": 2, "subject": "group"},
+          {"assertion": "active_booking_signal", "key": "additional_guest_context", "subject": "group", "value_contains": ["chồng", "2 tuổi"]},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["6 người", "chồng", "2 tuổi"], "forbidden_terms": ["tổng cộng 6 người tham gia", "5 người đi cùng", "4 người", "người đi cùng cũng lái thử", "từng người lái"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "profile_signal", "booking_signal", "sales_brief", "challenge"],
+      "review_status": "TARGETED_SYNTHETIC_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 619}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-CORRECT-ATTENDANCE-001",
+      "source_case_ids": ["SEMANTIC-CORRECTION-ATTENDANCE"],
+      "turns": [
+        {"role": "user", "content": "Cả nhà 6 người sẽ đến buổi lái thử."},
+        {"role": "user", "content": "Tôi nói nhầm, hôm đó chỉ có 3 người gồm tôi, chồng và con."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"booking_signals": [{"key": "additional_guest_count", "value": 2, "subject": "group", "operation": "revise"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "no_active_profile_signal", "key": "household_size"},
+          {"assertion": "active_booking_signal", "key": "additional_guest_count", "value": 2, "subject": "group"},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["3 người"], "forbidden_terms": ["6 người tham gia", "5 người đi cùng"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "booking_signal", "sales_brief", "correction", "challenge"],
+      "review_status": "TARGETED_SYNTHETIC_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 623}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-RETRACT-CHILD-001",
+      "source_case_ids": ["SEMANTIC-RETRACTION-CHILD"],
+      "turns": [
+        {"role": "user", "content": "Tôi, chồng và bé gái 2 tuổi sẽ cùng đến lái thử."},
+        {"role": "user", "content": "Bé không đi nữa, hôm đó chỉ có tôi và chồng."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"booking_signals": [{"key": "additional_guest_count", "value": 1, "subject": "group", "operation": "revise"}, {"key": "additional_guest_context", "subject": "group", "operation": "revise"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "active_booking_signal", "key": "additional_guest_count", "value": 1, "subject": "group"},
+          {"assertion": "active_booking_signal", "key": "additional_guest_context", "subject": "group", "value_contains": ["chồng"]},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["2 người"], "forbidden_terms": ["bé gái", "2 tuổi", "ghế trẻ em"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "booking_signal", "sales_brief", "retraction", "challenge"],
+      "review_status": "TARGETED_SYNTHETIC_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 629}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-SPOUSE-DRIVES-INSTEAD-001",
+      "source_case_ids": ["SEMANTIC-ADDITIONAL-DRIVER"],
+      "turns": [
+        {"role": "user", "content": "Chồng tôi sẽ lái thử thay tôi, tôi chỉ ngồi cùng."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"booking_signals": [{"key": "booker_will_drive", "value": false, "subject": "booker"}, {"key": "custom.additional_driver", "value": {"relationship": "chồng", "will_drive": true}, "subject": "group"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "active_booking_signal", "key": "booker_will_drive", "value": false, "subject": "booker"},
+          {"assertion": "active_booking_signal", "key": "custom.additional_driver", "value": {"relationship": "chồng", "will_drive": true}, "subject": "group"},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["chồng", "lái thử"], "forbidden_terms": ["Nguyen Benchmark sẽ trực tiếp lái thử", "Chồng đi cùng và cũng muốn lái thử"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "booking_signal", "sales_brief", "subject_boundary", "challenge"],
+      "review_status": "TARGETED_SYNTHETIC_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 631}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-PRIMARY-USE-001",
+      "source_case_ids": ["SEMANTIC-PRIMARY-USE-COLLOQUIAL"],
+      "turns": [
+        {"role": "user", "content": "Tôi chủ yếu dùng xe để đưa đón con đi học và đi làm trong nội thành."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"profile_signals": [{"key": "primary_use", "subject": "self"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "active_profile_signal", "key": "primary_use", "value_contains": ["family_use", "urban_commute"]},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["gia đình", "đô thị"], "forbidden_terms": []}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "profile_signal", "sales_brief", "paraphrase"],
+      "review_status": "TARGETED_SYNTHETIC_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 641}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-NEW-DRIVER-CONCERN-001",
+      "source_case_ids": ["OBSERVED-NEW-DRIVER-CONCERN"],
+      "turns": [
+        {"role": "user", "content": "Tôi mới có bằng lái và khá lo khi phải đỗ một chiếc xe lớn."},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"profile_signals": [{"key": "current_vehicle_pain_points", "subject": "self"}, {"key": "test_drive_priority", "subject": "self"}]},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "active_profile_signal", "key": "current_vehicle_pain_points", "value_contains": ["parking"]},
+          {"assertion": "active_profile_signal", "key": "test_drive_priority", "value_contains": ["parking_and_vehicle_size"]},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["mới có bằng", "đỗ"], "forbidden_terms": ["đã có nhiều kinh nghiệm"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "profile_signal", "sales_brief", "concern", "challenge"],
+      "review_status": "USER_OBSERVED_NOT_INDEPENDENTLY_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 643}
+    },
+    {
+      "case_id": "PROFILE-BRIEF-HYPOTHETICAL-NOT-FACT-001",
+      "source_case_ids": ["SEMANTIC-HYPOTHETICAL-GUEST"],
+      "turns": [
+        {"role": "user", "content": "Nếu giả sử có em bé 2 tuổi đi cùng thì cần chuẩn bị gì?"},
+        {"role": "portal", "action": "generate_sales_brief"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "advise",
+        "skill": "post_booking",
+        "tool": "update_post_booking_signals",
+        "arguments": {"profile_signals": [], "booking_signals": []},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["profile_signals", "booking_signals"],
+        "database_assertions": [
+          {"assertion": "no_active_booking_signal", "key": "additional_guest_context", "subject": "group"},
+          {"assertion": "no_active_booking_signal", "key": "additional_guest_count", "subject": "group"},
+          {"assertion": "sales_brief_exists", "minimum_length": 200, "required_terms": ["Chưa có thông tin"], "forbidden_terms": ["2 tuổi đi cùng", "mang ghế trẻ em"]}
+        ],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["post_booking", "negative_capture", "sales_brief", "hypothetical", "challenge"],
+      "review_status": "TARGETED_SYNTHETIC_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "post_booking", "vehicle_model": "VF 9", "participant_role": "booker", "slot_offset_minutes": 647}
+    }
+  ]
+}

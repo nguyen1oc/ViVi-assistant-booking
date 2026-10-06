@@ -1,0 +1,24 @@
+{
+  "rules": [
+    {
+      "allowed": {
+        "origins": [
+          "http://localhost:3000",
+          "http://127.0.0.1:3000",
+          "https://c3-app-053.pages.dev"
+        ],
+        "methods": ["GET", "HEAD"],
+        "headers": ["Range", "If-None-Match", "If-Modified-Since"]
+      },
+      "exposeHeaders": [
+        "Content-Length",
+        "Content-Range",
+        "Content-Type",
+        "ETag",
+        "Accept-Ranges",
+        "Cache-Control"
+      ],
+      "maxAgeSeconds": 3600
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "status": "COMPLETED",
+  "attempt_count": 1,
+  "started_at": "2026-08-24T10:11:20Z",
+  "dataset_sha256": "5683ea861a60de11a4f7ed1ee6d992ef8844580c5ff5e8a7d7d3bce79751a975",
+  "regression_sha256": "e88a3dfca130ab17944a3d1872eda7a24bbb9d52a995cb5416c01669d257eb0c",
+  "application_sha256": "6f2b33648d26db4dac60c93151bac7091660609ac68958c7c759adb3cdacb29a",
+  "git": {
+    "commit": "b6c8e45219e0b90361bde5e6016670e3f8709d52",
+    "dirty": true,
+    "worktree_status_sha256": "03413e6f5733c19037e42e1721457edd07b8a342c8950882c0d7ffb047123ebc"
+  },
+  "policy": {
+    "one_shot": true,
+    "rerun_allowed": false,
+    "replace_failed_cases_allowed": false,
+    "code_tuning_from_holdout_allowed": false
+  },
+  "artifacts": {
+    "dataset": {
+      "path": "eval/holdout/private/hidden_cases.json",
+      "sha256": "5683ea861a60de11a4f7ed1ee6d992ef8844580c5ff5e8a7d7d3bce79751a975"
+    },
+    "predictions": {
+      "path": "eval/holdout/private/frozen-predictions.json",
+      "sha256": "279571aac27021d5fdc68edad9746dd2712b7e4dbd1bd1fc17b06ca3311cdb56"
+    },
+    "evaluation": {
+      "path": "eval/holdout/private/frozen-evaluation.json",
+      "sha256": "30cc76937703d68b4fb5583ee2c62df09375726c57fec1b1891e7c54c4dcd670"
+    }
+  },
+  "completed_at": "2026-08-24T10:16:38Z",
+  "model": "gpt-5.6-luna",
+  "reporting_artifacts": {
+    "refreshed_at": "2026-08-24T10:19:42Z",
+    "public_summary_json": {
+      "path": "eval/results/benchmark-splits.json",
+      "sha256": "dd372ef6e15d67e21dc48d6edb3935e0e49f20b49155b2f4568e1f2f652d1769"
+    },
+    "public_summary_markdown": {
+      "path": "eval/results/benchmark-splits.md",
+      "sha256": "217774ac58b9f57fcae375fd72384b7c438ceb722bce692e5383f82ae6b6eea4"
+    }
+  }
+}

@@ -1,0 +1,954 @@
+/* 12-booking-modals.css — Popup chọn giờ, huỷ, đổi lịch, chọn xe, phiếu lịch
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 6279–6989.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* Lối lùi ở các màn của luồng đổi giờ. Đặt TRÊN dòng nhãn để đọc theo đúng thứ tự
+   "quay lại → đang ở đâu → làm gì". */
+.studio-schedule__back {
+  display: inline-flex;
+  align-items: center;
+  /* Khối cha là lưới nên nút sẽ bị kéo dài hết hàng nếu không tự co lại. */
+  justify-self: start;
+  align-self: start;
+  width: fit-content;
+  gap: 6px;
+  height: 30px;
+  margin-bottom: 12px;
+  padding: 0 12px 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.73rem;
+  font-weight: 650;
+  transition: color 0.2s var(--ease-soft), border-color 0.2s var(--ease-soft),
+    background 0.2s var(--ease-soft);
+}
+
+.studio-schedule__back:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+  background: rgba(23, 26, 32, 0.035);
+}
+
+.studio-schedule__back:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.studio-schedule__heading > span {
+  color: var(--blue);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.studio-schedule__heading h2 {
+  margin: 8px 0 9px;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 560;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.studio-schedule__heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.studio-schedule__grid {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.studio-schedule__grid article {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: center;
+  min-height: 83px;
+  border-bottom: 1px solid var(--line);
+}
+
+.studio-schedule__grid header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 0.75rem;
+}
+
+.studio-schedule__grid article > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.studio-schedule__grid button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink-soft);
+  background: #fafbfa;
+  font-size: 0.71rem;
+  cursor: pointer;
+  transition: color 0.3s var(--ease-soft), background 0.3s var(--ease-soft), transform 0.3s var(--ease-soft);
+}
+
+.studio-schedule__grid button:hover,
+.studio-schedule__grid button.is-active {
+  color: #fff;
+  background: var(--ink);
+  transform: translateY(-2px);
+}
+
+.slot-confirm-modal > div {
+  position: relative;
+  width: min(100%, 560px);
+  padding: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 28px;
+  background: #f8f9f8;
+  box-shadow: inset 0 1px 0 #fff, 0 34px 90px -44px rgba(18, 24, 32, 0.6);
+  animation: studio-panel-in 0.5s var(--ease-heavy) both;
+}
+
+.slot-confirm-modal > div > button {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--ink-soft);
+  background: #eaedeb;
+  cursor: pointer;
+}
+
+.slot-confirm-modal h2 {
+  margin: 0 0 24px;
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  font-weight: 560;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.slot-confirm-modal dl {
+  margin: 0 0 24px;
+  border-top: 1px solid var(--line);
+}
+
+.slot-confirm-modal dl div {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.slot-confirm-modal dt { color: var(--muted); font-size: 0.7rem; }
+.slot-confirm-modal dd { margin: 0; font-size: 0.76rem; font-weight: 650; }
+
+/*
+ * ══ HỘP XÁC NHẬN HUỶ LỊCH — phải vừa trọn một màn, không cuộn ══
+ *
+ * Đo 18/08/2026: nội dung cao 733px trong khi khung tối đa 699px, nên LUÔN phải cuộn; cửa sổ
+ * cao 700px còn thừa tới 208px. Người dùng đang ở bước quyết định huỷ mà phải cuộn mới thấy
+ * hai nút — dễ bấm nhầm hoặc tưởng hộp thoại bị lỗi.
+ *
+ * Cắt chiều cao ở bốn chỗ, không bỏ bớt thông tin nào:
+ *   bảng thông tin xếp 2 cột (7 dòng -> 4 hàng)  ≈ -130px
+ *   tiêu đề bớt cỡ, hộp thoại không cần chữ 3,3rem ≈ -50px
+ *   khối ảnh xe thấp lại                          ≈ -28px
+ *   lề trong và khoảng cách giữa các khối          ≈ -24px
+ * Tất cả đều khoanh trong .cancellation-confirm-modal để KHÔNG đụng tới hộp đổi lịch và hộp
+ * xác nhận khung giờ — hai hộp kia chỉ có 3 dòng nên vốn đã vừa.
+ */
+.cancellation-confirm-modal > div {
+  width: min(100%, 680px);
+  padding: 30px;
+  /* Vẫn giữ trần + overflow làm lưới an toàn cho màn hình rất thấp, nhưng ở cỡ thường
+     nội dung chỉ còn ~500px nên không bao giờ chạm tới. */
+  max-height: min(88vh, 720px);
+  overflow: auto;
+}
+
+.cancellation-confirm-modal h2 {
+  margin: 0 0 16px;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+/* Hai cột — đúng cách phiếu lịch ở màn đặt xong đang trình bày, không phải kiểu mới. */
+.cancellation-confirm-modal dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 26px;
+  margin: 0 0 18px;
+}
+
+.cancellation-confirm-modal dl div {
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+}
+
+/* Cùng loại bảng nhãn/giá trị với phiếu hẹn nên cùng cách chống rớt chữ.
+   `anywhere` cắt giữa từ ngay khi thấy chật; `break-word` chỉ cắt khi một từ dài
+   hơn cả ô. `text-wrap: pretty` lo phần không bỏ lại một chữ lẻ ở hàng cuối. */
+.cancellation-confirm-modal dd {
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+@media (max-width: 620px) {
+  .cancellation-confirm-modal > div { padding: 24px; }
+  .cancellation-confirm-modal dl { grid-template-columns: minmax(0, 1fr); }
+}
+.reschedule-modal > div { width: min(100%, 680px); max-height: min(86vh, 760px); overflow: auto; }
+.reschedule-modal__vehicles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.reschedule-modal__vehicles button,.reschedule-modal__showrooms button,.reschedule-modal__slots button { padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; text-align: left; cursor: pointer; }
+.reschedule-modal__vehicles button:hover,.reschedule-modal__showrooms button:hover,.reschedule-modal__slots button:hover { border-color: var(--blue); }
+.reschedule-modal__vehicles img { width: 100%; height: 70px; object-fit: contain; }.reschedule-modal__vehicles strong,.reschedule-modal__vehicles small,.reschedule-modal__showrooms strong,.reschedule-modal__showrooms small { display:block; }.reschedule-modal__showrooms,.reschedule-modal__slots { display:grid; gap:8px; margin-bottom:20px; }
+.booking-access-action-field > div { display: grid; grid-template-columns: 1fr 42px; gap: 6px; }
+.booking-access-action-field > div button { display: grid; place-items: center; border: 1px solid #d9dee5; border-radius: 8px; color: #4d6074; background: #eef0f2; cursor: pointer; }
+.booking-access-action-field > div button:hover { border-color: var(--blue); color: var(--blue); }
+.reschedule-left-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
+.reschedule-left-grid button { min-height: 76px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; color: var(--ink); background: #fff; text-align: left; cursor: pointer; }
+.reschedule-left-grid button:hover { border-color: var(--blue); color: var(--blue); }.reschedule-left-grid small { display: block; margin-top: 5px; color: var(--muted); }
+.cancellation-confirm-modal__vehicle { display: grid; grid-template-columns: 124px 1fr; align-items: center; gap: 16px; margin: 0 0 14px; padding: 11px 14px; border-radius: var(--radius-md); background: #edf2fa; }
+.cancellation-confirm-modal__image { width: 100%; height: 68px; object-fit: contain; }
+.cancellation-confirm-modal__vehicle strong { display: block; font-size: 1.12rem; }
+.cancellation-confirm-modal__vehicle small { display: block; margin-top: 3px; color: var(--muted); }
+/*
+ * Nút huỷ PHẢI đỏ. Luật cũ thua độ ưu tiên nên nút hiện màu xanh y hệt nút xác nhận thường —
+ * ở bước huỷ lịch mà hai nút cùng màu thì rất dễ bấm nhầm. Luật chung thắng là
+ * `.slot-confirm-modal > div > div:last-child button:first-child` (0,3,3) trong khi luật này chỉ
+ * (0,3,2) và lại đứng TRƯỚC trong file. Thêm `:last-child` cho đủ (0,4,3) để thắng bất kể thứ tự.
+ */
+.cancellation-confirm-modal > div > .slot-confirm-actions:last-child button.cancellation-confirm-modal__submit { color: #fff; background: #c7362e; }
+.cancellation-confirm-modal > div > .slot-confirm-actions:last-child button.cancellation-confirm-modal__submit:hover { background: #a92722; }
+
+.slot-confirm-modal > div > div:last-child,
+.vivi-review-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* NHÓM BA SELECTOR NÀY PHẢI LIỀN NHAU — đừng chèn gì vào giữa.
+   Đây là hình dạng gốc của mọi nút hành động trong luồng đặt lịch: popup chọn giờ, màn xem
+   lại phiếu và form. Có lần chèn nhầm một rule vào giữa nhóm, thế là hai nút trong popup chọn
+   giờ mất sạch bo góc lẫn padding, chỉ còn lại màu nền. */
+.slot-confirm-modal > div > div:last-child button,
+.vivi-review-actions button,
+.vivi-customer-form > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 45px;
+  padding: 0 17px;
+  border-radius: 14px;
+  font-size: 0.72rem;
+  font-weight: 680;
+  cursor: pointer;
+}
+
+/* Hàng nút của form: nút chính + lối lùi, canh GIỮA cho cân với khối bên trên.
+   gap 40px là con số anh Minh chốt. Hai nút đều nền đặc, đứng cạnh nhau mà hở hẹp thì đọc
+   thành một mảng liền — đã thử 10px, 18px, 28px, đều còn dính. Đừng thu lại. */
+.vivi-customer-form__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.vivi-customer-form__actions > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 14px;
+  font-size: 0.74rem;
+  font-weight: 680;
+  cursor: pointer;
+}
+
+/* Nút chính giữ nguyên sắc xanh; lối lùi dùng nền xám nhạt đúng như nút phụ ở màn sau. */
+.vivi-customer-form__actions > button:first-child {
+  color: #fff;
+  background: var(--blue);
+}
+
+.vivi-customer-form__actions > button:last-child:not(:first-child) {
+  color: var(--ink);
+  background: #e7e9e8;
+}
+
+.slot-confirm-modal > div > div:last-child button:first-child,
+.vivi-review-actions button:first-child,
+.vivi-customer-form > button {
+  color: #fff;
+  background: var(--blue);
+}
+
+.slot-confirm-modal > div > div:last-child button:last-child,
+.vivi-review-actions button:last-child {
+  color: var(--ink);
+  background: #e7e9e8;
+}
+
+/* ─── Inline Chat 6-Box OTP Verification ─────────────────────────────────── */
+/* Bộ đếm giữ chỗ.
+ *
+ * Bản trước gán cứng inline: nền cam rgba(239,107,7,.08), chữ #e25c00, số chạy font monospace.
+ * Cả ba đều là màu và chữ "mặc định của thư viện", không có trong hệ thống của web này —
+ * web chỉ có --ink, --blue và --danger, chữ chỉ có Be Vietnam Pro và Geist.
+ *
+ * Cách trình bày: đây là thông tin trấn an ("chỗ của bạn đang được giữ"), KHÔNG phải cảnh báo
+ * lỗi, nên dùng nền giấy trung tính với số đếm màu xanh thương hiệu, thay vì cam báo động.
+ *
+ * width: fit-content — hộp ôm sát chữ rồi tự canh giữa. Bản trước kéo hết bề ngang cột chat
+ * nên còn một mảng trống lớn bên phải, nhìn như thiếu nội dung.
+ */
+.vivi-hold-timer {
+  /* PHẢI là flex (khối), không phải inline-flex: margin auto chỉ canh giữa được hộp dạng
+     khối. Bản trước để inline-flex nên phải nhờ một rule ghi đè ở tổ tiên mới canh giữa
+     được — đặt ở đâu khác là lại lệch trái. */
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  max-width: 100%;
+  /* Canh giữa cột chat. width: fit-content ở trên giữ hộp ôm sát chữ, margin auto đưa nó
+     vào giữa — hai thứ phải đi cùng nhau, thiếu fit-content thì hộp kéo hết bề ngang. */
+  margin: 0 auto 16px;
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-soft);
+  color: var(--ink-soft);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+
+.vivi-hold-timer svg {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+/* tabular-nums thay cho monospace: giữ đúng bộ chữ của web mà các chữ số vẫn cùng bề rộng,
+   nên đồng hồ đếm ngược không bị giật ngang mỗi giây. */
+.vivi-hold-timer strong {
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.vivi-inline-otp {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  /* Canh giữa cùng trục với bộ đếm giữ chỗ ngay phía trên. Không để tràn hết bề ngang:
+     sáu ô số chỉ rộng 378px, kéo khung ra hết cột sẽ thừa hai mảng trống hai bên. */
+  width: 100%;
+  max-width: 430px;
+  margin-inline: auto;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 16px -8px rgba(18, 26, 36, 0.08);
+}
+
+.vivi-inline-otp__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: center;
+}
+
+.vivi-inline-otp__header span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.vivi-inline-otp__header small {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.vivi-inline-otp__boxes {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 378px;
+  margin: 6px auto 2px;
+  width: 100%;
+}
+
+.vivi-inline-otp__box {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 8px;
+  border: 1px solid var(--line-strong);
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s var(--ease-soft), box-shadow 0.2s var(--ease-soft);
+}
+
+/* Dùng --blue của web (#1464f4), không dùng #1677ff của thư viện UI. */
+.vivi-inline-otp__box:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(20, 100, 244, 0.16);
+}
+
+.vivi-inline-otp__resend-wrapper {
+  text-align: center;
+  margin: 2px 0 4px;
+}
+
+.vivi-inline-otp__resend-btn {
+  display: inline;
+  width: auto;
+  border: none;
+  background: transparent;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.vivi-inline-otp__resend-btn:hover:not(:disabled) {
+  color: var(--blue-dark);
+}
+
+.vivi-inline-otp__resend-btn:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+
+.vivi-inline-otp__error {
+  color: var(--danger);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 2px;
+}
+
+.vivi-review-actions button.is-disabled-confirm {
+  background: #dcdfdc !important;
+  color: #838885 !important;
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+.vivi-review-actions button.is-enabled-confirm {
+  background: #0C64E6 !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  box-shadow: 0 6px 18px -4px rgba(12, 100, 230, 0.42) !important;
+}
+
+/* ─── Bảng chọn / đổi mẫu xe trong luồng đặt lịch ─────────────────────────── */
+.vehicle-switcher {
+  position: fixed;
+  inset: 0;
+  z-index: 84;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(19, 23, 29, 0.42);
+  backdrop-filter: blur(16px);
+  animation: studio-fade-in 0.34s var(--ease-soft) both;
+}
+
+.vehicle-switcher__panel {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  width: min(100%, 1060px);
+  max-height: min(88dvh, 880px);
+  padding: 34px 34px 0;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 30px;
+  background: #f8f9f8;
+  box-shadow: inset 0 1px 0 #fff, 0 34px 90px -44px rgba(18, 24, 32, 0.6);
+  animation: studio-panel-in 0.5s var(--ease-heavy) both;
+}
+
+.vehicle-switcher__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--ink-soft);
+  background: #eaedeb;
+  cursor: pointer;
+}
+
+.vehicle-switcher header {
+  max-width: 640px;
+  padding-right: 46px;
+}
+
+.vehicle-switcher header p {
+  margin: 0 0 9px;
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.vehicle-switcher h2 {
+  margin: 0 0 10px;
+  font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+  font-weight: 560;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.vehicle-switcher header small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.55;
+}
+
+.vehicle-switcher__body {
+  margin-top: 22px;
+  padding-bottom: 30px;
+  overflow-y: auto;
+}
+
+.vehicle-switcher__body > section + section {
+  margin-top: 26px;
+}
+
+.vehicle-switcher__group {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 11px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.vehicle-switcher__group strong {
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.vehicle-switcher__group small {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.vehicle-switcher__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.vehicle-switcher__grid button {
+  display: grid;
+  gap: 11px;
+  min-width: 0;
+  padding: 13px 14px 12px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--ink);
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.34s var(--ease-soft), border-color 0.34s var(--ease-soft), box-shadow 0.34s var(--ease-soft);
+}
+
+.vehicle-switcher__grid button:hover {
+  border-color: rgba(20, 100, 244, 0.42);
+  box-shadow: 0 24px 46px -34px rgba(18, 24, 32, 0.62);
+  transform: translateY(-3px);
+}
+
+.vehicle-switcher__grid button:active {
+  transform: scale(0.985);
+}
+
+.vehicle-switcher__grid button.is-active {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 1px var(--blue);
+}
+
+.vehicle-switcher__grid button:hover .vehicle-switcher__shot img {
+  transform: scale(1.04);
+}
+
+.vehicle-switcher__shot {
+  width: 100%;
+  height: 106px;
+}
+
+.vehicle-switcher__meta {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.vehicle-switcher__meta strong {
+  font-size: 1.02rem;
+  font-weight: 640;
+  letter-spacing: -0.03em;
+}
+
+.vehicle-switcher__meta small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.67rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vehicle-switcher__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 660;
+}
+
+.vehicle-switcher__grid button:hover .vehicle-switcher__state {
+  color: var(--blue);
+}
+
+.vehicle-switcher__grid button.is-active .vehicle-switcher__state {
+  color: var(--blue);
+}
+
+/* Thu nhỏ ảnh studio về dạng thumbnail. Cutout phải nằm trực tiếp trên surface
+   của phiếu; nền trắng ở đây từng làm ảnh alpha trông như chưa được tách nền. */
+.vehicle-switcher__shot,
+.studio-ticket__vehicle .vehicle-shot,
+.booking-upsell .vehicle-shot {
+  border-radius: 13px;
+  box-shadow: none;
+}
+
+.vehicle-switcher__shot.vehicle-shot--cutout,
+.studio-ticket__vehicle .vehicle-shot--cutout,
+.booking-upsell .vehicle-shot--cutout {
+  border-radius: 0;
+  background: transparent;
+  filter: drop-shadow(0 14px 12px rgba(22, 27, 35, 0.12));
+}
+
+.vehicle-switcher__shot.vehicle-shot--plate,
+.vehicle-switcher__shot.vehicle-shot--photo,
+.studio-ticket__vehicle .vehicle-shot--plate,
+.studio-ticket__vehicle .vehicle-shot--photo,
+.booking-upsell .vehicle-shot--plate,
+.booking-upsell .vehicle-shot--photo {
+  background: #fff;
+}
+
+.vehicle-switcher__shot.vehicle-shot--photo img,
+.studio-ticket__vehicle .vehicle-shot--photo img,
+.booking-upsell .vehicle-shot--photo img {
+  object-fit: cover;
+}
+
+/*
+ * Form nằm ở hàng `auto` của lưới .vivi-studio, tức là nó lấy bao nhiêu chỗ thì
+ * phần tin nhắn mất bấy nhiêu. Để 47dvh thì riêng form đã ăn gần nửa màn, cộng
+ * đồng hồ giữ chỗ và hàng nút nữa là đoạn hội thoại của người dùng với ViVi bị
+ * bóp còn vài dòng — đúng lúc người ta cần nhìn lại xem vừa chọn xe gì, giờ nào.
+ *
+ * Form vốn đã tự cuộn được nên hạ trần xuống không mất thông tin nào, chỉ là
+ * cuộn trong form nhiều hơn một chút.
+ */
+.vivi-customer-form {
+  max-height: 32dvh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 3px;
+}
+
+.vivi-customer-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* Khối liên hệ riêng của người lái, chỉ hiện ở luồng đặt hộ.
+   Đóng khung nhẹ để tách khỏi thông tin người đặt phía trên — hai đầu mối khác nhau
+   thì phải nhìn ra là hai khối khác nhau. */
+/*
+ * KHÔNG đóng khung fieldset này. Bên trong nó đã có sẵn một `.license-check` — cũng là một
+ * hộp có viền và padding riêng — nên hộp lồng hộp khiến ô "dùng chung liên hệ" to hơn hẳn và
+ * thụt vào so với hai ô "giấy phép lái xe" / "nhận ưu đãi" ngay dưới. Bỏ viền và nền đi thì
+ * cả ba ô tick cùng một kích thước và cùng một mép trái.
+ */
+.vivi-driver-contact {
+  margin: 14px 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.vivi-driver-contact > legend {
+  padding-inline: 2px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Ô tick trong fieldset dùng đúng nhịp lề với hai ô đứng ngoài. */
+.vivi-driver-contact > .license-check {
+  margin-top: 9px;
+  margin-bottom: 0;
+}
+
+.vivi-driver-contact .vivi-customer-form__grid {
+  margin-top: 12px;
+}
+
+.vivi-driver-contact__note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.vivi-customer-form__grid label:only-child {
+  grid-column: 1 / -1;
+}
+
+/*
+ * Ô cuối cùng bị lẻ hàng thì cho trải hết chiều ngang.
+ * Form "đặt cho chính tôi" có 3 ô (Họ tên · Email · Số điện thoại) trong lưới 2 cột, nên
+ * "Số điện thoại" đứng một mình nửa hàng dưới, chừa một khoảng trống bên phải trông rất lệch.
+ * :nth-last-child(1):nth-child(odd) = phần tử cuối VÀ ở vị trí lẻ = đúng trường hợp bị mồ côi.
+ */
+.vivi-customer-form__grid > label:nth-last-child(1):nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.vivi-customer-form__grid label {
+  display: grid;
+  gap: 6px;
+}
+
+.vivi-customer-form__grid label > span {
+  color: var(--ink-soft);
+  font-size: 0.67rem;
+  font-weight: 650;
+}
+
+.vivi-customer-form input:not([type='checkbox']) {
+  width: 100%;
+  /* 43px là chiều cao của ô nhập ở modal toàn màn hình. Trong khung chat nó phải
+     gọn hơn: cả form chỉ được chiếm một phần nhỏ chiều cao, mỗi ô cao thêm 5px là
+     nhân với năm sáu ô thành mất hẳn một đoạn hội thoại. */
+  height: 38px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  outline: 0;
+  color: var(--ink);
+  background: #f5f6f5;
+  font-size: 0.76rem;
+}
+
+.vivi-customer-form input:focus {
+  border-color: rgba(20, 100, 244, 0.55);
+  background: #fff;
+}
+
+.vivi-customer-form__grid label > small,
+.vivi-customer-form__license-error {
+  color: var(--danger);
+  font-size: 0.62rem;
+}
+
+.license-check {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 10px;
+  margin: 9px 0 0;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.license-check:hover > span {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(12, 100, 230, 0.15);
+}
+
+.license-check.has-error { border-color: rgba(164, 58, 63, 0.45); }
+.license-check input { position: absolute; opacity: 0; }
+.license-check > span {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  color: transparent;
+  background: #fff;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+.license-check input:checked + span { color: #fff; border-color: var(--blue); background: var(--blue); }
+.license-check input:focus-visible + span {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(12, 100, 230, 0.25);
+  outline: none;
+}
+.license-check strong { font-size: 0.68rem; font-weight: 520; line-height: 1.45; }
+
+/* Hai ô xác nhận chính được cân như một cụm, không dồn toàn bộ nội dung về mép trái. */
+.vivi-customer-form > .license-check {
+  grid-template-columns: 20px minmax(0, min(100%, 47ch));
+  justify-content: center;
+  padding-inline: clamp(12px, 3vw, 26px);
+}
+
+.vivi-customer-form > .license-check p {
+  margin-inline: 0;
+  text-align: left;
+  text-wrap: pretty;
+}
+
+.vivi-customer-form__license-error { display: block; margin: 0 0 9px 2px; }
+.vivi-customer-form > button { width: 100%; margin-top: 10px; }
+
+.studio-ticket {
+  display: grid;
+  align-content: center;
+  height: 100%;
+  padding: 58px 8% 32px;
+  overflow-y: auto;
+  background: #eef0ef;
+}
+
+.studio-ticket > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 3px 0 12px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+/* Nới cỡ chữ toàn phiếu 18/08/2026: bản cũ chạy ở 0,67–0,72rem, đọc rất mỏi ở đúng bước
+   người dùng cần soi kỹ nhất trước khi bấm đặt. */
+.studio-ticket > header span {
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.studio-ticket > header strong {
+  font-size: 1.34rem;
+  letter-spacing: 0.05em;
+}
+
+.studio-ticket__vehicle {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.studio-ticket__vehicle .smart-image { width: 160px; height: 90px; }
+.studio-ticket__vehicle img { width: 100%; height: 100%; object-fit: contain; }
+.studio-ticket__vehicle > span { display: grid; gap: 4px; }
+.studio-ticket__vehicle strong { font-size: 1.62rem; letter-spacing: -0.04em; }
+.studio-ticket__vehicle small { color: var(--muted); font-size: 0.8rem; }
+.studio-ticket dl { margin: 0; }
+.studio-ticket dl div {
+  display: grid;
+  grid-template-columns: 142px 1fr;
+  gap: 18px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.studio-ticket dt { color: var(--muted); font-size: 0.78rem; }
+.studio-ticket dd { margin: 0; text-align: right; font-size: 0.87rem; font-weight: 650; }
+.studio-ticket > p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 19px 0 0;
+  color: var(--success);
+  font-size: 0.79rem;
+  font-weight: 650;
+}
+
+.studio-ticket__calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 11px 16px;
+  border-radius: 12px;
+  background: var(--blue);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: background 0.25s var(--ease-soft), transform 0.2s var(--ease-soft);
+}
+
+.studio-ticket__calendar-btn:hover {
+  background: #1455c0;
+  color: #ffffff;
+  transform: translateY(-1px);
+}

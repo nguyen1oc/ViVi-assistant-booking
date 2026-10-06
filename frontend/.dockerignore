@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.tmp-build/
+vite.stdout.log
+vite.stderr.log
+*.log
+.git/

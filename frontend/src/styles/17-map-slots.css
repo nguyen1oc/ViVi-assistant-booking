@@ -1,0 +1,499 @@
+/* 17-map-slots.css — Bản đồ showroom và popup xác nhận khung giờ
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 8548–8997.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* Bản đồ theo mô hình quen thuộc: danh sách kết quả ở trái, canvas đường phố ở
+   phải. Dữ liệu/tọa độ vẫn là fixture cho tới khi backend nối Maps SDK. */
+.studio-map--familiar {
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(260px, 0.38fr) minmax(0, 1fr);
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(23, 26, 32, 0.1);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: 0 24px 55px -42px rgba(18, 24, 32, 0.5);
+}
+
+.booking-workspace__content--map {
+  overflow: hidden;
+  padding: 0 18px 18px;
+}
+
+.studio-map--familiar .studio-map__list {
+  display: block;
+  max-height: none;
+  padding-bottom: 12px;
+  overflow-y: auto;
+  border: 0;
+  border-right: 1px solid #d9dce1;
+  background: #fff;
+}
+
+.studio-map--familiar .studio-map__intro {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  min-height: 84px;
+  padding: 16px 20px;
+  background: rgba(255, 255, 255, 0.96);
+  text-align: center;
+  backdrop-filter: blur(12px);
+}
+
+.studio-map--familiar .studio-map__intro > strong {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  font-weight: 650;
+  letter-spacing: -0.018em;
+  line-height: 1.35;
+}
+
+.studio-map--familiar .studio-map__intro .studio-map__available-count {
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
+
+.studio-map--familiar .studio-map__intro small {
+  color: var(--muted);
+  font-size: 0.66rem;
+  line-height: 1.5;
+}
+
+.studio-map--familiar .studio-map__list > button {
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  width: calc(100% - 24px);
+  min-height: 88px;
+  margin: 10px 12px 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: #f8f9f8;
+  transition: border-color 0.24s var(--ease-soft), background 0.24s var(--ease-soft), box-shadow 0.24s var(--ease-soft);
+}
+
+.studio-map--familiar .studio-map__list > button:hover {
+  border-color: var(--line-strong);
+  background: #fff;
+  box-shadow: 0 14px 28px -24px rgba(18, 24, 32, 0.48);
+}
+
+.studio-map--familiar .studio-map__list > button.is-active {
+  border-color: rgba(20, 100, 244, 0.28);
+  background: #f2f6ff;
+  box-shadow: inset 3px 0 0 var(--blue), 0 16px 30px -25px rgba(20, 100, 244, 0.48);
+}
+
+.studio-map--familiar .studio-map__list > button > span.studio-map__rank {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  color: var(--blue-dark);
+  background: rgba(20, 100, 244, 0.1);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.035em;
+}
+
+.studio-map--familiar .studio-map__list strong {
+  font-size: 0.7rem;
+  font-weight: 650;
+}
+
+.studio-map--familiar .studio-map__list small,
+.studio-map--familiar .studio-map__list em {
+  font-size: 0.58rem;
+}
+
+.studio-map--familiar .studio-map__canvas {
+  min-height: 0;
+  background: #e8eaed;
+}
+
+.studio-map--familiar .studio-map__canvas::before,
+.studio-map--familiar .studio-map__canvas::after {
+  display: none;
+}
+
+.studio-map__drawing {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.studio-map__drawing .map-water {
+  fill: #c8e6f5;
+}
+
+.studio-map__drawing .map-park {
+  fill: #d9ead3;
+  stroke: #c7ddc1;
+  stroke-width: 2;
+}
+
+.studio-map__drawing .map-block {
+  fill: #f3f1ec;
+  stroke: #dedbd4;
+  stroke-width: 2;
+}
+
+.studio-map__drawing .map-road {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 17;
+  stroke-linecap: round;
+}
+
+.studio-map__drawing .map-road--major {
+  stroke: #f8df9e;
+  stroke-width: 24;
+}
+
+.studio-map__drawing .map-road--minor {
+  stroke-width: 10;
+}
+
+.studio-map__drawing text {
+  fill: #7b7e84;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 13px;
+}
+
+.studio-map__search {
+  position: absolute;
+  top: 78px;
+  left: 18px;
+  z-index: 6;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px;
+  width: min(380px, calc(100% - 92px));
+  min-height: 54px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  color: #3c4043;
+  background: #fff;
+  box-shadow: 0 2px 7px rgba(60, 64, 67, 0.25);
+}
+
+.studio-map__search span {
+  display: grid;
+  gap: 2px;
+}
+
+.studio-map__search strong {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.studio-map__search small {
+  color: #70757a;
+  font-size: 0.58rem;
+}
+
+.studio-map__filters {
+  position: absolute;
+  top: 142px;
+  left: 18px;
+  z-index: 6;
+  display: flex;
+  gap: 6px;
+}
+
+.studio-map__filters span {
+  padding: 7px 10px;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  color: #3c4043;
+  background: #fff;
+  font-size: 0.57rem;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, 0.14);
+}
+
+.studio-map--familiar .studio-map__canvas > button {
+  z-index: 4;
+  width: 34px;
+  height: 34px;
+  border-radius: 50% 50% 50% 4px;
+  background: #e94235;
+  box-shadow: 0 5px 12px rgba(60, 64, 67, 0.25);
+  transform: translate(-50%, -100%) rotate(-45deg);
+}
+
+.studio-map--familiar .studio-map__canvas > button span {
+  font-size: 0.62rem;
+  font-weight: 700;
+  transform: rotate(45deg);
+}
+
+.studio-map--familiar .studio-map__canvas > button:hover,
+.studio-map--familiar .studio-map__canvas > button.is-active {
+  background: var(--blue);
+  transform: translate(-50%, -100%) rotate(-45deg) scale(1.13);
+}
+
+.studio-map--familiar .studio-map__user {
+  top: 55%;
+  left: 50%;
+  z-index: 4;
+  border: 1px solid rgba(60, 64, 67, 0.12);
+  border-radius: 9px;
+  box-shadow: 0 2px 5px rgba(60, 64, 67, 0.16);
+}
+
+.studio-map__controls {
+  position: absolute;
+  right: 18px;
+  bottom: 92px;
+  z-index: 7;
+  display: grid;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 7px rgba(60, 64, 67, 0.25);
+}
+
+.studio-map__controls button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: #5f6368;
+  background: #fff;
+  cursor: pointer;
+}
+
+.studio-map__controls button svg {
+  display: block !important;
+  position: static !important;
+  width: 17px !important;
+  height: 17px !important;
+  color: #5f6368 !important;
+}
+
+.studio-map__controls button svg path {
+  fill: currentColor !important;
+  stroke: none !important;
+  stroke-width: 0 !important;
+}
+
+.studio-map__controls button + button {
+  border-top: 1px solid #e5e7e9;
+}
+
+.studio-map__preview {
+  position: absolute;
+  right: 70px;
+  bottom: 18px;
+  left: 18px;
+  z-index: 7;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 14px;
+  max-width: 440px;
+  padding: 13px 13px 13px 16px;
+  border-radius: var(--radius-md);
+  background: #fff;
+  box-shadow: 0 3px 12px rgba(60, 64, 67, 0.25);
+}
+
+.studio-map__preview > span {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.studio-map__preview strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.69rem;
+  font-weight: 650;
+}
+
+.studio-map__preview small {
+  color: #70757a;
+  font-size: 0.58rem;
+  line-height: 1.35;
+}
+
+.studio-map__preview-confirm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  height: 38px;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.studio-map__preview-confirm:hover {
+  background: #1452cc;
+}
+
+/* Popup lịch dùng chính ngày/giờ làm dấu hiệu thị giác thay cho icon tổng quát. */
+.slot-confirm-summary {
+  display: inline-grid;
+  gap: 4px;
+  min-width: 150px;
+  margin-bottom: 22px;
+  padding: 12px 15px;
+  border-left: 3px solid var(--blue);
+  border-radius: 4px 14px 14px 4px;
+  color: var(--ink);
+  background: #eef2f8;
+}
+
+.slot-confirm-summary span {
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.slot-confirm-summary strong {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.slot-confirm-actions,
+.vivi-review-actions {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  justify-content: stretch;
+  gap: 12px !important;
+  width: 100%;
+}
+
+.slot-confirm-actions button,
+.vivi-review-actions button {
+  width: 100%;
+}
+
+.license-check {
+  align-items: center;
+  background: #f8f9f8;
+}
+
+.license-check p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.license-check p strong {
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+.vivi-customer-form > button {
+  width: min(100%, 260px);
+  margin: 12px auto 0;
+}
+
+@media (max-width: 1180px) {
+  .studio-map--familiar {
+    grid-template-columns: minmax(220px, 0.36fr) minmax(0, 1fr);
+  }
+
+  .agent-context__rail {
+    overflow-x: auto;
+    overflow-y: hidden;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 7px 4px 10px;
+    scroll-padding-inline: 4px;
+  }
+}
+
+@media (max-width: 980px) {
+  .studio-map--familiar {
+    grid-template: minmax(420px, 58dvh) auto / 1fr;
+  }
+
+  .studio-map--familiar .studio-map__canvas {
+    grid-row: 1;
+  }
+
+  .studio-map--familiar .studio-map__list {
+    grid-row: 2;
+    max-height: 360px;
+    border-top: 1px solid #d9dce1;
+    border-right: 0;
+  }
+
+  .studio-map--familiar .studio-map__intro {
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .booking-workspace__content--map {
+    padding: 0 10px 10px;
+  }
+
+  .studio-map--familiar {
+    border-radius: var(--radius-md);
+  }
+
+  .site-nav {
+    top: 0;
+    min-height: 74px;
+    padding: 8px 10px;
+  }
+
+  .site-nav__inner {
+    min-height: 58px;
+  }
+
+  .brand__mark {
+    width: 27px;
+    height: 24px;
+  }
+
+  .brand__logo {
+    width: 112px;
+    height: 28px;
+  }
+
+  .home-hero,
+  .page--detail .detail-hero {
+    min-height: calc(100dvh - 74px);
+  }
+
+  .vivi-intro__portrait {
+    min-height: 390px;
+  }
+
+  .agent-context__rail {
+    grid-template-columns: repeat(4, 154px);
+  }
+
+  .slot-confirm-actions,
+  .vivi-review-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-map__filters {
+    max-width: calc(100% - 36px);
+    overflow-x: auto;
+  }
+}

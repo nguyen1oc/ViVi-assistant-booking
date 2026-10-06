@@ -1,0 +1,460 @@
+/* 11-booking-upsell.css — Khối upsell 3 mẫu xe và nhóm nút gợi ý của ViVi
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 5822–6278.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* ─── Khối upsell 2 mẫu xe ở đầu khung chat ViVi ─────────────────────────────
+   Thay hàng 4 nút chữ VF 3 / VF 5 / VF 6 / VF 7 trước đây.
+   Hai ràng buộc chi phối toàn bộ số đo dưới đây:
+   1. Khối này nằm ngay trên ô nhập tin nhắn, nên chiều cao phải ở mức của một hàng
+      gợi ý, không phải của một khu bán hàng. Ảnh xe vì thế nằm ngang cạnh phần chữ và
+      cao 52px, thay vì dựng thẻ đứng như lưới xe ở trang chủ.
+   2. Panel chat hẹp nhất là 430px ở bố cục 2 màn, tức mỗi thẻ chỉ còn khoảng 195px.
+      Phần chữ vì thế min-width: 0 và cắt bằng ellipsis, không cho tên hay giá đẩy
+      thẻ rộng ra làm vỡ lưới 2 cột. */
+/*
+ * Khối mời chọn xe. KHÔNG đặt max-width ở đây.
+ *
+ * Khối này và ô nhập tin nhắn là hai con của cùng `.vivi-studio__composer`, nên khi để tự do
+ * chúng ăn chung đúng một lề trái/phải và xếp thẳng cột với nhau. Ngày 18/08/2026 em từng
+ * chặn 560px rồi 720px để bớt khoảng trống trong thẻ lúc chỉ có 2 mẫu — hệ quả là khối hẹp
+ * hơn hẳn ô nhập chat ngay dưới, nhìn thụt vào. Nay đã lên 3 mẫu nên bề ngang tự đầy,
+ * không cần chặn nữa.
+ */
+.booking-upsell {
+  margin-bottom: 11px;
+  padding: 11px 12px 10px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #f7f8f7;
+}
+
+.booking-upsell__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 9px;
+  margin-bottom: 9px;
+}
+
+/* Câu mời chứ không còn là nhãn: bỏ viết hoa toàn bộ và nới cỡ chữ, vì
+   "HÃY CHỌN MẪU XE ƯA THÍCH CỦA BẠN" ở 0,62rem in hoa đọc như một cái tem hệ thống. */
+.booking-upsell__head strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 640;
+  letter-spacing: -0.01em;
+}
+
+.booking-upsell__head small {
+  color: var(--muted);
+  font-size: 0.66rem;
+}
+
+/* Ba cột từ 18/08/2026 (trước là hai). Khối rộng thêm cho ba thẻ vẫn thở được. */
+.booking-upsell__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+@media (max-width: 900px) {
+  .booking-upsell__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.booking-upsell__card {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 8px 9px 8px 7px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  color: var(--ink);
+  /* KHÔNG nền trắng: ảnh xe đã tách nền sẵn nên để nó đứng thẳng trên nền của khối bao
+     ngoài, xe nổi lên tự nhiên thay vì nằm trong một hộp trắng. Nền trắng chỉ hiện khi
+     rê chuột, làm tín hiệu "thẻ này bấm được". */
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease-soft), box-shadow 0.2s var(--ease-soft), transform 0.2s var(--ease-soft);
+}
+
+.booking-upsell__card:hover {
+  border-color: var(--blue);
+  background: var(--surface);
+  box-shadow: 0 10px 22px -18px rgba(20, 28, 37, 0.55);
+  transform: translateY(-1px);
+}
+
+.booking-upsell__card:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.booking-upsell__shot {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 44px;
+}
+
+/* Ảnh trong ô đã chuẩn hoá sẵn (xem media/assets.js → upsellThumb), nên chỉ cần contain là
+   ba chiếc xe tự đứng chung một đường bánh. Không đặt nền, không bo góc, không đổ bóng. */
+.booking-upsell__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+  box-shadow: none;
+}
+
+.booking-upsell__meta {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.booking-upsell__meta strong,
+.booking-upsell__meta small,
+.booking-upsell__meta em {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.booking-upsell__meta strong {
+  font-size: 0.79rem;
+  font-weight: 640;
+  letter-spacing: -0.012em;
+}
+
+.booking-upsell__meta small {
+  color: var(--muted);
+  font-size: 0.63rem;
+}
+
+.booking-upsell__meta em {
+  color: var(--ink-soft);
+  font-size: 0.66rem;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.booking-upsell__go {
+  flex-shrink: 0;
+  color: #b0b5ba;
+}
+
+.booking-upsell__card:hover .booking-upsell__go {
+  color: var(--blue);
+}
+
+/* Đường thoát cho người không thích cả 2 mẫu. Cố tình để dạng chữ nhạt, không viền,
+   để nó không cạnh tranh với 2 thẻ xe phía trên — đây là lối phụ, không phải lời mời. */
+.booking-upsell__browse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 8px;
+  padding: 6px 8px 2px;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s var(--ease-soft);
+}
+
+.booking-upsell__browse:hover {
+  color: var(--blue);
+}
+
+.vivi-capabilities {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+  margin-bottom: 9px;
+  width: 100%;
+}
+
+.vivi-capabilities button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 8px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  background: #fff;
+  font-size: 0.66rem;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-soft);
+}
+
+.vivi-prompt > label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  font-weight: 680;
+}
+
+.vivi-prompt > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 9px 9px 13px;
+  border: 1px solid var(--line-strong);
+  border-radius: 17px;
+  background: #f4f5f4;
+  transition: border-color 0.3s var(--ease-soft), background 0.3s var(--ease-soft);
+}
+
+.vivi-prompt > div:focus-within {
+  border-color: rgba(20, 100, 244, 0.58);
+  background: #fff;
+}
+
+.vivi-prompt[aria-busy="true"] > div {
+  background: #ecefed;
+}
+
+.vivi-prompt textarea {
+  width: 100%;
+  min-height: 43px;
+  max-height: 100px;
+  padding: 4px 0;
+  resize: none;
+  border: 0;
+  outline: 0;
+  color: var(--ink);
+  background: transparent;
+  font-size: 0.79rem;
+  line-height: 1.4;
+}
+
+.vivi-prompt textarea:disabled {
+  color: #74787f;
+  cursor: not-allowed;
+}
+
+.vivi-prompt > div > button {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 13px;
+  color: #fff;
+  background: var(--blue);
+  cursor: pointer;
+}
+
+.vivi-prompt > div > button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.vivi-prompt > small {
+  display: block;
+  margin-top: 6px;
+  color: #92959a;
+  font-size: 0.61rem;
+}
+
+.studio-map {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: 100%;
+  background: #dfe3e1;
+}
+
+.studio-map__canvas {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.78), transparent 32%),
+    linear-gradient(145deg, #dce6e0, #cbd4d0);
+}
+
+.studio-map__canvas::before,
+.studio-map__canvas::after {
+  content: '';
+  position: absolute;
+  border-radius: 40%;
+  background: rgba(164, 188, 173, 0.28);
+  transform: rotate(-18deg);
+}
+
+.studio-map__canvas::before { top: -12%; left: 8%; width: 32%; height: 50%; }
+.studio-map__canvas::after { right: -7%; bottom: -18%; width: 44%; height: 58%; }
+
+.studio-map__canvas svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.studio-map__canvas path {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.9);
+  stroke-width: 15;
+  stroke-linecap: round;
+}
+
+.studio-map__canvas > button {
+  position: absolute;
+  top: var(--marker-y);
+  left: var(--marker-x);
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 15px 15px 15px 4px;
+  color: #fff;
+  background: var(--ink);
+  box-shadow: 0 14px 28px -14px rgba(21, 28, 36, 0.58);
+  cursor: pointer;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  transition: transform 0.35s var(--ease-heavy), background 0.35s var(--ease-heavy);
+}
+
+.studio-map__canvas > button svg,
+.studio-map__canvas > button span {
+  grid-area: 1 / 1;
+  transform: rotate(10deg);
+}
+
+.studio-map__canvas > button span {
+  color: #fff;
+  font-size: 0.64rem;
+  font-weight: 800;
+}
+
+.studio-map__canvas > button svg {
+  opacity: 0;
+}
+
+.studio-map__canvas > button:hover,
+.studio-map__canvas > button.is-active {
+  background: var(--blue);
+  transform: translate(-50%, -50%) rotate(-10deg) scale(1.12);
+}
+
+.studio-map__user {
+  position: absolute;
+  top: 52%;
+  left: 48%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--ink-soft);
+  font-size: 0.65rem;
+  backdrop-filter: blur(10px);
+}
+
+.studio-map__user > span {
+  width: 8px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 5px rgba(20, 100, 244, 0.16);
+}
+
+.studio-map__list {
+  position: relative;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-height: 310px;
+  overflow-y: auto;
+  border-top: 1px solid rgba(23, 26, 32, 0.1);
+  background: #f5f6f5;
+}
+
+.studio-map__intro {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.studio-map__intro span {
+  font-size: 0.77rem;
+  font-weight: 680;
+}
+
+.studio-map__intro small {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+.studio-map__list > button {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  padding: 15px 18px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.studio-map__list > button:hover {
+  background: #fff;
+}
+
+.studio-map__list > button > span:first-child {
+  color: var(--blue);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.studio-map__list > button > span:nth-child(2) {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.studio-map__list strong,
+.studio-map__list small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studio-map__list strong { font-size: 0.73rem; }
+.studio-map__list small { color: var(--muted); font-size: 0.62rem; }
+.studio-map__list em { color: var(--muted); font-size: 0.64rem; font-style: normal; }
+
+.studio-schedule {
+  height: 100%;
+  padding: 94px 30px 30px;
+  overflow-y: auto;
+  background: #f0f2f1;
+}
+
+.studio-schedule__heading {
+  max-width: 700px;
+  margin-bottom: 26px;
+}

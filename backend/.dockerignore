@@ -1,0 +1,14 @@
+.venv/
+tests/
+data/
+logs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_tmp*/
+.ruff_cache/
+.mypy_cache/
+.env
+README.md
+Makefile
+requirements-dev.txt

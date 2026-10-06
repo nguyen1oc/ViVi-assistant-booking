@@ -1,0 +1,39 @@
+# Core
+fastapi>=0.115.0
+uvicorn[standard]>=0.34.0
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+python-dotenv>=1.0.0
+requests==2.27.0
+charset-normalizer>=2.0.0,<3.0.0
+
+# AI / LangChain
+langchain>=0.3.0
+langchain-openai>=0.3.0
+langgraph>=0.2.0
+langgraph-checkpoint-postgres>=2.0.0
+langsmith>=0.1.95
+
+# Database
+psycopg[binary]>=3.2.0
+redis>=5.0.0
+
+# Admin tools
+# streamlit ĐÃ GỠ 17/08/2026: nó kéo theo pandas + pyarrow + pydeck + altair ~250 MB vào .venv,
+# trong khi người dùng duy nhất là backend/admin_app.py — file này không được docker-compose
+# hay script nào gọi tới. Cần chạy lại bảng quản trị thì: pip install streamlit
+
+# Dev tools
+# GHIM CỨNG, đừng nới thành >=.
+# Ruff đổi cách sắp xếp import giữa các bản vá nhỏ: 0.16.0 báo sạch còn 0.16.3 báo I001 trên
+# cùng một file. Để >= thì máy có venv cũ thấy xanh, CI cài bản mới nhất lại đỏ, và người sửa
+# không hiểu vì sao "máy tôi chạy được". Nâng phiên bản thì sửa ở đây, một lần, cho cả nhóm.
+ruff==0.16.3
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
+httpx>=0.28.0
+mypy>=1.10.0
+pytest-cov>=5.0.0
+bandit>=1.7.0
+
+

@@ -1,0 +1,22 @@
+{
+  "name": "p053-internal-portal",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 3100",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3100"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.3.4"
+  }
+}

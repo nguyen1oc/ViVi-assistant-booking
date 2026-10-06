@@ -1,0 +1,412 @@
+{
+  "schema_version": "1.2",
+  "case_count": 24,
+  "description": "Benchmark-only additions for multi-turn context retention, correction, nationwide location search, and lifecycle workflows.",
+  "cases": [
+    {
+      "case_id": "V1X-MT-SEARCH-001",
+      "source_case_ids": ["SRCH-001", "MULTITURN-SEARCH-001"],
+      "turns": [
+        {"role": "user", "content": "Tôi muốn lái thử VF 3."},
+        {"role": "user", "content": "Tại VinFast Quốc Tế Hà Đông nhé."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 3", "showroom_id": "118"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Quốc Tế Hà Đông"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "context_retention"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null
+    },
+    {
+      "case_id": "V1X-MT-SEARCH-002",
+      "source_case_ids": ["SRCH-002", "MULTITURN-SEARCH-001"],
+      "turns": [
+        {"role": "user", "content": "Cho tôi xem lịch ở VinFast Thăng Long Hoài Đức."},
+        {"role": "user", "content": "Tôi chọn VF 5."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 5", "showroom_id": "60285"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Thăng Long Hoài Đức"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "context_retention"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null
+    },
+    {
+      "case_id": "V1X-MT-SEARCH-003",
+      "source_case_ids": ["AVL-001", "MULTITURN-SEARCH-001"],
+      "turns": [
+        {"role": "user", "content": "Tôi muốn lái thử VF 7 ở VinFast Quốc Tế Hà Đông."},
+        {"role": "user", "content": "Tìm ngày {{eval.slot_date}} lúc {{eval.slot_time}}."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 7", "showroom_id": "118", "preferred_date": "{{eval.slot_date}}", "preferred_time": "{{eval.slot_time}}"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Quốc Tế Hà Đông"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "date_time", "context_retention"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "available_slot", "vehicle_model": "VF 7", "showroom_id": "118", "slot_offset_minutes": 3}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-001",
+      "source_case_ids": ["SRCH-001", "SRCH-002"],
+      "turns": [
+        {"role": "user", "content": "Tìm VF 3 ở VinFast Thăng Long Trịnh Văn Bô."},
+        {"role": "user", "content": "Đổi lại: VF 5 ở VinFast Thăng Long Hoài Đức, bỏ lựa chọn trước."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 5", "showroom_id": "60285"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Thăng Long Hoài Đức"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "context_correction", "challenge"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-002",
+      "source_case_ids": ["SRCH-003", "SRCH-004"],
+      "turns": [
+        {"role": "user", "content": "VF 6 ở VinFast Quốc Tế Hà Đông."},
+        {"role": "user", "content": "Không, vẫn VF 6 nhưng chuyển sang VinFast Quốc Tế Vạn Phúc."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 6", "showroom_id": "119"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Quốc Tế Vạn Phúc"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "showroom_correction"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-003",
+      "source_case_ids": ["SRCH-005", "SRCH-006"],
+      "turns": [
+        {"role": "user", "content": "Tôi chọn VF 9 ở VinFast Thăng Long Hoài Đức."},
+        {"role": "user", "content": "Đổi xe thành VF 3, showroom giữ nguyên."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 3", "showroom_id": "60285"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Thăng Long Hoài Đức"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "vehicle_correction"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-004",
+      "source_case_ids": ["SRCH-001", "SRCH-003"],
+      "turns": [
+        {"role": "user", "content": "Tìm VF 3 ở VinFast Quốc Tế Hà Đông."},
+        {"role": "user", "content": "Xe giữ nguyên, đổi showroom sang VinFast Quốc Tế Vạn Phúc."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 3", "showroom_id": "119"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Quốc Tế Vạn Phúc"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "showroom_correction"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null
+    },
+    {
+      "case_id": "V1X-MT-CODESWITCH-001",
+      "source_case_ids": ["SRCH-003"],
+      "turns": [
+        {"role": "user", "content": "I want to test drive VF 6."},
+        {"role": "user", "content": "Ở showroom Quốc Tế Hà Đông, keep đúng showroom này."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 6", "showroom_id": "118"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["Quốc Tế Hà Đông", "VinFast Quốc Tế Hà Đông"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "code_switch", "challenge"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null
+    },
+    {
+      "case_id": "V1X-MT-TYPO-001",
+      "source_case_ids": ["SRCH-001"],
+      "turns": [
+        {"role": "user", "content": "Mình muốn thử vê ép ba."},
+        {"role": "user", "content": "Ở Quốc Tế Hà Đông nha."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 3", "address": "Quốc Tế Hà Đông"},
+        "argument_resolutions": {},
+        "allowed_extra_arguments": ["showroom_id", "showroom_query", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "typo", "challenge"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-001",
+      "source_case_ids": ["AVL-001"],
+      "turns": [
+        {"role": "user", "content": "Ngày {{eval.slot_date}} lúc {{eval.slot_time}} tôi muốn đi lái thử."},
+        {"role": "user", "content": "Xe VF 3 tại VinFast Quốc Tế Hà Đông."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 3", "showroom_id": "118", "preferred_date": "{{eval.slot_date}}", "preferred_time": "{{eval.slot_time}}"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Quốc Tế Hà Đông"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "date_time", "context_retention"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "available_slot", "vehicle_model": "VF 3", "showroom_id": "118", "slot_offset_minutes": 9}
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-002",
+      "source_case_ids": ["AVL-002"],
+      "turns": [
+        {"role": "user", "content": "Tôi chọn VF 6."},
+        {"role": "user", "content": "Ngày {{eval.slot_date}} lúc {{eval.slot_time}}."},
+        {"role": "user", "content": "Chốt tìm tại VinFast Quốc Tế Vạn Phúc."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 6", "showroom_id": "119", "preferred_date": "{{eval.slot_date}}", "preferred_time": "{{eval.slot_time}}"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Quốc Tế Vạn Phúc"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "date_time", "context_retention"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "available_slot", "vehicle_model": "VF 6", "showroom_id": "119", "slot_offset_minutes": 15}
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-003",
+      "source_case_ids": ["AVL-003", "SRCH-001"],
+      "turns": [
+        {"role": "user", "content": "VF 3 ở VinFast Thăng Long Trịnh Văn Bô."},
+        {"role": "user", "content": "Đổi cả hai: VF 7 ở VinFast Quốc Tế Hà Đông."},
+        {"role": "user", "content": "Tìm ngày {{eval.slot_date}} lúc {{eval.slot_time}}."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {
+        "intent": "search_options",
+        "skill": "booking",
+        "tool": "search_test_drive_options",
+        "arguments": {"vehicle_model": "VF 7", "showroom_id": "118", "preferred_date": "{{eval.slot_date}}", "preferred_time": "{{eval.slot_time}}"},
+        "argument_resolutions": {"showroom_id": {"source_field": "showroom_query", "accepted_values": ["VinFast Quốc Tế Hà Đông"]}},
+        "allowed_extra_arguments": ["address", "showroom_limit", "slot_limit"],
+        "database_assertions": [],
+        "response": {"must_contain": [], "forbidden_behaviors": []}
+      },
+      "tags": ["booking", "search", "multi_turn", "context_correction", "date_time", "challenge"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED",
+      "evaluation_status": "active",
+      "known_gap": null,
+      "evaluation_setup": {"kind": "available_slot", "vehicle_model": "VF 7", "showroom_id": "118", "slot_offset_minutes": 21}
+    },
+    {
+      "case_id": "V1X-GEO-001",
+      "source_case_ids": ["SRCH-035"],
+      "turns": [
+        {"role": "user", "content": "Tôi muốn lái thử VF 3."},
+        {"role": "user", "content": "Tìm showroom gần Thành phố Hồ Chí Minh."}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "search_options", "skill": "booking", "tool": "search_test_drive_options", "arguments": {"vehicle_model": "VF 3", "address": "Thành phố Hồ Chí Minh"}, "argument_resolutions": {}, "allowed_extra_arguments": ["showroom_limit", "slot_limit"], "database_assertions": [], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "search", "multi_turn", "nationwide", "location"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null
+    },
+    {
+      "case_id": "V1X-GEO-002",
+      "source_case_ids": ["SRCH-036"],
+      "turns": [{"role": "user", "content": "Tôi chọn VF 5."}, {"role": "user", "content": "Tìm điểm lái thử gần Đà Nẵng."}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "search_options", "skill": "booking", "tool": "search_test_drive_options", "arguments": {"vehicle_model": "VF 5", "address": "Đà Nẵng"}, "argument_resolutions": {}, "allowed_extra_arguments": ["showroom_limit", "slot_limit"], "database_assertions": [], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "search", "multi_turn", "nationwide", "location"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null
+    },
+    {
+      "case_id": "V1X-GEO-003",
+      "source_case_ids": ["SRCH-037"],
+      "turns": [{"role": "user", "content": "Cho tôi thử VF 6."}, {"role": "user", "content": "Tôi đang ở Hải Phòng."}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "search_options", "skill": "booking", "tool": "search_test_drive_options", "arguments": {"vehicle_model": "VF 6", "address": "Hải Phòng"}, "argument_resolutions": {}, "allowed_extra_arguments": ["showroom_limit", "slot_limit"], "database_assertions": [], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "search", "multi_turn", "nationwide", "location"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null
+    },
+    {
+      "case_id": "V1X-GEO-004",
+      "source_case_ids": ["SRCH-038"],
+      "turns": [{"role": "user", "content": "Tôi muốn VF 7."}, {"role": "user", "content": "Tìm showroom quanh Cần Thơ."}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "search_options", "skill": "booking", "tool": "search_test_drive_options", "arguments": {"vehicle_model": "VF 7", "address": "Cần Thơ"}, "argument_resolutions": {}, "allowed_extra_arguments": ["showroom_limit", "slot_limit"], "database_assertions": [], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "search", "multi_turn", "nationwide", "location"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null
+    },
+    {
+      "case_id": "V1X-GEO-005",
+      "source_case_ids": ["SRCH-039"],
+      "turns": [{"role": "user", "content": "Tìm VF 8 để lái thử."}, {"role": "user", "content": "Khu vực Thành phố Huế."}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "search_options", "skill": "booking", "tool": "search_test_drive_options", "arguments": {"vehicle_model": "VF 8", "address": "Thành phố Huế"}, "argument_resolutions": {}, "allowed_extra_arguments": ["showroom_limit", "slot_limit"], "database_assertions": [], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "search", "multi_turn", "nationwide", "location"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null
+    },
+    {
+      "case_id": "V1X-GEO-006",
+      "source_case_ids": ["SRCH-040"],
+      "turns": [{"role": "user", "content": "Tôi chọn VF 9."}, {"role": "user", "content": "Tôi ở Nghệ An, tìm nơi gần nhất."}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "search_options", "skill": "booking", "tool": "search_test_drive_options", "arguments": {"vehicle_model": "VF 9", "address": "Nghệ An"}, "argument_resolutions": {}, "allowed_extra_arguments": ["showroom_limit", "slot_limit"], "database_assertions": [], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "search", "multi_turn", "nationwide", "location"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null
+    },
+    {
+      "case_id": "V1X-GEO-007",
+      "source_case_ids": ["SRCH-041"],
+      "turns": [{"role": "user", "content": "Cho tôi xem VF 3."}, {"role": "user", "content": "Tìm showroom gần Quảng Ninh."}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "search_options", "skill": "booking", "tool": "search_test_drive_options", "arguments": {"vehicle_model": "VF 3", "address": "Quảng Ninh"}, "argument_resolutions": {}, "allowed_extra_arguments": ["showroom_limit", "slot_limit"], "database_assertions": [], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "search", "multi_turn", "nationwide", "location"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null
+    },
+    {
+      "case_id": "V1X-GEO-008",
+      "source_case_ids": ["SRCH-042"],
+      "turns": [{"role": "user", "content": "Tôi muốn thử VF 5."}, {"role": "user", "content": "Tìm tại Khánh Hòa."}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "search_options", "skill": "booking", "tool": "search_test_drive_options", "arguments": {"vehicle_model": "VF 5", "address": "Khánh Hòa"}, "argument_resolutions": {}, "allowed_extra_arguments": ["showroom_limit", "slot_limit"], "database_assertions": [], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "search", "multi_turn", "nationwide", "location"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null
+    },
+    {
+      "case_id": "V1X-FLOW-CONFIRM-001",
+      "source_case_ids": ["HOLD-001", "UPD-001", "CNF-001"],
+      "turns": [
+        {"role": "action", "action": "hold_slot", "payload": {"slot_id": "{{eval.slot_id}}", "ui_action_id": "hold:v1x-confirm-001"}, "content": "Thực hiện thao tác hold_slot"},
+        {"role": "action", "action": "update_draft", "payload": {"booking_id": "{{action.booking_id}}", "booker_patch": {"full_name": "Nguyen Benchmark", "email": "v1x.confirm.001@example.test", "preferred_channel": "email"}, "driver_same_as_booker": true, "has_valid_license_commitment": true, "expected_version": "{{action.version}}"}, "content": "Thực hiện thao tác update_draft"},
+        {"role": "action", "action": "confirm_booking", "payload": {"booking_id": "{{action.booking_id}}", "expected_version": "{{action.version}}", "ui_action_id": "confirm:v1x-confirm-001"}, "content": "Thực hiện thao tác confirm_booking"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "confirm_booking", "skill": "booking", "tool": "confirm_test_drive_booking", "arguments": {"booking_id": "{{action.booking_id}}", "expected_version": "{{action.version}}", "ui_action_id": "confirm:v1x-confirm-001"}, "argument_resolutions": {}, "allowed_extra_arguments": [], "database_assertions": [{"table": "bookings", "status": "confirmed"}, {"table": "test_drive_slots", "status": "booked"}], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "multi_turn", "full_funnel", "confirm"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null,
+      "evaluation_setup": {"kind": "available_slot", "vehicle_model": "VF 5", "slot_offset_minutes": 201}
+    },
+    {
+      "case_id": "V1X-FLOW-CONFIRM-002",
+      "source_case_ids": ["HOLD-002", "UPD-002", "CNF-002"],
+      "turns": [
+        {"role": "action", "action": "hold_slot", "payload": {"slot_id": "{{eval.slot_id}}", "ui_action_id": "hold:v1x-confirm-002"}, "content": "Thực hiện thao tác hold_slot"},
+        {"role": "action", "action": "update_draft", "payload": {"booking_id": "{{action.booking_id}}", "booker_patch": {"full_name": "Tran Benchmark", "email": "v1x.confirm.002@example.test", "preferred_channel": "email"}, "driver_same_as_booker": true, "has_valid_license_commitment": true, "expected_version": "{{action.version}}"}, "content": "Thực hiện thao tác update_draft"},
+        {"role": "action", "action": "confirm_booking", "payload": {"booking_id": "{{action.booking_id}}", "expected_version": "{{action.version}}", "ui_action_id": "confirm:v1x-confirm-002"}, "content": "Thực hiện thao tác confirm_booking"}
+      ],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "confirm_booking", "skill": "booking", "tool": "confirm_test_drive_booking", "arguments": {"booking_id": "{{action.booking_id}}", "expected_version": "{{action.version}}", "ui_action_id": "confirm:v1x-confirm-002"}, "argument_resolutions": {}, "allowed_extra_arguments": [], "database_assertions": [{"table": "bookings", "status": "confirmed"}, {"table": "test_drive_slots", "status": "booked"}], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "multi_turn", "full_funnel", "confirm"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null,
+      "evaluation_setup": {"kind": "available_slot", "vehicle_model": "VF 6", "slot_offset_minutes": 211}
+    },
+    {
+      "case_id": "V1X-FLOW-CANCEL-001",
+      "source_case_ids": ["CAN-001"],
+      "turns": [{"role": "action", "action": "cancel_booking", "payload": {"booking_id": "{{eval.current_booking_id}}", "access_session_token": "{{eval.access_session_token}}", "ui_action_id": "cancel:v1x-001", "reason": "Thay đổi kế hoạch"}, "content": "Thực hiện thao tác cancel_booking"}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "cancel_booking", "skill": "booking", "tool": "cancel_booking", "arguments": {"booking_id": "{{eval.current_booking_id}}", "access_session_token": "{{eval.access_session_token}}", "ui_action_id": "cancel:v1x-001"}, "argument_resolutions": {}, "allowed_extra_arguments": ["reason"], "database_assertions": [{"table": "bookings", "status": "cancelled"}, {"table": "test_drive_slots", "status": "available"}], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "multi_turn", "cancel", "otp"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null,
+      "evaluation_setup": {"kind": "confirmed_booking", "vehicle_model": "VF 5", "slot_offset_minutes": 221}
+    },
+    {
+      "case_id": "V1X-FLOW-RESCHEDULE-001",
+      "source_case_ids": ["RSC-001"],
+      "turns": [{"role": "action", "action": "reschedule_booking", "payload": {"current_booking_id": "{{eval.current_booking_id}}", "new_slot_id": "{{eval.new_slot_id}}", "access_session_token": "{{eval.access_session_token}}", "ui_action_id": "reschedule:v1x-001"}, "content": "Thực hiện thao tác reschedule_booking"}],
+      "ui_context": {"channel": "web", "locale": "vi-VN"},
+      "expected": {"intent": "reschedule_booking", "skill": "booking", "tool": "reschedule_booking", "arguments": {"current_booking_id": "{{eval.current_booking_id}}", "new_slot_id": "{{eval.new_slot_id}}", "access_session_token": "{{eval.access_session_token}}", "ui_action_id": "reschedule:v1x-001"}, "argument_resolutions": {}, "allowed_extra_arguments": [], "database_assertions": [{"table": "bookings", "old_status": "rescheduled"}, {"table": "bookings", "new_status": "confirmed"}, {"table": "test_drive_slots", "status": "booked"}], "response": {"must_contain": [], "forbidden_behaviors": []}},
+      "tags": ["booking", "multi_turn", "reschedule", "otp"],
+      "review_status": "CURATED_CHALLENGE_NOT_HUMAN_REVIEWED", "evaluation_status": "active", "known_gap": null,
+      "evaluation_setup": {"kind": "confirmed_booking_reschedule", "vehicle_model": "VF 6", "slot_offset_minutes": 231}
+    }
+  ]
+}

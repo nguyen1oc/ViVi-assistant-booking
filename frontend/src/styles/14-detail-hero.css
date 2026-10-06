@@ -1,0 +1,498 @@
+/* 14-detail-hero.css — Hero một ảnh và lời mời lái thử theo ngữ cảnh
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 7150–7643.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* Single-image car hero and contextual booking nudge */
+.page--detail .detail-hero {
+  min-height: 100dvh;
+  color: var(--ink);
+  background: #e9ebea;
+}
+
+.page--detail .detail-hero__wash {
+  z-index: 0;
+  background:
+    radial-gradient(circle at 78% 45%, rgba(20, 100, 244, 0.14), transparent 28%),
+    linear-gradient(90deg, #e9ebea 0%, rgba(233, 235, 234, 0.94) 30%, rgba(233, 235, 234, 0.18) 70%, #e9ebea 100%);
+}
+
+.detail-hero__model-word {
+  position: absolute;
+  top: 42%;
+  left: 3%;
+  z-index: 0;
+  color: rgba(23, 26, 32, 0.045);
+  font-size: clamp(8rem, 22vw, 24rem);
+  font-weight: 700;
+  letter-spacing: -0.1em;
+  line-height: 0.7;
+  white-space: nowrap;
+}
+
+.page--detail .detail-back {
+  z-index: 4;
+  color: var(--ink-soft);
+}
+
+.page--detail .detail-hero__copy {
+  z-index: 4;
+  top: auto;
+  bottom: 18%;
+  max-width: 42vw;
+}
+
+.page--detail .detail-hero__copy > p { color: var(--blue); }
+.page--detail .detail-hero h1 { color: var(--ink); }
+.page--detail .detail-hero__copy > span { color: var(--ink-soft); }
+
+.page--detail .detail-hero__car {
+  top: 18%;
+  right: -2%;
+  bottom: 13%;
+  left: 35%;
+  z-index: 3;
+  width: auto;
+  height: auto;
+  border-radius: 28px;
+  overflow: hidden;
+  filter: drop-shadow(0 38px 32px rgba(21, 27, 35, 0.18));
+}
+
+.page--detail .detail-hero__car img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.detail-hero__road {
+  position: absolute;
+  right: -4%;
+  bottom: 15%;
+  left: 31%;
+  z-index: 2;
+  height: 3px;
+  overflow: hidden;
+  background: rgba(23, 26, 32, 0.11);
+}
+
+.detail-hero__road span {
+  display: block;
+  width: 38%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  animation: road-run 1.8s linear infinite;
+}
+
+.page--detail .detail-hero__actions {
+  z-index: 5;
+}
+
+.page--detail .detail-hero__actions > a:last-child {
+  color: var(--ink);
+}
+
+.test-drive-nudge {
+  position: fixed;
+  right: 28px;
+  bottom: 94px;
+  z-index: 38;
+  display: grid;
+  width: min(390px, calc(100vw - 32px));
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 22px;
+  background: rgba(247, 248, 247, 0.94);
+  box-shadow: inset 0 1px 0 #fff, 0 26px 60px -32px rgba(16, 22, 30, 0.52);
+  backdrop-filter: blur(20px);
+  animation: nudge-enter 0.62s var(--ease-heavy) both;
+}
+
+.test-drive-nudge > button {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e7e9e8;
+  cursor: pointer;
+}
+
+.test-drive-nudge > span {
+  padding-right: 28px;
+  color: var(--blue);
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.test-drive-nudge strong {
+  margin-top: 7px;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+}
+
+.test-drive-nudge p {
+  margin: 8px 0 16px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.test-drive-nudge > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  min-height: 42px;
+  padding: 0 15px;
+  border-radius: 13px;
+  color: #fff;
+  background: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 680;
+}
+
+.brand__mark {
+  width: 36px;
+  height: 29px;
+}
+
+@keyframes studio-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes studio-panel-in { from { opacity: 0; transform: translateY(28px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes workspace-enter { from { opacity: 0; transform: translateY(18px) scale(0.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes vehicle-arrive { from { opacity: 0; transform: translateX(-45%) scale(0.94); } to { opacity: 1; transform: translateX(0) scale(1); } }
+@keyframes message-enter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes typing-dot { 0%, 60%, 100% { opacity: 0.35; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+@keyframes road-run { from { transform: translateX(-100%); } to { transform: translateX(360%); } }
+@keyframes nudge-enter { from { opacity: 0; transform: translateY(26px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+@media (max-width: 1180px) {
+  .booking-studio--split {
+    grid-template-columns: minmax(0, 1fr) minmax(390px, 0.9fr);
+  }
+
+  .studio-map__list {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-success-layout {
+    grid-template-columns: minmax(220px, 0.8fr) minmax(300px, 1fr) minmax(420px, 1.5fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .agent-booking-page {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .booking-topbar--studio {
+    grid-template-columns: 1fr auto;
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .booking-topbar--studio > a span,
+  .booking-topbar--studio > div:last-child {
+    display: none;
+  }
+
+  .booking-topbar--studio > a {
+    font-size: 0;
+  }
+
+  .booking-topbar--studio > .brand {
+    justify-self: end;
+  }
+
+  .booking-studio {
+    height: auto;
+  }
+
+  .booking-studio--split {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-studio--agent {
+    min-height: calc(100dvh - 64px);
+    padding: 0;
+  }
+
+  .booking-studio--agent .vivi-studio {
+    border: 0;
+    border-radius: 0;
+  }
+
+  .booking-workspace {
+    min-height: 54dvh;
+  }
+
+  .vivi-studio {
+    min-height: 78dvh;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .studio-vehicle {
+    min-height: 54dvh;
+    padding: 76px 20px 20px;
+  }
+
+  .studio-vehicle__heading strong {
+    font-size: clamp(2.8rem, 12vw, 4.4rem);
+  }
+
+  .studio-vehicle__image {
+    max-height: 28dvh;
+  }
+
+  .studio-map {
+    min-height: 74dvh;
+  }
+
+  .studio-map__canvas {
+    min-height: 390px;
+  }
+
+  .studio-schedule {
+    min-height: 68dvh;
+  }
+
+  .booking-success-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .booking-success-layout > * {
+    min-height: 56dvh;
+  }
+
+  .studio-ticket--compact {
+    min-height: auto;
+  }
+
+  .vivi-studio--success {
+    min-height: 76dvh;
+  }
+
+  .page--detail .detail-hero__copy {
+    max-width: 70vw;
+  }
+
+  .page--detail .detail-hero__car {
+    top: 30%;
+    right: -12%;
+    bottom: 18%;
+    left: 22%;
+  }
+}
+
+@media (max-width: 600px) {
+  .recipient-modal,
+  .slot-confirm-modal,
+  .vehicle-switcher {
+    align-items: end;
+    padding: 10px;
+  }
+
+  .recipient-modal__panel,
+  .slot-confirm-modal > div {
+    padding: 28px 20px 22px;
+    border-radius: 24px;
+  }
+
+  .vehicle-switcher__panel {
+    max-height: 90dvh;
+    padding: 26px 18px 0;
+    border-radius: 24px;
+  }
+
+  .vehicle-switcher header {
+    padding-right: 40px;
+  }
+
+  .vehicle-switcher__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  .vehicle-switcher__grid button {
+    padding: 10px 11px;
+    border-radius: 17px;
+  }
+
+  .vehicle-switcher__shot {
+    height: 74px;
+  }
+
+  .vehicle-switcher__meta strong {
+    font-size: 0.86rem;
+  }
+
+  .studio-vehicle__eyebrow {
+    gap: 8px;
+  }
+
+  .recipient-modal__choices {
+    grid-template-columns: 1fr;
+  }
+
+  .recipient-modal__choices button {
+    min-height: 92px;
+  }
+
+  .workspace-switcher {
+    top: 10px;
+    left: 10px;
+    max-width: calc(100% - 20px);
+    overflow-x: auto;
+  }
+
+  .workspace-switcher button {
+    flex: 0 0 auto;
+  }
+
+  .workspace-switcher button svg {
+    display: none;
+  }
+
+  .studio-vehicle__specs {
+    display: none;
+  }
+
+  .studio-vehicle > a {
+    margin-top: 4px;
+  }
+
+  .vivi-studio {
+    grid-template-rows: 70px minmax(360px, 1fr) auto;
+  }
+
+  .vivi-studio__head {
+    padding: 10px 12px;
+  }
+
+  .vivi-studio__head > button,
+  .vivi-studio__head-actions > button {
+    padding: 8px 9px;
+  }
+
+  .vivi-studio__messages {
+    padding: 18px 13px 24px;
+  }
+
+  .vivi-message {
+    max-width: 94%;
+  }
+
+  .vivi-studio__composer {
+    padding: 11px;
+  }
+
+  .booking-upsell {
+    padding: 10px 10px 9px;
+  }
+
+  /* Điện thoại: xếp 2 thẻ thành 2 hàng. Ép 2 cột ở đây thì phần chữ chỉ còn khoảng
+     80px, tên xe và giá đều bị cắt cụt nên thẻ mất luôn tác dụng chào hàng. */
+  .booking-upsell__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vivi-customer-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .studio-map__list {
+    max-height: none;
+  }
+
+  .studio-map__intro {
+    display: grid;
+  }
+
+  .studio-schedule {
+    padding: 80px 16px 24px;
+  }
+
+  .studio-schedule__grid article {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px 0;
+  }
+
+  .studio-schedule__grid article > div {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .studio-ticket {
+    padding: 78px 16px 24px;
+  }
+
+  .studio-ticket__vehicle {
+    grid-template-columns: 110px 1fr;
+  }
+
+  .studio-ticket__vehicle .smart-image {
+    width: 110px;
+  }
+
+  .slot-confirm-modal > div > div:last-child,
+  .vivi-review-actions {
+    display: grid;
+  }
+
+  .page--detail .detail-hero__copy {
+    bottom: auto;
+    top: 19%;
+    max-width: calc(100% - 32px);
+  }
+
+  .page--detail .detail-hero h1 {
+    font-size: clamp(3.8rem, 20vw, 6.2rem);
+  }
+
+  .page--detail .detail-hero__car {
+    top: 38%;
+    right: -20%;
+    bottom: 16%;
+    left: 6%;
+  }
+
+  .detail-hero__road {
+    right: 0;
+    bottom: 17%;
+    left: 0;
+  }
+
+  .test-drive-nudge {
+    right: 16px;
+    bottom: 82px;
+  }
+
+  .scroll-drive {
+    min-height: 82dvh;
+    padding: 72px 18px 88px;
+  }
+
+  .scroll-drive__copy {
+    align-self: start;
+  }
+
+  .scroll-drive__copy h2 {
+    font-size: clamp(2.8rem, 14vw, 4.2rem);
+  }
+
+  .scroll-drive__car {
+    right: -8%;
+    bottom: 11%;
+    width: 82vw;
+    height: 30vh;
+  }
+}

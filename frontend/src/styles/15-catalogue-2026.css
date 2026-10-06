@@ -1,0 +1,742 @@
+/* 15-catalogue-2026.css — Tinh chỉnh danh mục, media và studio ViVi bản 2026
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 7644–8365.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* 2026 catalogue, media and ViVi studio refinement */
+.site-nav__products {
+  position: relative;
+}
+
+.site-nav__products > button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 0;
+  color: var(--ink-soft);
+  background: transparent;
+  font-size: 0.79rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.site-nav--dark .site-nav__products > button {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.site-nav__products > button svg {
+  transition: transform 0.35s var(--ease-heavy);
+}
+
+.site-nav__products.is-open > button svg {
+  transform: rotate(180deg);
+}
+
+.vehicle-mega {
+  position: absolute;
+  top: calc(100% + 17px);
+  left: 50%;
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  width: min(760px, calc(100vw - 40px));
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 26px;
+  background: rgba(247, 248, 247, 0.97);
+  box-shadow: inset 0 1px 0 #fff, 0 34px 70px -38px rgba(17, 24, 33, 0.58);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -10px) scale(0.97);
+  transform-origin: top center;
+  transition: opacity 0.3s var(--ease-soft), transform 0.4s var(--ease-heavy);
+  backdrop-filter: blur(22px);
+}
+
+.site-nav__products.is-open .vehicle-mega {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.vehicle-mega__intro {
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  min-height: 168px;
+  padding: 24px;
+  border-radius: 19px;
+  color: #fff;
+  background: #1b2027;
+}
+
+.vehicle-mega__intro span {
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.68rem;
+}
+
+.vehicle-mega__intro strong {
+  max-width: 260px;
+  font-size: 1.25rem;
+  font-weight: 520;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+.vehicle-mega__links {
+  display: grid;
+  align-content: stretch;
+}
+
+.site-nav__links .vehicle-mega__links a {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 15px;
+  padding: 19px 18px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.site-nav__links .vehicle-mega__links a:last-child {
+  border-bottom: 0;
+}
+
+.site-nav__links .vehicle-mega__links a::after {
+  display: none;
+}
+
+.vehicle-mega__links a > span {
+  display: grid;
+  gap: 4px;
+}
+
+.vehicle-mega__links a strong {
+  font-size: 0.9rem;
+}
+
+.vehicle-mega__links a small {
+  color: var(--muted);
+  font-size: 0.69rem;
+}
+
+.factory-film {
+  min-height: 100dvh;
+  padding: clamp(78px, 10vw, 150px) 24px;
+  background: #181c21;
+}
+
+.factory-film__media {
+  position: relative;
+  width: min(100%, 1560px);
+  min-height: 76dvh;
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 34px;
+  background: #252a30;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 46px 90px -50px rgba(0, 0, 0, 0.8);
+}
+
+.factory-film video,
+.factory-film__fallback,
+.factory-film__veil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.factory-film video {
+  object-fit: cover;
+}
+
+.factory-film__fallback img,
+.film-video-static img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.factory-film__veil {
+  background:
+    radial-gradient(72% 66% at 0% 100%, rgba(10, 13, 17, 0.78), transparent 72%),
+    linear-gradient(180deg, rgba(14, 17, 21, 0.08), rgba(14, 17, 21, 0.24));
+}
+
+.factory-film__copy {
+  position: absolute;
+  right: auto;
+  bottom: clamp(28px, 4.5vw, 66px);
+  left: clamp(28px, 6vw, 92px);
+  z-index: 2;
+  display: grid;
+  width: min(470px, calc(100% - clamp(56px, 12vw, 184px)));
+  gap: 8px;
+  color: #fff;
+}
+
+.factory-film__copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.factory-film__copy h2 {
+  max-width: 21ch;
+  margin: 0;
+  font-size: clamp(1.35rem, 2.15vw, 2.2rem);
+  font-weight: 520;
+  letter-spacing: -0.038em;
+  line-height: 1.04;
+}
+
+.factory-film__copy span {
+  margin-top: 5px;
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.66rem;
+  white-space: nowrap;
+}
+
+.vivi-intro {
+  padding: clamp(120px, 15vw, 230px) 0;
+  background: #eef0ef;
+}
+
+.vivi-intro__grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.84fr) minmax(0, 1.16fr);
+  align-items: center;
+  gap: clamp(60px, 9vw, 150px);
+}
+
+.vivi-intro__portrait {
+  position: relative;
+  display: grid;
+  min-height: 520px;
+  place-items: center;
+  isolation: isolate;
+}
+
+.vivi-intro__portrait::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  width: 116%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.92) 0%, rgba(229, 236, 241, 0.48) 43%, transparent 72%);
+  pointer-events: none;
+}
+
+.vivi-intro__portrait img {
+  width: min(88%, 620px);
+  height: auto;
+  max-height: 620px;
+  object-fit: contain;
+  filter: drop-shadow(0 26px 26px rgba(24, 38, 60, 0.18));
+  transition: transform 0.8s var(--ease-heavy);
+}
+
+.vivi-intro__portrait:hover img {
+  transform: translateY(-8px) rotate(-2deg) scale(1.025);
+}
+
+.vivi-intro__copy h2 {
+  max-width: 850px;
+  margin: 0;
+  font-size: clamp(3rem, 5.6vw, 6.4rem);
+  font-weight: 520;
+  letter-spacing: -0.07em;
+  line-height: 0.94;
+}
+
+.vivi-intro__copy > p:not(.eyebrow) {
+  max-width: 650px;
+  margin: 30px 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.vivi-intro__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-bottom: 32px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.vivi-intro__steps span {
+  padding: 14px 20px;
+  border-right: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+}
+
+.detail-film {
+  position: relative;
+  min-height: 88dvh;
+  overflow: hidden;
+  color: #fff;
+  background: #171b20;
+}
+
+.detail-film video,
+.detail-film > .film-video-static,
+.detail-film__veil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.detail-film video { object-fit: cover; }
+.detail-film__veil {
+  background:
+    radial-gradient(70% 64% at 0% 100%, rgba(8, 11, 15, 0.82), transparent 74%),
+    linear-gradient(180deg, rgba(10, 13, 17, 0.08), rgba(10, 13, 17, 0.22));
+  pointer-events: none;
+}
+.detail-film__copy {
+  position: absolute;
+  z-index: 2;
+  left: max(32px, calc((100vw - 1440px) / 2 + 32px));
+  bottom: clamp(32px, 5vw, 72px);
+  display: grid;
+  align-content: initial;
+  gap: 8px;
+  width: min(470px, calc(100% - 64px));
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+.detail-film__copy svg { width: 18px; height: 18px; margin-bottom: 4px; }
+.detail-film__copy .eyebrow { margin: 0; font-size: 0.65rem; }
+.detail-film__copy h2 {
+  max-width: 21ch;
+  margin: 0;
+  font-size: clamp(1.45rem, 2.3vw, 2.35rem);
+  font-weight: 520;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+}
+
+.model-film {
+  position: relative;
+  min-height: auto;
+  padding: clamp(90px, 11vw, 170px) 24px;
+  color: #fff;
+  background: #11151a;
+}
+
+.model-film__stage {
+  position: relative;
+  width: min(100%, 1560px);
+  height: min(82dvh, 920px);
+  min-height: 620px;
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 34px;
+  background: #20252b;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.13), 0 48px 100px -56px rgba(0, 0, 0, 0.92);
+}
+
+.model-film__video,
+.model-film__veil {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.model-film__video { object-fit: cover; }
+
+.model-film__video {
+  z-index: 1;
+  transition: opacity 0.45s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.model-film__veil {
+  z-index: 2;
+  background:
+    radial-gradient(68% 62% at 0% 100%, rgba(7, 10, 13, 0.86), transparent 76%),
+    linear-gradient(180deg, rgba(8, 11, 15, 0.18), rgba(7, 10, 13, 0.16));
+  pointer-events: none;
+}
+
+.model-film__copy {
+  position: absolute;
+  right: auto;
+  bottom: clamp(28px, 4.5vw, 66px);
+  left: clamp(28px, 6vw, 92px);
+  z-index: 4;
+  display: grid;
+  width: min(490px, calc(100% - clamp(56px, 12vw, 184px)));
+  gap: 8px;
+}
+
+.model-film__copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.65rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.model-film__copy h2 {
+  max-width: 21ch;
+  margin: 0;
+  font-size: clamp(1.45rem, 2.3vw, 2.35rem);
+  font-weight: 520;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+}
+
+.model-film__copy > span {
+  max-width: 48ch;
+  margin-top: 4px;
+  padding-top: 9px;
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  line-height: 1.52;
+}
+
+.detail-media {
+  padding: clamp(120px, 15vw, 220px) 0;
+  background: #e7e9e8;
+}
+
+.detail-media__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+  align-items: end;
+  gap: 32px;
+  margin-bottom: 64px;
+}
+
+.detail-media__heading .eyebrow { grid-column: 1 / -1; }
+.detail-media__heading h2 { max-width: 1040px; margin: 0; font-size: clamp(3rem, 5.5vw, 6.2rem); font-weight: 520; letter-spacing: -0.068em; line-height: 0.94; }
+.detail-media__heading > p:last-child {
+  margin: 0 0 8px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  max-width: 40ch;
+  color: var(--ink-soft);
+  font-size: clamp(0.95rem, 0.9rem + 0.22vw, 1.08rem);
+  font-weight: 420;
+  letter-spacing: -0.005em;
+  line-height: 1.6;
+}
+
+/*
+ * "Góc nhìn bổ sung" — ảnh của backend.
+ * Trước đây: hàng cao cố định 290px + ô đầu mỗi nhóm 3 chiếm 8/12 cột và 2 hàng, ảnh thì
+ * `object-fit: contain` trong khung trắng có padding → ảnh vuông nằm giữa hộp trắng, và
+ * xuất hiện những mảng trắng lớn khi số ảnh không chia hết.
+ * Nay theo đúng cách VinFast: ảnh rộng bằng cột, CAO TỰ DO, bo góc trên chính tấm ảnh,
+ * không khung, không nền.
+ */
+.detail-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 22px;
+}
+
+.detail-media-grid__item {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+}
+
+/* Ảnh cuối đứng lẻ hàng → trải hết bề ngang. */
+.detail-media-grid__item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.detail-media-grid__item .smart-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  background: none;
+}
+
+.detail-media-grid__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 26px;
+}
+
+
+.detail-media-grid__item:hover img { transform: scale(1.035); }
+.detail-media-grid__item figcaption { position: absolute; right: 14px; bottom: 14px; left: 14px; width: max-content; max-width: calc(100% - 28px); padding: 7px 10px; overflow: hidden; border-radius: 10px; color: var(--ink-soft); background: rgba(255, 255, 255, 0.84); font-size: 0.65rem; text-overflow: ellipsis; white-space: nowrap; backdrop-filter: blur(10px); }
+
+.page--detail .detail-hero__car.is-static-asset {
+  border: 1px solid rgba(255, 255, 255, 0.68);
+  background: #f3f4f3;
+  box-shadow: inset 0 1px 0 #fff, 0 30px 70px -44px rgba(18, 24, 32, 0.58);
+  filter: none;
+}
+
+.page--detail .detail-hero__car.is-static-asset img { object-fit: cover; }
+
+.agent-booking-page {
+  display: grid;
+  grid-template-rows: 68px minmax(0, 1fr);
+  gap: 12px;
+  height: 100dvh;
+  padding: 4px 14px 14px;
+  overflow: hidden;
+  background: #dfe2e0;
+}
+
+.booking-topbar--studio {
+  height: 68px;
+  padding: 0 22px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 22px;
+  background: rgba(248, 249, 248, 0.92);
+  box-shadow: inset 0 1px 0 #fff, 0 20px 42px -34px rgba(20, 28, 37, 0.48);
+}
+
+.booking-studio,
+.booking-success-layout {
+  min-height: 0;
+  height: auto;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 32px;
+  box-shadow: inset 0 1px 0 #fff, 0 34px 75px -50px rgba(19, 27, 35, 0.52);
+}
+
+.booking-studio--split { grid-template-columns: minmax(0, 1.08fr) minmax(430px, 0.92fr); }
+.booking-studio--agent { padding: 0; background: #eaedeb; }
+.booking-studio--agent .vivi-studio { width: min(100%, 850px); margin-inline: auto; border: 0; border-radius: 0; box-shadow: none; }
+
+.vivi-studio,
+.vivi-studio button,
+.vivi-studio input,
+.vivi-studio textarea {
+  font-family: var(--font-display);
+}
+
+.vivi-studio {
+  border-left: 0;
+  background: #fafbfa;
+}
+
+.booking-studio--split .vivi-studio { border-left: 1px solid rgba(23, 26, 32, 0.09); }
+.vivi-studio__head { min-height: 80px; padding: 14px 20px; background: rgba(255, 255, 255, 0.88); }
+.vivi-avatar { overflow: hidden; border: 1px solid rgba(20, 100, 244, 0.16); color: transparent; background: linear-gradient(160deg, #ffffff, #eef2f7); box-shadow: inset 0 1px 0 #fff; }
+.vivi-avatar img { width: 100%; height: 100%; padding: 2px 2px 0; object-fit: contain; object-position: bottom; }
+.vivi-message__avatar { width: 34px; height: 34px; border-radius: 12px; }
+.vivi-studio__avatar { width: 46px; height: 46px; border-radius: 15px; }
+.vivi-studio__head strong { font-size: 0.94rem; font-weight: 650; letter-spacing: -0.015em; }
+.vivi-studio__messages { gap: 19px; padding: 28px 23px 36px; }
+.vivi-message { max-width: 94%; gap: 11px; }
+.vivi-message > div { padding: 4px 2px 14px; border-bottom: 1px solid var(--line); border-radius: 0; color: #343940; background: transparent; }
+.vivi-message--user > div { padding: 12px 15px; border-bottom: 0; border-radius: 17px 6px 17px 17px; color: #fff; background: #20252b; }
+.vivi-message p { font-size: 0.84rem; font-weight: 430; letter-spacing: -0.006em; line-height: 1.62; }
+.vivi-typing { margin-left: 45px; border-radius: 14px; background: #ecefed; }
+.vivi-studio__composer { padding: 14px 18px 17px; background: rgba(255, 255, 255, 0.94); }
+.vivi-prompt > label { font-size: 0.7rem; font-weight: 640; }
+.vivi-prompt > div { min-height: 62px; border-radius: 20px; background: #f2f4f2; }
+.vivi-prompt textarea { font-size: 0.82rem; line-height: 1.5; }
+
+.agent-context {
+  display: grid;
+  gap: 9px;
+  margin-bottom: 12px;
+}
+
+.agent-context__heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: 2px;
+}
+
+.agent-context__heading span { color: var(--ink-soft); font-size: 0.69rem; font-weight: 680; }
+.agent-context__heading small { color: var(--muted); font-size: 0.61rem; }
+.agent-context__rail { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 7px; overflow-x: auto; padding-bottom: 2px; }
+.agent-context__rail button { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 4px 8px; min-width: 0; padding: 11px; border: 1px solid var(--line); border-radius: 17px; color: var(--ink); background: #f7f8f7; text-align: left; cursor: pointer; transition: transform 0.3s var(--ease-heavy), border-color 0.3s var(--ease-soft), background 0.3s var(--ease-soft); }
+.agent-context__rail button:hover { border-color: rgba(20, 100, 244, 0.38); background: #fff; transform: translateY(-2px); }
+.agent-context__rail button:active { transform: scale(0.98); }
+.agent-context__rail button > span { grid-row: span 2; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 9px; color: var(--blue); background: rgba(20, 100, 244, 0.08); }
+.agent-context__rail strong { overflow: hidden; font-size: 0.68rem; text-overflow: ellipsis; white-space: nowrap; }
+.agent-context__rail small { grid-column: 2; overflow: hidden; color: var(--muted); font-size: 0.58rem; text-overflow: ellipsis; white-space: nowrap; }
+.agent-context__rail--slots button { grid-template-columns: auto 1fr; }
+
+/* Post-booking suggestions are conversational replies, not booking commands. */
+.post-booking-follow-ups { display: grid; gap: 7px; margin: 2px 0 13px; }
+.post-booking-follow-ups button { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 9px; width: 100%; padding: 10px 12px; border: 1px solid rgba(20, 100, 244, 0.22); border-radius: 14px; color: var(--ink); background: rgba(20, 100, 244, 0.045); font: inherit; font-size: 0.75rem; line-height: 1.4; text-align: left; cursor: pointer; transition: border-color 0.25s var(--ease-soft), background 0.25s var(--ease-soft), transform 0.25s var(--ease-heavy); }
+.post-booking-follow-ups button > svg { color: var(--blue); }
+.post-booking-follow-ups button:hover:not(:disabled) { border-color: rgba(20, 100, 244, 0.5); background: rgba(20, 100, 244, 0.09); transform: translateY(-1px); }
+.post-booking-follow-ups button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.post-booking-follow-ups button:disabled { cursor: not-allowed; opacity: 0.5; }
+.booking-success-layout {
+  display: grid;
+  grid-template-columns: minmax(420px, 0.84fr) minmax(0, 1.16fr);
+}
+
+.booking-success-documents {
+  display: grid;
+  grid-template-rows: minmax(220px, 0.42fr) minmax(0, 0.58fr);
+  min-width: 0;
+  overflow: hidden;
+  border-right: 1px solid var(--line);
+  background: #eff1f0;
+}
+
+.booking-success-documents .studio-vehicle { grid-template-columns: minmax(180px, 0.7fr) 1fr; grid-template-rows: 1fr; align-items: center; min-height: 0; padding: 26px 32px; }
+.booking-success-documents .studio-vehicle::after { display: none; }
+.booking-success-documents .studio-vehicle__heading { align-self: center; }
+.booking-success-documents .studio-vehicle__heading strong { font-size: clamp(2.2rem, 3vw, 3.6rem); }
+/* Cột trái hẹp: ảnh nằm gọn ở ô thứ hai của lưới, không tràn 110% đè lên tên xe nữa. */
+.booking-success-documents .studio-vehicle__stage { grid-column: 2; grid-row: 1; min-height: 0; padding: 0; }
+.booking-success-documents .studio-vehicle__image { width: 100%; max-height: min(27vh, 240px); }
+.booking-success-documents .studio-vehicle__specs,
+.booking-success-documents .studio-vehicle > a { display: none; }
+.booking-success-documents .studio-ticket { align-content: start; min-height: 0; padding: 24px 32px 28px; border-top: 1px solid var(--line); }
+.booking-success-documents .studio-ticket__vehicle { display: none; }
+.booking-success-documents .studio-ticket dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+.booking-success-documents .studio-ticket dl div { grid-template-columns: 94px 1fr; }
+.vivi-studio--success { grid-template-rows: 80px 1fr; }
+.vivi-success-copy { max-width: 780px; padding: 40px clamp(42px, 8%, 100px) clamp(42px, 8%, 100px); }
+.vivi-success-copy h1 { max-width: 720px; font-size: clamp(calc(3.0rem - 17px), calc(5.9vw - 17px), calc(6.7rem - 17px)); }
+
+@media (max-width: 1180px) {
+  .booking-success-layout { grid-template-columns: minmax(390px, 0.92fr) minmax(0, 1.08fr); }
+  .booking-success-documents .studio-ticket dl { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 980px) {
+  .site-nav__products { display: none; }
+  .factory-film { padding-inline: 18px; }
+  .factory-film__copy { grid-template-columns: 1fr; }
+  .factory-origin__grid { grid-template-columns: 1fr; }
+  .factory-origin__copy,
+  .factory-origin__media { grid-column: auto; }
+  .vivi-intro__grid { grid-template-columns: 1fr; }
+  .vivi-intro__portrait { width: min(100%, 600px); }
+  .detail-overview__heading { grid-template-columns: 1fr; gap: 40px; }
+  .detail-overview__heading .eyebrow { margin-bottom: -12px; }
+  .detail-overview__heading > p:last-child { max-width: 62ch; }
+  .detail-overview__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .detail-overview__facts > div:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .detail-overview__facts > div:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--line); }
+  .detail-overview__facts > div:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  .detail-story.detail-story--structured { padding-block: 0; }
+  .detail-story-group { padding-block: 120px; }
+  .detail-story-group__feature { margin-top: 96px; }
+  .detail-media__heading { grid-template-columns: 1fr; }
+  .detail-story__aside { position: relative; top: auto; }
+  .spec-strip__item:nth-child(odd) { border-left: 0; }
+  .spec-strip__item:nth-child(even) { border-left: 1px solid var(--line); }
+  .spec-strip__item:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  .model-film { min-height: auto; padding-inline: 18px; }
+  .model-film__stage { height: auto; min-height: 78dvh; }
+  .model-film__copy { grid-template-columns: 1fr; }
+  .agent-booking-page { grid-template-rows: 68px auto; height: auto; min-height: 100dvh; padding: 8px; gap: 8px; overflow: visible; }
+  .booking-studio { height: auto; overflow: visible; }
+  .booking-studio--split { grid-template-columns: 1fr; }
+  .booking-success-layout { grid-template-columns: 1fr; overflow-y: auto; }
+  .booking-success-documents { min-height: 780px; border-right: 0; }
+  .vivi-studio--success { min-height: 680px; }
+}
+
+@media (max-width: 720px) {
+  .factory-film { min-height: auto; padding-block: 80px; }
+  .factory-film__media { min-height: 72dvh; border-radius: 24px; }
+  .factory-film__copy { right: auto; bottom: 25px; left: 22px; width: min(390px, calc(100% - 44px)); }
+  .factory-film__copy h2 { font-size: clamp(1.35rem, 6.7vw, 1.9rem); }
+  .factory-film__copy span { display: block; white-space: normal; }
+  .factory-origin { padding-block: 92px; }
+  .factory-origin__grid { gap: 38px; }
+  .factory-origin__copy h2 { font-size: clamp(2.7rem, 12vw, 4.4rem); }
+  .factory-origin__media { padding: 5px; border-radius: 23px; }
+  .factory-origin__media .smart-image { aspect-ratio: 1.2; border-radius: 18px; }
+  .vivi-intro { padding-block: 100px; }
+  .vivi-intro__copy h2 { font-size: clamp(2.8rem, 13vw, 4.6rem); }
+  .vivi-intro__steps { display: grid; }
+  .vivi-intro__steps span { border-right: 0; border-bottom: 1px solid var(--line); }
+  #overview,
+  #colors,
+  #exterior,
+  #interior,
+  #technology,
+  #specifications { scroll-margin-top: 86px; }
+  .detail-overview__intro { padding-top: 82px; }
+  .detail-overview__heading { gap: 32px; }
+  .detail-overview__heading .eyebrow { margin-bottom: -8px; }
+  .detail-overview__heading h2 { font-size: clamp(2.45rem, 12vw, 4rem); }
+  .detail-overview__facts { grid-template-columns: 1fr; margin-top: 58px; }
+  .detail-overview__facts > div,
+  .detail-overview__facts > div:nth-child(odd),
+  .detail-overview__facts > div:nth-child(even) {
+    min-height: 112px;
+    padding: 20px 0;
+    border-left: 0;
+  }
+  .detail-overview__facts > div + div { border-top: 1px solid var(--line); }
+  .detail-overview__anchors {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+  .detail-overview__anchors::-webkit-scrollbar { display: none; }
+  .detail-overview__anchors a,
+  .detail-overview__anchors a:first-child { padding-inline: 18px; border-left: 1px solid var(--line); }
+  .detail-overview__anchors a:first-child { padding-left: 0; border-left: 0; }
+  .detail-overview .car-manifesto { padding: 72px 0 92px; }
+  .page--detail .detail-hero__actions { bottom: 104px; }
+  .page--detail .detail-hero.is-long-name h1 {
+    max-width: 11ch;
+    font-size: clamp(3.2rem, 14vw, 4.8rem);
+    line-height: 0.88;
+  }
+  .page--detail .detail-hero.is-long-name .detail-hero__car { top: 44%; }
+  .test-drive-nudge { bottom: 96px; }
+  .page--detail .site-footer { padding-bottom: 110px; }
+  .detail-story.detail-story--structured { padding-block: 0; }
+  .detail-story-group { padding-block: 92px; }
+  .detail-story-group.is-empty { padding-block: 72px; }
+  .detail-story-group__feature { margin-top: 72px; }
+  .detail-specs__groups,
+  .detail-specs__empty { margin-top: 55px; }
+  .spec-strip__item,
+  .spec-strip__item:nth-child(odd),
+  .spec-strip__item:nth-child(even) { border-left: 0; }
+  .spec-strip__item + .spec-strip__item { border-top: 1px solid var(--line); }
+  .color-explorer__empty { padding-block: 42px; }
+  .detail-state { padding: 112px 18px 64px; }
+  .detail-media-grid { grid-template-columns: minmax(0, 1fr); }
+  .detail-film__copy { left: 22px; bottom: 28px; width: min(390px, calc(100% - 44px)); }
+  .detail-film__copy h2 { font-size: clamp(1.4rem, 7vw, 2rem); }
+  .model-film { padding-block: 72px; }
+  .model-film__stage { min-height: 72dvh; border-radius: 24px; }
+  .model-film__copy { right: auto; bottom: 24px; left: 22px; width: min(400px, calc(100% - 44px)); gap: 7px; }
+  .model-film__copy h2 { font-size: clamp(1.4rem, 7vw, 2rem); }
+  .model-film__copy > span { font-size: 0.7rem; }
+  .booking-topbar--studio { padding-inline: 14px; }
+  .booking-studio,
+  .booking-success-layout { border-radius: 24px; }
+  .agent-context__heading { display: grid; gap: 3px; }
+  .agent-context__rail { grid-template-columns: repeat(4, 150px); }
+  .booking-success-documents { grid-template-rows: 280px auto; min-height: 960px; }
+  .booking-success-documents .studio-vehicle { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); padding: 28px 20px; }
+  .booking-success-documents .studio-vehicle__stage { grid-column: 1; grid-row: 2; }
+  .booking-success-documents .studio-vehicle__image { width: 100%; max-height: 170px; }
+  .booking-success-documents .studio-ticket { padding: 24px 20px; }
+  .vivi-success-copy { padding: 38px 22px 60px; }
+  .vivi-success-copy h1 { font-size: clamp(calc(2.7rem - 17px), calc(13vw - 17px), calc(4.8rem - 17px)); }
+}

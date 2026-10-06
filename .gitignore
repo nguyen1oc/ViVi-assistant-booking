@@ -1,0 +1,97 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.*
+!.env.example
+!.env.production.example
+backend/cloudflare/r2-cors.json
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+# Data (never commit large data)
+data/
+incoming-data/
+backups/
+# Frontend catalogue/CMS fallback modules are application source, not runtime data.
+!frontend/src/data/
+!frontend/src/data/*.js
+*.db
+*.sqlite3
+
+# Logs
+logs/
+*.log
+# Test coverage
+htmlcov/
+.coverage
+coverage.xml
+artifacts/
+eval/human/reviews.csv
+eval/human/reviewers.json
+eval/holdout/private/
+
+# Docker
+docker-compose.override.yml
+
+# Node (frontend)
+node_modules/
+.vite/
+.next/
+out/
+.nuxt/
+
+# Build
+*.pyc
+*.pyo
+
+# AI logs — tracked structure, ignored content
+.ai-log/*.jsonl
+.ai-log/archive/
+
+# Local guides
+SKILLS.md
+setup.md
+summary_code/
+CODEXreview.md
+docs/docs
+
+# Local planning and reference notes
+plans/
+notes/
+.vercel
+deploy_tutorial.md
+eval/datav2/
+gcp-key.json
+service-account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+# Local build artefacts and scratch media (never commit, tmp/ alone is 556 MB)
+tmp/
+.tmp/
+output/
+*.pptx
+experiments

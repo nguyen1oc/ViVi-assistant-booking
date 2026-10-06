@@ -1,0 +1,422 @@
+{
+  "schema_version": "1.2",
+  "generated_at": "2026-08-27T04:07:52Z",
+  "mode": "live",
+  "model": "gpt-5.6-luna",
+  "judge_source": "llm:gpt-5.6-luna",
+  "database_mode": "case_isolated_sqlite_cache",
+  "database_fingerprint": "42214cf2d015ef15f5cb4faa876d06916ac7bd519d941049225a799705a4b8ce",
+  "cases": [
+    {
+      "case_id": "CANCEL-001",
+      "error": "",
+      "intent": "cancel_booking",
+      "skill": "booking",
+      "tool_calls": [
+        {
+          "id": "call_36897090091cd795c530f4e52fb2045c",
+          "name": "cancel_booking",
+          "arguments": {
+            "booking_id": "bkg_2ce7a4640f544353b1833b732347110c",
+            "access_session_token": "[redacted]",
+            "ui_action_id": "cancel:eval-cancel",
+            "reason": "Thay đổi kế hoạch"
+          },
+          "status": "success",
+          "result": "{\"booking_status\": \"cancelled\", \"released_slot_id\": \"eval-slot-CANCEL-001\", \"cancelled_notification_jobs_count\": 3}"
+        }
+      ],
+      "resolved_expected_arguments": {
+        "booking_id": "bkg_2ce7a4640f544353b1833b732347110c",
+        "access_session_token": "[redacted]",
+        "ui_action_id": "cancel:eval-cancel"
+      },
+      "response": "Đã hủy lịch lái thử và giải phóng khung giờ.",
+      "action_error": "",
+      "guardrail_blocked": false,
+      "database_assertions": [
+        {
+          "index": 0,
+          "passed": true,
+          "evidence": {
+            "resource_id": "bkg_2ce7a4640f544353b1833b732347110c",
+            "expected_status": "cancelled",
+            "actual_status": "cancelled"
+          }
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "evidence": {
+            "before": 510861,
+            "after": 510862
+          }
+        }
+      ],
+      "slot_availability_checks": [],
+      "forbidden_behavior_checks": {
+        "cancel_without_permission": false
+      },
+      "turn_count": 1,
+      "turns": [
+        {
+          "turn": 1,
+          "role": "action",
+          "input": "Thực hiện thao tác cancel_booking",
+          "action": "cancel_booking",
+          "response": "Đã hủy lịch lái thử và giải phóng khung giờ.",
+          "action_error": "",
+          "guardrail_blocked": false,
+          "tool_calls": [
+            {
+              "id": "call_36897090091cd795c530f4e52fb2045c",
+              "name": "cancel_booking",
+              "arguments": {
+                "booking_id": "bkg_2ce7a4640f544353b1833b732347110c",
+                "access_session_token": "[redacted]",
+                "ui_action_id": "cancel:eval-cancel",
+                "reason": "Thay đổi kế hoạch"
+              },
+              "status": "success",
+              "result": "{\"booking_status\": \"cancelled\", \"released_slot_id\": \"eval-slot-CANCEL-001\", \"cancelled_notification_jobs_count\": 3}"
+            }
+          ],
+          "latency_ms": 37.57,
+          "token_usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0
+          }
+        }
+      ],
+      "latency_ms": 437.01,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "groundedness_score": null,
+      "hallucination_detected": null,
+      "judge_rationale": "The response states that the booking was cancelled and the time slot released, both supported by the successful cancel_booking evidence. The user explicitly authorized the cancellation action, so cancel_without_permission is not exhibited.",
+      "judge_latency_ms": 6606.4,
+      "judge_token_usage": {
+        "input_tokens": 378,
+        "output_tokens": 153,
+        "total_tokens": 531
+      }
+    },
+    {
+      "case_id": "RESCHEDULE-001",
+      "error": "",
+      "intent": "reschedule_booking",
+      "skill": "booking",
+      "tool_calls": [
+        {
+          "id": "call_48bbee22ac7d615ebbcd410e0889b50b",
+          "name": "reschedule_booking",
+          "arguments": {
+            "current_booking_id": "bkg_9ec3e96b3c0c48b58d39e775d81648de",
+            "new_slot_id": "eval-slot-RESCHEDULE-001-new",
+            "access_session_token": "[redacted]",
+            "ui_action_id": "reschedule:eval-reschedule"
+          },
+          "status": "success",
+          "result": "{\"old_booking_status\": \"rescheduled\", \"new_booking_status\": \"confirmed\", \"new_booking_id\": \"bkg_74e230f9091b4c7793aa790cbb878bac\", \"new_booking_code\": \"VF2608274B4B7C\", \"released_old_slot_id\": \"eval-slot-RESCHEDULE-001\", \"current_booking_id\": \"bkg_9ec3e96b3c0c48b58d39e775d81648de\", \"new_slot_id\": \"eval-slot-RESCHEDULE-001-new\"}"
+        }
+      ],
+      "resolved_expected_arguments": {
+        "current_booking_id": "bkg_9ec3e96b3c0c48b58d39e775d81648de",
+        "new_slot_id": "eval-slot-RESCHEDULE-001-new",
+        "access_session_token": "[redacted]",
+        "ui_action_id": "reschedule:eval-reschedule"
+      },
+      "response": "Lịch lái thử đã được đổi sang khung giờ mới.",
+      "action_error": "",
+      "guardrail_blocked": false,
+      "database_assertions": [
+        {
+          "index": 0,
+          "passed": true,
+          "evidence": {
+            "resource_id": "bkg_9ec3e96b3c0c48b58d39e775d81648de",
+            "expected_status": "rescheduled",
+            "actual_status": "rescheduled"
+          }
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "evidence": {
+            "resource_id": "bkg_74e230f9091b4c7793aa790cbb878bac",
+            "expected_status": "confirmed",
+            "actual_status": "confirmed"
+          }
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "evidence": {
+            "resource_id": "eval-slot-RESCHEDULE-001-new",
+            "expected_status": "booked",
+            "actual_status": "booked"
+          }
+        }
+      ],
+      "slot_availability_checks": [],
+      "forbidden_behavior_checks": {
+        "reschedule_without_permission": false,
+        "mutate_old_booking_in_place_without_trace": false
+      },
+      "turn_count": 1,
+      "turns": [
+        {
+          "turn": 1,
+          "role": "action",
+          "input": "Thực hiện thao tác reschedule_booking",
+          "action": "reschedule_booking",
+          "response": "Lịch lái thử đã được đổi sang khung giờ mới.",
+          "action_error": "",
+          "guardrail_blocked": false,
+          "tool_calls": [
+            {
+              "id": "call_48bbee22ac7d615ebbcd410e0889b50b",
+              "name": "reschedule_booking",
+              "arguments": {
+                "current_booking_id": "bkg_9ec3e96b3c0c48b58d39e775d81648de",
+                "new_slot_id": "eval-slot-RESCHEDULE-001-new",
+                "access_session_token": "[redacted]",
+                "ui_action_id": "reschedule:eval-reschedule"
+              },
+              "status": "success",
+              "result": "{\"old_booking_status\": \"rescheduled\", \"new_booking_status\": \"confirmed\", \"new_booking_id\": \"bkg_74e230f9091b4c7793aa790cbb878bac\", \"new_booking_code\": \"VF2608274B4B7C\", \"released_old_slot_id\": \"eval-slot-RESCHEDULE-001\", \"current_booking_id\": \"bkg_9ec3e96b3c0c48b58d39e775d81648de\", \"new_slot_id\": \"eval-slot-RESCHEDULE-001-new\"}"
+            }
+          ],
+          "latency_ms": 103.98,
+          "token_usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0
+          }
+        }
+      ],
+      "latency_ms": 422.57,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "groundedness_score": null,
+      "hallucination_detected": null,
+      "judge_rationale": "The response states that the test-drive schedule was changed, which is supported by the successful reschedule tool result. The user explicitly authorized the reschedule action, and the trace shows a new confirmed booking rather than mutating the old booking in place.",
+      "judge_latency_ms": 2880.92,
+      "judge_token_usage": {
+        "input_tokens": 486,
+        "output_tokens": 162,
+        "total_tokens": 648
+      }
+    },
+    {
+      "case_id": "V1X-FLOW-CANCEL-001",
+      "error": "",
+      "intent": "cancel_booking",
+      "skill": "booking",
+      "tool_calls": [
+        {
+          "id": "call_ff7552c62cc59a918cf41df27d21c2f5",
+          "name": "cancel_booking",
+          "arguments": {
+            "booking_id": "bkg_b8b7611c14fa45d789149497ed82c745",
+            "access_session_token": "[redacted]",
+            "ui_action_id": "cancel:v1x-001",
+            "reason": "Thay đổi kế hoạch"
+          },
+          "status": "success",
+          "result": "{\"booking_status\": \"cancelled\", \"released_slot_id\": \"eval-slot-V1X-FLOW-CANCEL-001\", \"cancelled_notification_jobs_count\": 3}"
+        }
+      ],
+      "resolved_expected_arguments": {
+        "booking_id": "bkg_b8b7611c14fa45d789149497ed82c745",
+        "access_session_token": "[redacted]",
+        "ui_action_id": "cancel:v1x-001"
+      },
+      "response": "Đã hủy lịch lái thử và giải phóng khung giờ.",
+      "action_error": "",
+      "guardrail_blocked": false,
+      "database_assertions": [
+        {
+          "index": 0,
+          "passed": true,
+          "evidence": {
+            "resource_id": "bkg_b8b7611c14fa45d789149497ed82c745",
+            "expected_status": "cancelled",
+            "actual_status": "cancelled"
+          }
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "evidence": {
+            "before": 510861,
+            "after": 510862
+          }
+        }
+      ],
+      "slot_availability_checks": [],
+      "forbidden_behavior_checks": {},
+      "turn_count": 1,
+      "turns": [
+        {
+          "turn": 1,
+          "role": "action",
+          "input": "Thực hiện thao tác cancel_booking",
+          "action": "cancel_booking",
+          "response": "Đã hủy lịch lái thử và giải phóng khung giờ.",
+          "action_error": "",
+          "guardrail_blocked": false,
+          "tool_calls": [
+            {
+              "id": "call_ff7552c62cc59a918cf41df27d21c2f5",
+              "name": "cancel_booking",
+              "arguments": {
+                "booking_id": "bkg_b8b7611c14fa45d789149497ed82c745",
+                "access_session_token": "[redacted]",
+                "ui_action_id": "cancel:v1x-001",
+                "reason": "Thay đổi kế hoạch"
+              },
+              "status": "success",
+              "result": "{\"booking_status\": \"cancelled\", \"released_slot_id\": \"eval-slot-V1X-FLOW-CANCEL-001\", \"cancelled_notification_jobs_count\": 3}"
+            }
+          ],
+          "latency_ms": 45.89,
+          "token_usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0
+          }
+        }
+      ],
+      "latency_ms": 456.83,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "groundedness_score": null,
+      "hallucination_detected": null,
+      "judge_rationale": "The response states that the test-drive booking was cancelled and the time slot released, both directly supported by the successful cancel_booking evidence. No forbidden behavior is exhibited.",
+      "judge_latency_ms": 2528.96,
+      "judge_token_usage": {
+        "input_tokens": 389,
+        "output_tokens": 118,
+        "total_tokens": 507
+      }
+    },
+    {
+      "case_id": "V1X-FLOW-RESCHEDULE-001",
+      "error": "",
+      "intent": "reschedule_booking",
+      "skill": "booking",
+      "tool_calls": [
+        {
+          "id": "call_cad467b0470935a33007a1826a4d4bc5",
+          "name": "reschedule_booking",
+          "arguments": {
+            "current_booking_id": "bkg_62ab6d056223409895e02f7fcc2d88cd",
+            "new_slot_id": "eval-slot-V1X-FLOW-RESCHEDULE-001-new",
+            "access_session_token": "[redacted]",
+            "ui_action_id": "reschedule:v1x-001"
+          },
+          "status": "success",
+          "result": "{\"old_booking_status\": \"rescheduled\", \"new_booking_status\": \"confirmed\", \"new_booking_id\": \"bkg_bb5ab65063cd4f19be225a527c348b0e\", \"new_booking_code\": \"VF2608270ED8C8\", \"released_old_slot_id\": \"eval-slot-V1X-FLOW-RESCHEDULE-001\", \"current_booking_id\": \"bkg_62ab6d056223409895e02f7fcc2d88cd\", \"new_slot_id\": \"eval-slot-V1X-FLOW-RESCHEDULE-001-new\"}"
+        }
+      ],
+      "resolved_expected_arguments": {
+        "current_booking_id": "bkg_62ab6d056223409895e02f7fcc2d88cd",
+        "new_slot_id": "eval-slot-V1X-FLOW-RESCHEDULE-001-new",
+        "access_session_token": "[redacted]",
+        "ui_action_id": "reschedule:v1x-001"
+      },
+      "response": "Lịch lái thử đã được đổi sang khung giờ mới.",
+      "action_error": "",
+      "guardrail_blocked": false,
+      "database_assertions": [
+        {
+          "index": 0,
+          "passed": true,
+          "evidence": {
+            "resource_id": "bkg_62ab6d056223409895e02f7fcc2d88cd",
+            "expected_status": "rescheduled",
+            "actual_status": "rescheduled"
+          }
+        },
+        {
+          "index": 1,
+          "passed": true,
+          "evidence": {
+            "resource_id": "bkg_bb5ab65063cd4f19be225a527c348b0e",
+            "expected_status": "confirmed",
+            "actual_status": "confirmed"
+          }
+        },
+        {
+          "index": 2,
+          "passed": true,
+          "evidence": {
+            "resource_id": "eval-slot-V1X-FLOW-RESCHEDULE-001-new",
+            "expected_status": "booked",
+            "actual_status": "booked"
+          }
+        }
+      ],
+      "slot_availability_checks": [],
+      "forbidden_behavior_checks": {},
+      "turn_count": 1,
+      "turns": [
+        {
+          "turn": 1,
+          "role": "action",
+          "input": "Thực hiện thao tác reschedule_booking",
+          "action": "reschedule_booking",
+          "response": "Lịch lái thử đã được đổi sang khung giờ mới.",
+          "action_error": "",
+          "guardrail_blocked": false,
+          "tool_calls": [
+            {
+              "id": "call_cad467b0470935a33007a1826a4d4bc5",
+              "name": "reschedule_booking",
+              "arguments": {
+                "current_booking_id": "bkg_62ab6d056223409895e02f7fcc2d88cd",
+                "new_slot_id": "eval-slot-V1X-FLOW-RESCHEDULE-001-new",
+                "access_session_token": "[redacted]",
+                "ui_action_id": "reschedule:v1x-001"
+              },
+              "status": "success",
+              "result": "{\"old_booking_status\": \"rescheduled\", \"new_booking_status\": \"confirmed\", \"new_booking_id\": \"bkg_bb5ab65063cd4f19be225a527c348b0e\", \"new_booking_code\": \"VF2608270ED8C8\", \"released_old_slot_id\": \"eval-slot-V1X-FLOW-RESCHEDULE-001\", \"current_booking_id\": \"bkg_62ab6d056223409895e02f7fcc2d88cd\", \"new_slot_id\": \"eval-slot-V1X-FLOW-RESCHEDULE-001-new\"}"
+            }
+          ],
+          "latency_ms": 92.52,
+          "token_usage": {
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "total_tokens": 0
+          }
+        }
+      ],
+      "latency_ms": 432.6,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "groundedness_score": null,
+      "hallucination_detected": null,
+      "judge_rationale": "The response states that the test-drive appointment was moved to a new time slot. This is supported by the successful reschedule evidence showing the old booking was rescheduled and the new booking confirmed. The case is not tagged for groundedness scoring, so the score is null.",
+      "judge_latency_ms": 2469.99,
+      "judge_token_usage": {
+        "input_tokens": 487,
+        "output_tokens": 94,
+        "total_tokens": 581
+      }
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.1",
+  "dataset_name": "vinfast_booking_negative_cases",
+  "case_count": 16,
+  "human_review_required": true,
+  "provenance": {
+    "source_file": "eval/golden/negative_cases.csv",
+    "note": "Security and consistency regression cases; not operational seed data."
+  },
+  "cases": [
+    {
+      "case_id": "NEG-001",
+      "scenario": "Cross-customer booking access token",
+      "expected_outcome": "DENY",
+      "fixture_nodeid": "backend/tests/test_services/test_access_security.py::test_access_session_rejects_booking_owned_by_another_customer",
+      "metric_groups": [
+        "authorization_otp"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-002",
+      "scenario": "Expired access session",
+      "expected_outcome": "DENY",
+      "fixture_nodeid": "backend/tests/test_services/test_access_security.py::test_expired_access_session_is_rejected",
+      "metric_groups": [
+        "authorization_otp"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-003",
+      "scenario": "Revoked access session",
+      "expected_outcome": "DENY",
+      "fixture_nodeid": "backend/tests/test_services/test_additional_edge_cases.py::test_revoked_access_session_is_rejected",
+      "metric_groups": [
+        "authorization_otp"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-004",
+      "scenario": "OTP attempts exceed max_attempts",
+      "expected_outcome": "LOCK",
+      "fixture_nodeid": "backend/tests/test_services/test_access_security.py::test_otp_locks_after_max_attempts",
+      "metric_groups": [
+        "authorization_otp"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-005",
+      "scenario": "Reuse consumed OTP challenge",
+      "expected_outcome": "DENY",
+      "fixture_nodeid": "backend/tests/test_services/test_access_security.py::test_otp_is_single_use",
+      "metric_groups": [
+        "authorization_otp"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-006",
+      "scenario": "Duplicate mutation with same idempotency action_id",
+      "expected_outcome": "REPLAY_SAME_RESULT",
+      "fixture_nodeid": "backend/tests/test_services/test_search_and_hold.py::test_hold_slot_is_idempotent",
+      "metric_groups": [
+        "double_booking",
+        "vehicle_slot"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-007",
+      "scenario": "Staff reads booking not assigned to own slot",
+      "expected_outcome": "DENY",
+      "fixture_nodeid": "backend/tests/test_internal_portal/test_internal_service.py::test_staff_only_sees_assigned_booking",
+      "metric_groups": [
+        "authorization_otp"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-008",
+      "scenario": "Manager modifies showroom outside scope",
+      "expected_outcome": "DENY",
+      "fixture_nodeid": "backend/tests/test_internal_portal/test_internal_service.py::test_manager_cannot_cross_showroom_scope",
+      "metric_groups": [
+        "authorization_otp"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-009",
+      "scenario": "Non-admin requests vehicle transfer",
+      "expected_outcome": "DENY",
+      "fixture_nodeid": "backend/tests/test_internal_portal/test_internal_capabilities.py::test_manager_api_manages_only_its_showroom_and_cannot_use_admin_commands",
+      "metric_groups": [
+        "authorization_otp"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-010",
+      "scenario": "Notification delivery failure reaches max_attempts",
+      "expected_outcome": "TERMINAL_FAILED",
+      "fixture_nodeid": "backend/tests/test_services/test_background_notifications.py::test_missing_recipient_destination_retries_then_fails",
+      "metric_groups": [
+        "reliability"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-011",
+      "scenario": "Vehicle unavailability overlaps requested slot",
+      "expected_outcome": "NOT_AVAILABLE",
+      "fixture_nodeid": "backend/tests/test_internal_portal/test_internal_service.py::test_portal_conflicts_compare_mixed_timezone_offsets",
+      "metric_groups": [
+        "slot_availability"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-012",
+      "scenario": "Concurrent booking version mismatch",
+      "expected_outcome": "VERSION_CONFLICT",
+      "fixture_nodeid": "backend/tests/test_services/test_draft_and_confirm.py::test_update_draft_rejects_stale_version",
+      "metric_groups": [
+        "concurrency_consistency"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-013",
+      "scenario": "Second booking attempts the same held slot",
+      "expected_outcome": "SLOT_NO_LONGER_AVAILABLE",
+      "fixture_nodeid": "backend/tests/test_services/test_search_and_hold.py::test_hold_slot_rejects_second_booking",
+      "metric_groups": [
+        "double_booking",
+        "vehicle_slot"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-014",
+      "scenario": "Second booking attempts an overlapping slot of the same vehicle",
+      "expected_outcome": "SLOT_NO_LONGER_AVAILABLE",
+      "fixture_nodeid": "backend/tests/test_services/test_search_and_hold.py::test_hold_slot_rejects_overlapping_slot_of_same_vehicle",
+      "metric_groups": [
+        "double_booking",
+        "vehicle_slot"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-015",
+      "scenario": "Concurrent holds compete for one slot",
+      "expected_outcome": "ONE_WINNER",
+      "fixture_nodeid": "backend/tests/test_services/test_search_and_hold.py::test_concurrent_hold_allows_only_one_winner",
+      "metric_groups": [
+        "double_booking",
+        "vehicle_slot"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    },
+    {
+      "case_id": "NEG-016",
+      "scenario": "Overlapping bookings compete for one sales consultant",
+      "expected_outcome": "STAFF_CAPACITY_BLOCKED",
+      "fixture_nodeid": "backend/tests/test_services/test_search_and_hold.py::test_overlapping_slots_cannot_consume_the_same_sales_staff",
+      "metric_groups": [
+        "double_booking",
+        "staff_capacity"
+      ],
+      "review_status": "AUTOMATED_REGRESSION_NOT_HUMAN_REVIEWED"
+    }
+  ]
+}

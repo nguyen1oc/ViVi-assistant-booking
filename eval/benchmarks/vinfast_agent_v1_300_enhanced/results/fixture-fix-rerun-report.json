@@ -1,0 +1,1649 @@
+{
+  "schema_version": "1.2",
+  "generated_at": "2026-08-27T04:07:52Z",
+  "dataset": {
+    "name": "vinfast_booking_agent_golden_v1_300_enhanced",
+    "version": "5.2-postgres-enriched-baseline+benchmark-v1x",
+    "sha256": "4a27a5fba39c1e351ef371e4141d4f27a88a184064e00b3ce575c3f35ab8f1b9",
+    "total_cases": 81,
+    "active_cases": 81,
+    "challenge_cases": 16,
+    "known_gap_cases": 0,
+    "scope_coverage_rate": 1.0
+  },
+  "run": {
+    "status": "PARTIAL",
+    "status_counts": {
+      "not_run": 77,
+      "passed": 4
+    },
+    "attempted_active_cases": 4,
+    "scored_active_cases": 4,
+    "mode": "live",
+    "model": "gpt-5.6-luna",
+    "judge_source": "llm:gpt-5.6-luna"
+  },
+  "quality": {
+    "task_success_rate": 1.0,
+    "task_success_scored_cases": 4,
+    "task_success_confidence_interval_95": {
+      "lower": 0.5101,
+      "upper": 1.0
+    },
+    "regression_task_success_rate": 1.0,
+    "regression_task_success_scored_cases": 4,
+    "challenge_task_success_rate": null,
+    "challenge_task_success_scored_cases": 0,
+    "intent_accuracy": 1.0,
+    "intent_scored_cases": 4,
+    "skill_accuracy": 1.0,
+    "skill_scored_cases": 4,
+    "tool_accuracy": 1.0,
+    "tool_scored_cases": 4,
+    "action_error_accuracy": 1.0,
+    "action_error_scored_cases": 4,
+    "intent_macro_f1": 1.0,
+    "argument_exact_match_rate": 1.0,
+    "argument_required_match_rate": 1.0,
+    "argument_mean_field_f1": 1.0,
+    "argument_scored_cases": 4,
+    "response_requirement_pass_rate": 1.0,
+    "response_scored_cases": 4,
+    "database_assertion_pass_rate": 1.0,
+    "database_scored_cases": 4,
+    "clean_execution_rate": 1.0,
+    "clean_execution_scored_cases": 4,
+    "first_tool_outcome_accuracy": 1.0,
+    "first_tool_outcome_scored_cases": 4,
+    "tool_retry_case_rate": 0.0,
+    "tool_retry_scored_cases": 4,
+    "unexpected_tool_error_case_rate": 0.0,
+    "unexpected_tool_error_scored_cases": 4,
+    "forbidden_behavior_violation_rate": 0.0,
+    "forbidden_behavior_scored_cases": 2,
+    "mean_groundedness": null,
+    "groundedness_scored_cases": 0,
+    "hallucination_rate": null,
+    "hallucination_scored_cases": 0
+  },
+  "performance": {
+    "latency_p50_ms": 434.81,
+    "latency_p95_ms": 453.86,
+    "latency_p99_ms": 456.24,
+    "latency_scored_cases": 4,
+    "turn_count_median": 1.0,
+    "turn_count_p95": 1.0,
+    "error_rate": 0.0
+  },
+  "usage": {
+    "status": "COMPLETE",
+    "scored_cases": 4,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "total_tokens": 0,
+    "judge_scored_cases": 4,
+    "judge_input_tokens": 1740,
+    "judge_output_tokens": 527,
+    "judge_total_tokens": 2267,
+    "estimated_cost": null,
+    "cost_currency": null,
+    "input_cost_per_million": null,
+    "output_cost_per_million": null,
+    "estimated_cost_per_case": null,
+    "estimated_cost_per_success": null,
+    "note": "Cost is null until explicit provider/model rates are supplied; rates are never hard-coded."
+  },
+  "business_metrics": {
+    "booking_task_success": {
+      "status": "PARTIAL",
+      "rate": 1.0,
+      "successful_cases": 4,
+      "scored_cases": 4,
+      "confidence_interval_95": {
+        "lower": 0.5101,
+        "upper": 1.0
+      },
+      "scope": "All active booking-agent tasks; this is not a production conversion funnel.",
+      "confirmed_booking_completion": {
+        "rate": null,
+        "completed_bookings": 0,
+        "positive_confirmation_attempts": 0,
+        "status": "NOT_RUN"
+      }
+    },
+    "intent_accuracy": {
+      "status": "PARTIAL",
+      "rate": 1.0,
+      "scored_cases": 4
+    },
+    "tool_selection_accuracy": {
+      "status": "PARTIAL",
+      "rate": 1.0,
+      "scored_cases": 4
+    },
+    "argument_accuracy": {
+      "status": "PARTIAL",
+      "required_match_rate": 1.0,
+      "exact_match_rate": 1.0,
+      "mean_field_f1": 1.0,
+      "scored_cases": 4
+    },
+    "slot_availability_accuracy": {
+      "status": "NOT_RUN",
+      "rate": null,
+      "available_slots": 0,
+      "checked_slots": 0,
+      "scored_cases": 0,
+      "expected_cases": 10,
+      "method": "Each offered slot is checked against isolated DB state and bookability rules."
+    },
+    "double_booking_rate": {
+      "status": "NOT_RUN",
+      "vehicle_slot_violation_rate": null,
+      "vehicle_slot_scored_cases": 0,
+      "vehicle_slot_total_cases": 4,
+      "staff_capacity_violation_rate": null,
+      "staff_capacity_scored_cases": 0,
+      "staff_capacity_total_cases": 1,
+      "reason": "Vehicle/slot conflicts and sales-staff capacity are measured by executable fixtures."
+    },
+    "hallucination_constraint_violation_rate": {
+      "status": "COMPLETE",
+      "rate": 0.0,
+      "violations": 0,
+      "evidence_checks": 2,
+      "hallucination_rate": null,
+      "hallucination_scored_cases": 0,
+      "forbidden_behavior_rate": 0.0,
+      "forbidden_behavior_scored_cases": 2
+    },
+    "authorization_otp_violation_rate": {
+      "status": "NOT_RUN",
+      "rate": null,
+      "violations": 0,
+      "scored_cases": 0,
+      "total_cases": 8
+    },
+    "p95_end_to_end_latency": {
+      "status": "COMPLETE",
+      "latency_ms": 453.86,
+      "scored_cases": 4
+    },
+    "cost_per_completed_booking": {
+      "status": "NOT_RUN",
+      "currency": null,
+      "cost": null,
+      "tokens_per_completed_booking": null,
+      "completed_bookings": 0,
+      "positive_confirmation_attempts": 0,
+      "usage_scored_cases": 0,
+      "input_tokens": null,
+      "output_tokens": null,
+      "total_tokens": null,
+      "input_cost_per_million": null,
+      "output_cost_per_million": null,
+      "reason": "Exact input/output prices for the evaluated model and provider were not supplied."
+    }
+  },
+  "negative_security": {
+    "total_cases": 16,
+    "scored_cases": 0,
+    "accuracy": null,
+    "violation_rate": null,
+    "failed_case_ids": [],
+    "status": "NOT_RUN",
+    "groups": {
+      "authorization_otp": {
+        "total_cases": 8,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "concurrency_consistency": {
+        "total_cases": 1,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "double_booking": {
+        "total_cases": 5,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "reliability": {
+        "total_cases": 1,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "slot_availability": {
+        "total_cases": 1,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "staff_capacity": {
+        "total_cases": 1,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      },
+      "vehicle_slot": {
+        "total_cases": 4,
+        "scored_cases": 0,
+        "accuracy": null,
+        "violation_rate": null,
+        "failed_case_ids": [],
+        "status": "NOT_RUN"
+      }
+    }
+  },
+  "human": {
+    "status": "NOT_RUN",
+    "review_count": 0,
+    "unique_reviewers": 0,
+    "case_coverage": null,
+    "task_success_rate": null,
+    "mean_correctness_1_5": null,
+    "mean_relevance_1_5": null,
+    "mean_groundedness_1_5": null,
+    "mean_safety_1_5": null,
+    "mean_satisfaction_1_5": null,
+    "csat_4_or_5_rate": null,
+    "task_success_inter_rater_agreement": null
+  },
+  "coverage": {
+    "status": "NOT_RUN",
+    "line_coverage_percent": null
+  },
+  "cases": [
+    {
+      "case_id": "SEARCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFLICT-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "conflict"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD_EXPIRED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold_expired"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "OTP_BAD-001",
+      "evaluation_status": "active",
+      "tags": [
+        "otp",
+        "security"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "OTP_EXPIRED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "otp",
+        "expired"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CANCEL-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "cancel",
+        "otp"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 3,
+          "matched_field_names": [
+            "booking_id",
+            "access_session_token",
+            "ui_action_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 3,
+          "actual_fields": 4,
+          "scored_actual_fields": 3,
+          "allowed_extra_field_names": [
+            "reason"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 1,
+          "must_contain_total": 1,
+          "forbidden_behavior_pass": true,
+          "forbidden_behavior_graded": 1,
+          "forbidden_behavior_total": 1,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": true,
+          "passed": 2,
+          "total": 2,
+          "graded": 2
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 1,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "cancel_booking",
+        "skill": "booking",
+        "tools": [
+          "cancel_booking"
+        ],
+        "successful_tools": [
+          "cancel_booking"
+        ],
+        "response": "Đã hủy lịch lái thử và giải phóng khung giờ.",
+        "action_error": ""
+      },
+      "latency_ms": 437.01,
+      "turn_count": 1,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {
+        "input_tokens": 378,
+        "output_tokens": 153,
+        "total_tokens": 531
+      }
+    },
+    {
+      "case_id": "RESCHEDULE-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "reschedule",
+        "otp"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 4,
+          "matched_field_names": [
+            "current_booking_id",
+            "new_slot_id",
+            "access_session_token",
+            "ui_action_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 4,
+          "actual_fields": 4,
+          "scored_actual_fields": 4,
+          "allowed_extra_field_names": [],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": true,
+          "forbidden_behavior_graded": 2,
+          "forbidden_behavior_total": 2,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": true,
+          "passed": 3,
+          "total": 3,
+          "graded": 3
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 1,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "reschedule_booking",
+        "skill": "booking",
+        "tools": [
+          "reschedule_booking"
+        ],
+        "successful_tools": [
+          "reschedule_booking"
+        ],
+        "response": "Lịch lái thử đã được đổi sang khung giờ mới.",
+        "action_error": ""
+      },
+      "latency_ms": 422.57,
+      "turn_count": 1,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {
+        "input_tokens": 486,
+        "output_tokens": 162,
+        "total_tokens": 648
+      }
+    },
+    {
+      "case_id": "INJECTION-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "prompt_injection"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "PII-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "pii"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-005",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-005",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-006",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-006",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-007",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-007",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-008",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-008",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-009",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-009",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "SEARCH-010",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "location",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HOLD-010",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "hold"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "MODEL-NOT-IN-SHOWROOM-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "vehicle_coverage",
+        "alternate_showroom"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "MODEL-UNSUPPORTED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "catalogue",
+        "ineligible"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "STAFF-CAPACITY-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "staff_capacity",
+        "availability"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "BOOK-FOR-OTHER-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "booker_driver",
+        "other_person"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "MULTITURN-SEARCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_retention"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "ACCESS-REQUEST-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "access",
+        "otp"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "ACCESS-DETAILS-MULTITURN-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "access",
+        "otp",
+        "multi_turn",
+        "groundedness"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-INJECTION-MIXED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "prompt_injection",
+        "mixed_intent",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-INJECTION-ROLE-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "role_injection",
+        "mixed_intent",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-INJECTION-ENCODED-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "encoded_injection",
+        "secret_exfiltration",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-PII-AUTHORITY-001",
+      "evaluation_status": "active",
+      "tags": [
+        "security",
+        "pii",
+        "social_engineering",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-BENIGN-QUOTE-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "benign_near_miss",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-BENIGN-NEGATION-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "benign_near_miss",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SEARCH-TYPO-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "typo",
+        "colloquial",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SEARCH-CORRECTION-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "self_correction",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SEARCH-DATETIME-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "date_time",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SEARCH-CODE-SWITCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "code_switch",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-MULTITURN-CORRECTION-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_correction",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "HARD-SHOWROOM-NOTFOUND-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "unknown_showroom",
+        "groundedness",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-005",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-006",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-007",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-008",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-009",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "CONFIRM-E2E-010",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "confirm",
+        "positive_funnel"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-SEARCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_retention"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-SEARCH-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_retention"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-SEARCH-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "date_time",
+        "context_retention"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_correction",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "showroom_correction"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "vehicle_correction"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-CORRECT-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "showroom_correction"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-CODESWITCH-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "code_switch",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-TYPO-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "typo",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "date_time",
+        "context_retention"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "date_time",
+        "context_retention"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-MT-DATETIME-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "context_correction",
+        "date_time",
+        "challenge"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-GEO-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-GEO-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-GEO-003",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-GEO-004",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-GEO-005",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-GEO-006",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-GEO-007",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-GEO-008",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "search",
+        "multi_turn",
+        "nationwide",
+        "location"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-FLOW-CONFIRM-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "multi_turn",
+        "full_funnel",
+        "confirm"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-FLOW-CONFIRM-002",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "multi_turn",
+        "full_funnel",
+        "confirm"
+      ],
+      "run_status": "not_run",
+      "task_success": null,
+      "checks": {}
+    },
+    {
+      "case_id": "V1X-FLOW-CANCEL-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "multi_turn",
+        "cancel",
+        "otp"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 3,
+          "matched_field_names": [
+            "booking_id",
+            "access_session_token",
+            "ui_action_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 3,
+          "actual_fields": 4,
+          "scored_actual_fields": 3,
+          "allowed_extra_field_names": [
+            "reason"
+          ],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": true,
+          "passed": 2,
+          "total": 2,
+          "graded": 2
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 1,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "cancel_booking",
+        "skill": "booking",
+        "tools": [
+          "cancel_booking"
+        ],
+        "successful_tools": [
+          "cancel_booking"
+        ],
+        "response": "Đã hủy lịch lái thử và giải phóng khung giờ.",
+        "action_error": ""
+      },
+      "latency_ms": 456.83,
+      "turn_count": 1,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {
+        "input_tokens": 389,
+        "output_tokens": 118,
+        "total_tokens": 507
+      }
+    },
+    {
+      "case_id": "V1X-FLOW-RESCHEDULE-001",
+      "evaluation_status": "active",
+      "tags": [
+        "booking",
+        "multi_turn",
+        "reschedule",
+        "otp"
+      ],
+      "run_status": "passed",
+      "task_success": true,
+      "checks": {
+        "intent": true,
+        "skill": true,
+        "tool": true,
+        "arguments": {
+          "exact_match": true,
+          "required_match": true,
+          "matched_fields": 4,
+          "matched_field_names": [
+            "current_booking_id",
+            "new_slot_id",
+            "access_session_token",
+            "ui_action_id"
+          ],
+          "resolution_evidence": {},
+          "expected_fields": 4,
+          "actual_fields": 4,
+          "scored_actual_fields": 4,
+          "allowed_extra_field_names": [],
+          "unexpected_extra_field_names": [],
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "semantic_evidence": {}
+        },
+        "response": {
+          "must_contain_pass": true,
+          "must_contain_hits": 0,
+          "must_contain_total": 0,
+          "forbidden_behavior_pass": null,
+          "forbidden_behavior_graded": 0,
+          "forbidden_behavior_total": 0,
+          "forbidden_behavior_violations": []
+        },
+        "database": {
+          "passed_all": true,
+          "passed": 3,
+          "total": 3,
+          "graded": 3
+        },
+        "action_error": true,
+        "execution": {
+          "clean": true,
+          "first_tool_outcome_pass": true,
+          "retry_free": true,
+          "tool_call_count": 1,
+          "observed_tool_errors": [],
+          "unexpected_tool_errors": [],
+          "retry_groups": []
+        },
+        "groundedness_pass": null,
+        "groundedness_score": null,
+        "hallucination_detected": null,
+        "slot_availability": {
+          "accuracy": null,
+          "passed": 0,
+          "total": 0,
+          "checks": []
+        }
+      },
+      "observed": {
+        "intent": "reschedule_booking",
+        "skill": "booking",
+        "tools": [
+          "reschedule_booking"
+        ],
+        "successful_tools": [
+          "reschedule_booking"
+        ],
+        "response": "Lịch lái thử đã được đổi sang khung giờ mới.",
+        "action_error": ""
+      },
+      "latency_ms": 432.6,
+      "turn_count": 1,
+      "token_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0
+      },
+      "token_usage_observed": true,
+      "judge_token_usage": {
+        "input_tokens": 487,
+        "output_tokens": 94,
+        "total_tokens": 581
+      }
+    }
+  ],
+  "limitations": [
+    "Component scores may be available while task success remains null until every required DB/policy check is graded.",
+    "Task success requires a clean execution path: unexpected tool errors and same-turn retries fail the case even if a later retry recovers.",
+    "Challenge cases are reported separately so easier regression cases cannot hide their failures.",
+    "LLM-as-judge scores and human ratings must identify their source; missing reviews are not converted to zero.",
+    "Token totals are only complete when the runtime/provider returns usage metadata for every model call."
+  ]
+}

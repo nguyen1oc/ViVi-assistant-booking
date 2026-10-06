@@ -1,0 +1,643 @@
+/* 04-vehicle-rail.css — Dải mẫu xe trang chủ và thẻ xe
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 795–1379.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* Product rail */
+.models-section {
+  padding: 160px 0 176px;
+  background: var(--surface);
+}
+
+.section-heading h2,
+.detail-specs__heading h2,
+.technology-story__intro h2,
+.voices-section h2,
+.color-explorer h2,
+.brochure-note h2 {
+  margin: 0;
+  font-size: clamp(2.6rem, 5.4vw, 5.8rem);
+  font-weight: 520;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.section-heading--wide {
+  max-width: 1160px;
+}
+
+.inline-image {
+  display: inline-block;
+  width: clamp(84px, 11vw, 170px);
+  height: clamp(32px, 4vw, 58px);
+  margin: 0 0.08em;
+  border-radius: 999px;
+  vertical-align: 0.03em;
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 0 0 1px rgba(23, 26, 32, 0.08);
+}
+
+.inline-image--road {
+  background-image: linear-gradient(90deg, rgba(23, 26, 32, 0.08), transparent), var(--inline-image-url);
+}
+
+.model-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 78px 0 42px;
+  border-block: 1px solid var(--line);
+}
+
+.scroll-drive {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: 92dvh;
+  overflow: hidden;
+  padding: 10% max(32px, calc((100vw - 1440px) / 2 + 32px));
+  color: #fff;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(20, 100, 244, 0.14), transparent 28%),
+    #12161c;
+}
+
+.scroll-drive__copy {
+  position: relative;
+  z-index: 4;
+  max-width: 780px;
+}
+
+.scroll-drive__copy .eyebrow {
+  color: rgba(255, 255, 255, 0.54);
+}
+
+.scroll-drive__copy h2 {
+  margin: 0;
+  font-size: clamp(3.4rem, 7vw, 8rem);
+  font-weight: 520;
+  letter-spacing: -0.075em;
+  line-height: 0.92;
+}
+
+.scroll-drive__road {
+  position: absolute;
+  right: 0;
+  bottom: 14%;
+  left: 0;
+  height: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.scroll-drive__road span {
+  position: absolute;
+  width: 13%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.58);
+  animation: drive-lane 1.35s linear infinite;
+}
+
+.scroll-drive__road span:nth-child(2) { left: 40%; animation-delay: -0.45s; }
+.scroll-drive__road span:nth-child(3) { left: 80%; animation-delay: -0.9s; }
+
+.scroll-drive__car {
+  position: absolute;
+  right: 8%;
+  bottom: 11%;
+  z-index: 3;
+  width: min(46vw, 760px);
+  height: 38vh;
+  filter: drop-shadow(0 40px 32px rgba(4, 7, 11, 0.58));
+  will-change: transform;
+}
+
+.scroll-drive__car img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@keyframes drive-lane {
+  from { transform: translateX(-190%); }
+  to { transform: translateX(780%); }
+}
+
+/* Hai thẻ chiếm hai nửa bằng nhau nên chữ canh trái sẽ dính lệch hẳn về mép trái
+   của từng nửa. Canh giữa cả theo chiều ngang lẫn chiều dọc thì hai khối chữ nằm
+   cân trong ô của mình và cân với nhau. */
+.model-tabs button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 22px 24px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  text-align: center;
+  transition: color 0.55s var(--ease-heavy), background 0.55s var(--ease-heavy);
+}
+
+.model-tabs button + button {
+  border-left: 1px solid var(--line);
+}
+
+.model-tabs button[aria-selected='true'] {
+  color: var(--ink);
+  background: rgba(23, 26, 32, 0.035);
+}
+
+.model-tabs button:focus-visible {
+  z-index: 1;
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
+}
+
+.model-tabs button span {
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.model-tabs button small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.vehicle-rail {
+  display: grid;
+  grid-auto-columns: minmax(430px, 40vw);
+  grid-auto-flow: column;
+  gap: 28px;
+  align-items: stretch;
+  overflow-x: auto;
+  padding: 8px 2px 28px;
+  scroll-behavior: smooth;
+  /*
+   * KHÔNG dùng scroll-snap ở dải này.
+   *
+   * Dải tự chạy vòng tròn, nghĩa là mã phải tự đặt scrollLeft liên tục: mỗi nhịp
+   * trôi một thẻ, và mỗi lần đi hết một lượt lại nhảy lùi về lượt trước. Với
+   * `scroll-snap-type: mandatory`, cứ đặt scrollLeft xong là trình duyệt ÉP bám
+   * về điểm snap gần nhất — chỉ cần lệch vài pixel là nó bám ngược về thẻ trước.
+   * Đó chính là lỗi "lướt từ VF 9 sang VF 3 rồi tự về VF 7".
+   *
+   * Hai cơ chế này về bản chất tranh nhau quyền quyết định vị trí cuộn, không thể
+   * cùng tồn tại. Dải thẻ ngang thì bỏ snap đi cũng không mất gì.
+   */
+  scrollbar-width: none;
+}
+
+.vehicle-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.vehicle-tile {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  gap: 13px;
+  padding: 26px 26px 17px;
+  border-block: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(236, 238, 237, 0.52), rgba(255, 255, 255, 0) 48%);
+}
+
+/* Từ 17/08/2026 phần tử này LÀ thẻ <a> bọc cả thẻ xe, nên phải khử trang trí mặc định của
+   link — nếu không mọi chữ trong thẻ sẽ bị gạch chân và đổi sang màu link. */
+.vehicle-tile__core {
+  position: relative;
+  display: grid;
+  color: inherit;
+  text-decoration: none;
+  grid-template-rows: auto minmax(270px, 1fr) auto auto auto auto;
+  min-height: 650px;
+  overflow: visible;
+}
+
+/* Model xe là vật thể nổi trên cùng nền section, không phải ảnh đặt trong một card.
+   Vệt sáng này không có cạnh/khung và tự tan hoàn toàn vào nền trang. */
+.vehicle-tile__core::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 8%;
+  right: 2%;
+  bottom: 42%;
+  left: 2%;
+  background: radial-gradient(ellipse at 50% 56%, rgba(255, 255, 255, 0.84), rgba(226, 230, 231, 0.3) 48%, transparent 74%);
+  pointer-events: none;
+}
+
+.vehicle-tile__meta,
+.vehicle-tile__copy,
+.vehicle-tile__facts,
+.vehicle-tile__palette,
+.vehicle-tile__actions {
+  position: relative;
+  z-index: 2;
+}
+
+.vehicle-tile__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  color: var(--muted);
+  font-size: 0.69rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vehicle-tile__image {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  width: 112%;
+  height: 286px;
+  margin-left: -6%;
+  overflow: visible;
+}
+
+.vehicle-tile__image img {
+  object-fit: contain;
+  filter: drop-shadow(0 24px 18px rgba(28, 35, 45, 0.16));
+  transform: scale(0.96);
+}
+
+.vehicle-tile:hover .vehicle-tile__image img {
+  transform: scale(1.035);
+}
+
+/* Mẫu xe chưa có ảnh tách nền: đóng khung ảnh lại thay vì để tràn ra ngoài thẻ. */
+.vehicle-tile__image.vehicle-shot--photo,
+.vehicle-tile__image.vehicle-shot--plate {
+  width: 100%;
+  height: 268px;
+  margin-left: 0;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.vehicle-tile__image.vehicle-shot--plate {
+  background: #fff;
+}
+
+.vehicle-tile__image.vehicle-shot--photo img,
+.vehicle-tile__image.vehicle-shot--plate img {
+  filter: none;
+  transform: scale(1);
+}
+
+.vehicle-tile__image.vehicle-shot--photo img {
+  object-fit: cover;
+}
+
+.vehicle-tile__image.vehicle-shot--plate img {
+  object-fit: contain;
+  transform: scale(0.96);
+}
+
+.vehicle-tile:hover .vehicle-tile__image.vehicle-shot--photo img {
+  transform: scale(1.05);
+}
+
+.vehicle-tile:hover .vehicle-tile__image.vehicle-shot--plate img {
+  transform: scale(1);
+}
+
+.vehicle-tile__copy {
+  display: grid;
+  gap: 5px;
+  align-content: start;
+}
+
+.vehicle-tile__copy h3 {
+  margin: 0;
+  font-size: clamp(1.85rem, 2.5vw, 2.65rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.vehicle-tile__copy p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.vehicle-tile__copy > span {
+  margin-top: 5px;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.vehicle-tile__facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 22px 0 0;
+  border-block: 1px solid var(--line);
+}
+
+.vehicle-tile__facts > div {
+  min-width: 0;
+  padding: 15px 14px 16px 0;
+}
+
+.vehicle-tile__facts > div + div {
+  padding-left: 14px;
+  border-left: 1px solid var(--line);
+}
+
+.vehicle-tile__facts dt,
+.vehicle-tile__facts dd {
+  margin: 0;
+}
+
+.vehicle-tile__facts dt,
+.vehicle-tile__palette > span {
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+}
+
+.vehicle-tile__facts dd {
+  margin-top: 7px;
+  font-size: 0.85rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.vehicle-tile__facts .is-missing dd,
+.vehicle-tile__palette > small {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.vehicle-tile__palette {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 56px;
+  border-bottom: 1px solid var(--line);
+}
+
+.vehicle-tile__palette > small,
+.vehicle-tile__swatches small {
+  font-size: 0.7rem;
+}
+
+.vehicle-tile__swatches {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+/* Chấm màu cố ý NHỎ: đây là tín hiệu "mẫu này có mấy màu", không phải bộ chọn màu.
+   Bộ chọn màu đầy đủ (ảnh xe đổi theo màu) nằm ở trang chi tiết.
+   KHÔNG viền, KHÔNG vòng sáng: đã thử viền trắng + vòng ngoài, anh Minh thấy xấu (16/08/2026).
+   Chỉ là chấm màu phẳng. */
+.vehicle-tile__swatch {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+/* Chip ảnh chính hãng (mẫu backend chưa publish hex): cắt tròn đúng như chấm màu phẳng. */
+.vehicle-tile__swatch img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vehicle-tile__swatches small {
+  margin-left: 4px;
+  color: var(--muted);
+}
+
+/* Một cột: cột thứ hai trước đây là nút "Đăng ký lái thử" đã gỡ. */
+.vehicle-tile__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  padding-top: 20px;
+}
+
+.vehicle-tile__detail-link {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 8px;
+  min-height: 48px;
+  padding-inline: 4px;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 650;
+  white-space: nowrap;
+  transition: color 0.45s var(--ease-heavy);
+}
+
+/* Vùng bấm trải rộng toàn thẻ: bấm vào ảnh xe / tên xe / bất kỳ đâu trong thẻ đều mở trang
+   chi tiết, trong khi vẫn chỉ có MỘT thẻ <a> thật. Nếu sau này thêm nút hay link thứ hai vào
+   thẻ, nhớ cho nó `position: relative; z-index: 2` để không bị lớp phủ này nuốt mất. */
+
+/* Cho biết cả thẻ bấm được, không riêng dòng chữ. */
+.vehicle-tile {
+  cursor: pointer;
+}
+
+.vehicle-tile__core:hover .vehicle-tile__detail-link,
+.vehicle-tile__core:focus-visible .vehicle-tile__detail-link {
+  color: var(--blue);
+}
+
+/*
+ * Chỉ dấu "tên xe bấm được".
+ * Anh Minh yêu cầu GIỮ NGUYÊN màu và font của dòng tên xe, chỉ thêm phần cảm nhận. Nên ở trạng
+ * thái nghỉ chữ không đổi một chút nào; gạch chân chỉ hiện khi rê chuột hoặc khi focus bằng bàn
+ * phím. Đặt sẵn `text-decoration-color: transparent` để nét gạch mờ dần vào chứ không bật cụp.
+ */
+.vehicle-tile__copy h3 {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+  transition: text-decoration-color 0.32s var(--ease-soft);
+}
+
+.vehicle-tile__core:hover .vehicle-tile__copy h3,
+.vehicle-tile__core:focus-visible .vehicle-tile__copy h3 {
+  text-decoration-color: currentColor;
+}
+
+.vehicle-tile__core:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 6px;
+  border-radius: var(--radius-md);
+}
+
+/* .vehicle-tile__booking và .vehicle-tile__unavailable đã xoá cùng nút "Đăng ký lái thử". */
+.vehicle-tile__detail-link:focus-visible,
+.rail-controls button:focus-visible,
+.vehicle-empty--error button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.vehicle-tile__index {
+  color: rgba(23, 26, 32, 0.35);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.vehicle-rail--loading {
+  position: relative;
+}
+
+.vehicle-tile--skeleton {
+  grid-template-rows: 16px 290px 42px 82px 52px;
+  min-height: 650px;
+}
+
+.vehicle-skeleton {
+  display: block;
+  overflow: hidden;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--paper-soft), #f7f8f7, var(--paper-soft));
+  background-size: 220% 100%;
+  animation: vehicle-skeleton-shift 1.4s ease-in-out infinite;
+}
+
+.vehicle-skeleton--meta { width: 54%; }
+.vehicle-skeleton--image { width: 100%; border-radius: 24px; }
+.vehicle-skeleton--title { width: 64%; }
+.vehicle-skeleton--facts,
+.vehicle-skeleton--actions { width: 100%; border-radius: 12px; }
+
+.vehicle-loading-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@keyframes vehicle-skeleton-shift {
+  to { background-position: -220% 0; }
+}
+
+.vehicle-rail-shell {
+  position: relative;
+}
+
+/*
+ * Hai nút điều hướng đứng HAI BÊN dải xe, canh giữa theo chiều dọc.
+ *
+ * Bản trước xếp chúng thành một hàng bên dưới dải. Thẻ xe cao hơn 650px nên hàng
+ * nút rơi hẳn khỏi tầm nhìn, người dùng không biết là có nút để bấm.
+ *
+ * Lớp phủ này trùm cả dải nên phải để pointer-events:none, nếu không nó nuốt hết
+ * thao tác kéo ngang và bấm vào thẻ xe. Chỉ hai nút mới nhận chuột.
+ */
+.rail-controls {
+  position: absolute;
+  /* Nhô HẲN ra ngoài mép dải. Để nút nằm trong lòng thẻ thì nó đè lên đúng chỗ
+     ghi tên mẫu xe. Khoảng nhô lấy đúng nửa bề rộng nút cộng một chút, để nút
+     cưỡi lên mép thẻ chứ không phủ vào phần chữ. */
+  inset: 0 -30px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.rail-controls button {
+  pointer-events: auto;
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 26px rgba(16, 20, 28, 0.16);
+  backdrop-filter: blur(6px);
+}
+
+/* Màn hẹp: thu nút lại cho đỡ che thẻ xe. */
+/* Màn hẹp: .section-frame chỉ chừa 32px mỗi bên nên không đủ chỗ nhô ra ngoài,
+   kéo nút về sát mép dải và thu nhỏ lại. */
+@media (max-width: 1100px) {
+  .rail-controls { inset: 0 -18px; }
+}
+
+@media (max-width: 720px) {
+  .rail-controls { inset: 0 -6px; }
+  .rail-controls button { width: 40px; height: 40px; }
+}
+
+.rail-controls button,
+.voice-carousel__controls button {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--paper-soft);
+  cursor: pointer;
+  transition: color 0.55s var(--ease-heavy), background 0.55s var(--ease-heavy), transform 0.55s var(--ease-heavy);
+}
+
+.rail-controls button:hover,
+.voice-carousel__controls button:hover {
+  color: var(--surface);
+  background: var(--ink);
+  transform: scale(1.04);
+}
+
+.vehicle-empty {
+  display: grid;
+  min-height: 320px;
+  place-content: center;
+  justify-items: center;
+  color: var(--muted);
+  border-block: 1px solid var(--line);
+  text-align: center;
+}
+
+.vehicle-empty p {
+  margin: 0 0 8px;
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.vehicle-empty span {
+  max-width: 48ch;
+  line-height: 1.55;
+}
+
+.vehicle-empty--error {
+  gap: 4px;
+}
+
+.vehicle-empty--error button {
+  min-height: 48px;
+  margin-top: 16px;
+  padding: 0 20px;
+  border-radius: 999px;
+  color: var(--surface);
+  background: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 650;
+  cursor: pointer;
+}

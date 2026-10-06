@@ -1,0 +1,956 @@
+/* 25-calendar-success.css — Lịch tuần, phiếu thành công, hướng dẫn sau đặt lịch
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 12476–13328.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* ─── Booking calendar: one continuous weekly surface, animated with GSAP ─ */
+
+.studio-schedule--calendar {
+  padding: 24px clamp(16px, 2vw, 26px) 22px;
+  background: #f1f3f2;
+}
+
+.studio-schedule--calendar .studio-schedule__heading {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(260px, 1.1fr);
+  align-items: end;
+  gap: 20px;
+  max-width: none;
+  margin-bottom: 14px;
+}
+
+.studio-schedule--calendar .studio-schedule__heading h2 {
+  grid-column: 1;
+  max-width: 28ch;
+  margin: 5px 0 0;
+  font-size: clamp(1.35rem, 2vw, 2.15rem);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.studio-schedule--calendar .studio-schedule__heading > span { grid-column: 1; }
+
+.studio-schedule--calendar .studio-schedule__heading > p {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: end;
+  justify-self: end;
+  max-width: 44ch;
+  padding-left: 18px;
+  border-left: 1px solid var(--line-strong);
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+
+.schedule-calendar {
+  overflow: hidden;
+  border: 1px solid rgba(23, 26, 32, 0.1);
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 28px 65px -52px rgba(24, 32, 41, 0.52);
+}
+
+.schedule-calendar__toolbar {
+  display: grid;
+  grid-template-columns: auto minmax(210px, 1fr) auto;
+  align-items: center;
+  gap: 22px;
+  min-height: 78px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  background: #fbfcfb;
+}
+
+.schedule-calendar__navigation {
+  display: inline-grid;
+  grid-template-columns: 42px auto 42px;
+  align-items: center;
+  overflow: hidden;
+  width: max-content;
+  border: 1px solid var(--line-strong);
+  border-radius: 13px;
+  background: #fff;
+}
+
+.schedule-calendar__navigation button {
+  display: inline-grid;
+  min-width: 42px;
+  min-height: 40px;
+  place-items: center;
+  padding: 0 13px;
+  border-right: 1px solid var(--line);
+  color: var(--ink-soft);
+  background: transparent;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 660;
+  cursor: pointer;
+  transition: color 0.24s var(--ease-soft), background 0.24s var(--ease-soft), transform 0.24s var(--ease-soft);
+}
+
+.schedule-calendar__navigation button:last-child { border-right: 0; }
+.schedule-calendar__navigation button:hover:not(:disabled) { color: var(--ink); background: #eff1f0; }
+.schedule-calendar__navigation button:active:not(:disabled) { transform: scale(0.94); }
+.schedule-calendar__navigation button:disabled { color: #a2a7ac; cursor: default; }
+.schedule-calendar__navigation button:focus-visible { position: relative; z-index: 2; outline: 2px solid var(--blue); outline-offset: -2px; }
+
+.schedule-calendar__range {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  min-width: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule-calendar__range strong {
+  font-size: 0.86rem;
+  font-weight: 660;
+  letter-spacing: -0.015em;
+}
+
+.schedule-calendar__range small {
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.schedule-calendar__legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 0.62rem;
+  white-space: nowrap;
+}
+
+.schedule-calendar__legend span { display: inline-flex; align-items: center; gap: 6px; }
+.schedule-calendar__legend i { width: 8px; height: 8px; border-radius: 50%; }
+.schedule-calendar__legend i.is-available { background: var(--blue); box-shadow: 0 0 0 4px rgba(20, 100, 244, 0.09); }
+.schedule-calendar__legend i.is-unavailable { background: #aeb4b9; }
+
+.schedule-calendar__viewport {
+  width: 100%;
+  overflow: auto;
+  overscroll-behavior-inline: contain;
+}
+
+.schedule-calendar__matrix {
+  min-width: 100%;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule-calendar__week,
+.schedule-calendar__row {
+  display: grid;
+  grid-template-columns: 52px repeat(7, 1fr);
+}
+
+.schedule-calendar__week {
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  border-bottom: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(14px);
+}
+
+.schedule-calendar__time-title,
+.schedule-calendar__day {
+  min-height: 72px;
+  border-right: 1px solid var(--line);
+}
+
+.schedule-calendar__time-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 0.6rem;
+}
+
+/* Thứ nằm trên, số ngày nằm ngay dưới, cả hai canh giữa ô.
+   Bản trước dùng lưới hai cột: thứ dính góc trên trái còn số ngày dạt sang phải
+   và trải hai hàng, nên hai thứ vốn phải đọc liền nhau lại nằm rời hai góc. */
+.schedule-calendar__day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.schedule-calendar__day:last-child,
+.schedule-calendar__cell:last-child { border-right: 0; }
+
+.schedule-calendar__day span {
+  color: var(--muted);
+  font-size: 0.56rem;
+  font-weight: 680;
+  letter-spacing: 0.04em;
+}
+
+.schedule-calendar__day strong {
+  font-size: 1.4rem;
+  line-height: 1.1;
+  font-weight: 520;
+  letter-spacing: -0.04em;
+}
+
+.schedule-calendar__day small {
+  color: var(--muted);
+  font-size: 0.52rem;
+}
+
+/*
+ * HAI TRẠNG THÁI KHÁC NHAU, đừng lẫn:
+ *   is-today       = hôm nay theo đồng hồ  -> nền ĐEN, chữ trắng
+ *   is-highlighted = ngày người dùng vừa nhắc trong hội thoại -> nền XANH, chữ trắng
+ *
+ * Trước đây ngược lại: hôm nay tô xanh nhạt còn ngày người dùng chọn tô đen.
+ * Xanh là màu hành động của cả web nên nó phải dành cho lựa chọn của người dùng.
+ *
+ * Thứ tự khai báo quan trọng: một ô có thể vừa là hôm nay vừa được chọn, khi đó
+ * xanh phải thắng nên .is-highlighted đứng sau.
+ */
+.schedule-calendar__day.is-today {
+  color: #ffffff;
+  background: #33373b;
+  font-weight: 700;
+}
+.schedule-calendar__day.is-today span,
+.schedule-calendar__day.is-today small { color: #ffffff; }
+
+.schedule-calendar__day.is-highlighted {
+  color: #ffffff !important;
+  background: var(--blue) !important;
+  box-shadow: inset 0 -3px 0 var(--blue);
+  font-weight: 700;
+}
+.schedule-calendar__day.is-highlighted span,
+.schedule-calendar__day.is-highlighted strong,
+.schedule-calendar__day.is-highlighted small {
+  color: #ffffff !important;
+}
+
+.schedule-calendar__row { border-bottom: 1px solid var(--line); }
+.schedule-calendar__row:last-child { border-bottom: 0; }
+
+.schedule-calendar__time {
+  display: grid;
+  place-items: start center;
+  padding-top: 13px;
+  border-right: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.62rem;
+}
+
+.schedule-calendar__cell {
+  position: relative;
+  min-height: 76px;
+  padding: 4px 3px;
+  border-right: 1px solid var(--line);
+  background: #fff;
+  transition: background 0.25s var(--ease-soft);
+}
+
+.schedule-calendar__cell:hover { background: #f7f8f7; }
+
+.schedule-calendar__cell > button {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  width: 100%;
+  min-height: 68px;
+  padding: 8px 5px 8px 10px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 9px;
+  color: var(--ink);
+  background: #eef3fb;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transform-origin: center;
+  transition: color 0.28s var(--ease-soft), background 0.28s var(--ease-soft), box-shadow 0.28s var(--ease-soft);
+}
+
+.schedule-calendar__cell > button > span {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 0;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--blue);
+}
+
+.schedule-calendar__cell > button strong {
+  overflow: hidden;
+  font-size: 0.62rem;
+  font-weight: 680;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.schedule-calendar__cell > button small {
+  color: #697583;
+  font-size: 0.52rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.schedule-calendar__cell > button.is-available:hover,
+.schedule-calendar__cell > button.is-active {
+  color: #fff;
+  background: var(--blue);
+  box-shadow: 0 14px 28px -20px rgba(20, 100, 244, 0.78);
+}
+
+.schedule-calendar__cell > button.is-available:hover > span,
+.schedule-calendar__cell > button.is-active > span { background: #fff; }
+.schedule-calendar__cell > button.is-available:hover small,
+.schedule-calendar__cell > button.is-active small { color: rgba(255, 255, 255, 0.72); }
+
+.schedule-calendar__cell > button.is-unavailable,
+.schedule-calendar__cell > button:disabled {
+  color: #81878d;
+  background: #eceeed;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.schedule-calendar__cell > button.is-unavailable > span { background: #aeb4b9; }
+.schedule-calendar__cell > button.is-unavailable small { color: #989da2; }
+
+.schedule-calendar__empty-cell {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 1px;
+  background: #e0e3e1;
+  transform: translate(-50%, -50%);
+}
+
+.schedule-calendar__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 68px;
+  padding: 13px 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  background: #fafbfa;
+}
+
+.schedule-calendar__empty > span { display: grid; gap: 2px; }
+.schedule-calendar__empty strong { color: var(--ink-soft); font-size: 0.68rem; }
+.schedule-calendar__empty small { font-size: 0.6rem; }
+
+/* ─── Success ticket: balanced two-panel document, no dead lower half ───── */
+
+.booking-success-layout {
+  grid-template-columns: minmax(560px, 1.04fr) minmax(520px, 0.96fr);
+  background: #f4f5f4;
+}
+
+.booking-success-documents {
+  height: 100%;
+  grid-template-rows: auto minmax(max-content, 1fr);
+  background: #edf0ee;
+}
+
+.booking-success-documents .studio-vehicle {
+  grid-template-columns: minmax(190px, 0.42fr) minmax(260px, 0.58fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 24px;
+  /* 78px trên: thanh công cụ nổi bắt đầu ở top 18px và cao ~62px, cộng thêm 12px thở. */
+  padding: 26px clamp(28px, 4vw, 52px) 26px;
+  background: #edf0ee;
+}
+
+.booking-success-documents .studio-vehicle__heading {
+  align-content: center;
+  max-width: 280px;
+}
+
+.booking-success-documents .studio-vehicle__heading span { font-size: 0.64rem; }
+.booking-success-documents .studio-vehicle__heading strong {
+  margin-top: 7px;
+  font-size: clamp(2.7rem, 4vw, 4.6rem);
+  line-height: 0.9;
+}
+.booking-success-documents .studio-vehicle__heading small { margin-top: 10px; font-size: 0.7rem; }
+
+.booking-success-documents .studio-vehicle__stage {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 0;
+  padding: 0;
+}
+
+.booking-success-documents .studio-vehicle__image {
+  width: 100%;
+  max-height: min(26vh, 240px);
+}
+
+.booking-success-model {
+  position: relative;
+  width: 100%;
+  height: min(26vh, 240px);
+  min-height: 172px;
+  cursor: grab;
+  filter: drop-shadow(0 24px 22px rgba(21, 27, 35, 0.15));
+}
+
+/*
+ * Model 3D còn được dùng ở MÀN HÌNH TRÁI trong lúc đang đặt lịch (VF 3 và VF 9), không chỉ ở
+ * màn đặt xong. Khung ở hai nơi khác nhau nên phải tách: mặc định lấy đúng khung của ảnh studio
+ * mà nó thay thế; riêng trong .booking-success-documents thì giữ cỡ nhỏ đã căn cho phiếu lịch.
+ */
+.studio-vehicle__stage > .booking-success-model {
+  height: min(56vh, 530px);
+  min-height: 280px;
+}
+
+.booking-success-documents .studio-vehicle__stage > .booking-success-model {
+  height: min(26vh, 240px);
+  min-height: 172px;
+}
+
+.booking-success-model:active { cursor: grabbing; }
+.booking-success-model .vehicle-model-surface,
+.booking-success-model model-viewer { width: 100%; height: 100%; }
+
+.booking-success-model model-viewer {
+  --poster-color: transparent;
+  background: transparent;
+}
+
+.booking-success-model__hint {
+  position: absolute;
+  right: 8px;
+  bottom: 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(23, 26, 32, 0.24);
+  color: var(--muted);
+  font-size: 0.57rem;
+  letter-spacing: 0.035em;
+  pointer-events: none;
+}
+
+.booking-success-model__fallback { width: 100%; height: 100%; background: transparent; }
+.booking-success-model__fallback img { width: 100%; height: 100%; object-fit: contain; }
+
+.booking-success-documents .studio-ticket {
+  /* space-between thay cho start: ba phần (mã lịch · bảng thông tin · dòng xác nhận GPLX)
+     tự giãn ra kín chiều cao, thay vì dồn hết lên trên rồi bỏ trắng một mảng dưới đáy. */
+  align-content: space-between;
+  min-height: 0;
+  overflow-y: visible;
+  padding: 20px clamp(20px, 3vw, 40px) 24px;
+  border-top: 1px solid var(--line-strong);
+  background: #f8f9f8;
+}
+
+.booking-success-documents .studio-ticket > header { min-height: 40px; padding-bottom: 10px; }
+.booking-success-documents .studio-ticket > header span { letter-spacing: 0.08em; }
+.booking-success-documents .studio-ticket > header strong { font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+.booking-success-documents .studio-ticket dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+  row-gap: 2px;
+}
+
+/*
+ * Nhãn canh PHẢI, giá trị canh TRÁI, cả hai canh giữa theo chiều dọc.
+ *
+ * Hai cột dựa vào nhau ở khoảng hở giữa nên mép trong của cả bảng thành một
+ * đường thẳng. Bản trước để nhãn canh trái: nhãn dài ngắn khác nhau nên mép phải
+ * của cột nhãn răng cưa, và mắt không bắt được đâu là chỗ giá trị bắt đầu.
+ */
+.booking-success-documents .studio-ticket dl div {
+  grid-template-columns: 104px minmax(0, 1fr);
+  align-items: center;
+  min-height: 38px;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.booking-success-documents .studio-ticket dt {
+  text-align: right;
+}
+
+.booking-success-documents .studio-ticket dd {
+  /*
+   * CHỐNG RỚT CHỮ.
+   *
+   * `text-wrap: pretty` là công cụ đúng việc: trình duyệt tự tránh để lại một chữ
+   * lẻ loi ở hàng cuối. Nơi nào chưa hỗ trợ thì rơi về cách xuống dòng thường,
+   * không hỏng gì. Phía JSX còn một lớp nữa là noOrphan(), hai lớp bù nhau.
+   *
+   * `overflow-wrap: break-word` thay cho `anywhere`: `anywhere` cắt giữa từ ngay
+   * khi thấy chật, nên email dài bị xẻ đôi ở chỗ tuỳ tiện. `break-word` chỉ cắt
+   * khi một từ dài hơn cả ô, tức là lúc không còn cách nào khác.
+   */
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.booking-success-documents .studio-ticket > p {
+  text-wrap: pretty;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.vivi-studio--success {
+  grid-template-rows: 80px minmax(0, 1fr);
+  background: #fff;
+}
+
+.vivi-success-copy {
+  align-content: center;
+  justify-items: center;
+  width: min(100%, 760px);
+  max-width: none;
+  margin-inline: auto;
+  padding: clamp(42px, 6vw, 88px);
+  text-align: center;
+}
+
+.vivi-success-copy > .vivi-success-copy__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  width: max-content;
+  margin-bottom: 23px;
+  color: var(--success);
+}
+
+.vivi-success-copy__status > span {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid rgba(36, 114, 88, 0.32);
+  border-radius: 50%;
+}
+
+.vivi-success-copy__status p {
+  margin: 0;
+  text-wrap: balance;
+  font-size: 0.72rem;
+  font-weight: 680;
+  letter-spacing: 0.035em;
+}
+
+.vivi-success-copy h1 {
+  max-width: 18ch;
+  margin: 0;
+  font-size: clamp(2.65rem, 4vw, 4.8rem);
+  font-weight: 530;
+  letter-spacing: -0.068em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.vivi-success-copy h1 span { color: var(--ink-soft); }
+
+.vivi-success-copy > .vivi-success-copy__code {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 14px;
+  width: min(100%, 420px);
+  margin-top: 27px;
+  margin-inline: auto;
+  padding: 13px 0;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.vivi-success-copy__code small { color: var(--muted); font-size: 0.64rem; }
+.vivi-success-copy__code strong {
+  justify-self: end;
+  font-size: 0.9rem;
+  font-weight: 680;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.vivi-success-copy > p.vivi-success-copy__note {
+  max-width: 55ch;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+/* Tin nhắn xác nhận sau khi đặt lịch: nhấn bằng NỀN và VIỀN xanh nhạt + chữ đậm hơn,
+   không dùng cỡ chữ lớn — cả khung chat vẫn giữ một thang chữ duy nhất. */
+.vivi-message--emphasis > div {
+  padding: 14px 16px;
+  border: 1px solid rgba(20, 100, 244, 0.2);
+  border-bottom-color: rgba(20, 100, 244, 0.2);
+  border-radius: var(--radius-md);
+  background: rgba(20, 100, 244, 0.055);
+}
+
+.vivi-message--emphasis p {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+/* Thẻ hướng dẫn nằm trong dòng hội thoại: bỏ nền bong bóng, để BookingNextSteps tự trình bày. */
+.vivi-message--card {
+  align-items: flex-start;
+}
+
+.vivi-message--card .booking-next-steps {
+  margin-top: 0;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+/* Hàng hành động sau khi đặt lịch xong: cho xuống dòng thoải mái, đây là 3 lựa chọn
+   ngang hàng chứ không phải một nút chính kèm phụ. */
+.vivi-capabilities--success {
+  flex-wrap: wrap;
+}
+
+/* Khối "Xem lại thông tin xe" sổ tại chỗ trong panel trái. */
+/*
+ * Mở "Xem thông tin xe" thì bảng PHẢI cuộn được.
+ *
+ * `.studio-vehicle` là lưới 4 hàng cố định, `height: 100%` và `overflow: hidden`. Khi khối chi
+ * tiết bung ra, nó thành hàng thứ 5 nhưng lưới không nở được — nút "Thu gọn thông tin xe" bị
+ * đẩy khỏi vùng nhìn thấy, người dùng chỉ còn thấy model 3D và không có cách nào đóng lại.
+ * Mở cuộn + thu nhỏ model trong lúc đang xem chi tiết là đủ, không phải dựng lại bố cục.
+ */
+.studio-vehicle.has-details {
+  overflow-y: auto;
+}
+
+.studio-vehicle.has-details .studio-vehicle__stage > .booking-success-model,
+.studio-vehicle.has-details .studio-vehicle__image {
+  height: min(30vh, 280px);
+  max-height: min(30vh, 280px);
+  min-height: 180px;
+}
+
+/* Nút bung/thu luôn nằm trên model, không bao giờ bị lớp 3D che mất cú bấm. */
+.studio-vehicle__more {
+  position: relative;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  align-self: start;
+  padding: 0;
+  background: none;
+  color: var(--blue);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.studio-vehicle__details {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  animation: studio-panel-in 0.4s var(--ease-heavy) both;
+}
+
+.studio-vehicle__tagline {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.studio-vehicle__details dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.studio-vehicle__details dl > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.studio-vehicle__details dt {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.studio-vehicle__details dd {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-align: right;
+}
+
+.studio-vehicle__details .vehicle-price-variants {
+  display: grid;
+  gap: 3px;
+}
+
+.studio-vehicle__details .vehicle-price-variants__row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.studio-vehicle__details > small {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+/* Hướng dẫn sau đặt lịch (BookingNextSteps): mang gì · đến đâu · khi nào · gọi ai.
+   Đặt giữa mã lịch và hai nút hành động, canh trái để đọc như một danh sách việc cần làm
+   thay vì canh giữa như phần chúc mừng phía trên. */
+.booking-next-steps {
+  width: 100%;
+  max-width: 55ch;
+  margin: 26px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  text-align: left;
+}
+
+.booking-next-steps > h2 {
+  margin: 0 0 16px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.booking-next-steps__list {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.booking-next-steps__list > li {
+  display: grid;
+  gap: 3px;
+  padding-left: 14px;
+  border-left: 2px solid var(--line);
+}
+
+/* Nhãn viết hoa giãn chữ, dài như "Thời gian có mặt" rất dễ rớt chữ cuối. */
+.booking-next-steps__label {
+  text-wrap: balance;
+  color: var(--blue);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.booking-next-steps__list p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  /* Ba đoạn này dài và hẹp (tối đa 55ch) nên rất dễ bỏ lại một chữ ở hàng cuối. */
+  text-wrap: pretty;
+}
+
+.booking-next-steps p.booking-next-steps__muted,
+.booking-next-steps__muted {
+  color: var(--muted);
+  font-size: 0.79rem;
+}
+
+/* Gỡ style nút của `.vivi-success-copy a` (dòng ~6442): rule đó biến MỌI link trong khối
+   thành viên thuốc xám cao 45px, nên link trong hướng dẫn bị phình thành ô xám full-width.
+   Ở đây link phải là link chữ nằm trong câu. */
+.booking-next-steps a {
+  display: inline;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--blue);
+  font-size: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.booking-next-steps__foot {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.79rem;
+  line-height: 1.6;
+}
+
+.vivi-success-copy > .vivi-success-copy__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 190px));
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 26px;
+}
+
+.vivi-success-copy__actions button,
+.vivi-success-copy__actions a {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  border-radius: 14px;
+  transition: transform 0.32s var(--ease-heavy), background 0.32s var(--ease-soft);
+}
+
+.vivi-success-copy__actions button:hover,
+.vivi-success-copy__actions a:hover { transform: translateY(-2px); }
+.vivi-success-copy__actions button:active,
+.vivi-success-copy__actions a:active { transform: scale(0.98); }
+
+/* Heading orphan control: widen the two reported surfaces and balance the
+   remaining editorial/video headings without forcing manual line breaks. */
+h1,
+h2,
+h3 { text-wrap: balance; }
+
+p { text-wrap: pretty; }
+
+.no-orphan {
+  font: inherit;
+  letter-spacing: inherit;
+  white-space: nowrap;
+}
+
+.recipient-modal__panel { width: min(100%, 720px); }
+.recipient-modal h1 {
+  max-width: 640px;
+  font-size: clamp(2.1rem, 4.4vw, 3.35rem);
+  text-wrap: balance;
+}
+
+.factory-film__copy { width: min(620px, calc(100% - clamp(56px, 12vw, 184px))); }
+.factory-film__copy h2 { max-width: 27ch; text-wrap: balance; }
+
+.detail-film__copy h2,
+.model-film__copy h2,
+.slot-confirm-modal h2,
+.vehicle-switcher h2,
+.vivi-intro__copy h2,
+.factory-origin__copy h2 {
+  text-wrap: balance;
+}
+
+@media (max-width: 1180px) {
+  .booking-success-layout { grid-template-columns: minmax(480px, 1fr) minmax(440px, 1fr); }
+  .booking-success-documents .studio-ticket dl { grid-template-columns: 1fr; }
+  .schedule-calendar__toolbar { grid-template-columns: auto 1fr; }
+  .schedule-calendar__legend { grid-column: 1 / -1; justify-content: flex-start; }
+}
+
+@media (max-width: 980px) {
+  .booking-success-layout { grid-template-columns: 1fr; }
+  .booking-success-documents { min-height: 820px; }
+  .vivi-studio--success { min-height: 620px; }
+  .vivi-success-copy { align-content: start; }
+}
+
+@media (max-width: 720px) {
+  .studio-schedule--calendar { padding: 18px 10px 18px; }
+  .studio-schedule--calendar .studio-schedule__heading { grid-template-columns: 1fr; gap: 6px; padding-inline: 4px; }
+  .studio-schedule--calendar .studio-schedule__heading h2 { grid-column: 1; max-width: 21ch; font-size: clamp(1.45rem, 7vw, 2.15rem); }
+  .studio-schedule--calendar .studio-schedule__heading > p { grid-column: 1; grid-row: auto; justify-self: start; max-width: 50ch; padding: 8px 0 0; border-top: 1px solid var(--line); border-left: 0; }
+  .schedule-calendar { border-radius: 18px; }
+  .schedule-calendar__toolbar { grid-template-columns: 1fr; gap: 13px; padding: 14px; }
+  .schedule-calendar__navigation { justify-self: start; }
+  .schedule-calendar__range { justify-items: start; }
+  .schedule-calendar__legend { grid-column: auto; }
+  .schedule-calendar__matrix { min-width: 100%; }
+  .schedule-calendar__week,
+  .schedule-calendar__row { grid-template-columns: 48px repeat(7, 1fr); }
+
+  .booking-success-documents {
+    grid-template-rows: 300px auto;
+    min-height: 980px;
+  }
+  .booking-success-documents .studio-vehicle {
+    grid-template-columns: minmax(140px, 0.42fr) minmax(170px, 0.58fr);
+    grid-template-rows: 1fr;
+    gap: 10px;
+    padding: 28px 18px;
+  }
+  .booking-success-documents .studio-vehicle__stage { grid-column: 2; grid-row: 1; }
+  .booking-success-documents .studio-vehicle__image { max-height: 190px; }
+  .booking-success-model { height: 190px; min-height: 170px; }
+  .booking-success-documents .studio-vehicle__heading strong { font-size: clamp(2.5rem, 13vw, 4rem); }
+  .booking-success-documents .studio-ticket { padding: 24px 20px 30px; }
+  .booking-success-documents .studio-ticket dl { grid-template-columns: 1fr; }
+
+  .vivi-success-copy { padding: 42px 22px 62px; }
+  .vivi-success-copy h1 { max-width: 14ch; font-size: clamp(2.65rem, 12.5vw, 4.3rem); }
+  .vivi-success-copy__actions { grid-template-columns: minmax(0, 1fr); align-items: stretch; max-width: 360px; }
+  .vivi-success-copy__actions button,
+  .vivi-success-copy__actions a { width: 100%; }
+
+  .recipient-modal__panel { padding: 30px 22px 24px; }
+  .recipient-modal h1 { max-width: 12ch; font-size: clamp(2rem, 10vw, 3rem); }
+  .recipient-modal__choices { grid-template-columns: 1fr; }
+  .factory-film__copy { width: min(430px, calc(100% - 44px)); }
+  .factory-film__copy h2 { max-width: 24ch; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   CHỐNG RỚT CHỮ TRÊN TOÀN MÀN HÌNH THÀNH CÔNG
+   ══════════════════════════════════════════════════════════════════════════
+   Khai một chỗ duy nhất cho mọi khối chữ của màn này, thay vì rắc text-wrap vào
+   từng rule. Thêm khối chữ mới sau này cũng được che sẵn, không phải nhớ.
+
+   `text-wrap: pretty` là công cụ đúng việc: trình duyệt cân lại chỗ ngắt dòng để
+   KHÔNG bỏ lại một chữ lẻ loi ở hàng cuối. Nơi nào chưa hỗ trợ thì rơi về cách
+   ngắt dòng thường, không hỏng gì.
+
+   Riêng ô giá trị trong phiếu còn một lớp nữa ở JSX: noOrphan() dán hai chữ cuối
+   bằng khoảng trắng không ngắt. Hai lớp bù nhau — CSS lo đoạn văn dài, JSX lo
+   đúng chỗ hẹp và nhạy nhất.
+   ────────────────────────────────────────────────────────────────────────── */
+.booking-success-documents p,
+.booking-success-documents dd,
+.booking-success-documents small,
+.booking-success-documents li,
+.vivi-success-copy p,
+.vivi-success-copy small,
+.booking-next-steps p,
+.booking-next-steps small,
+.booking-next-steps li {
+  text-wrap: pretty;
+}

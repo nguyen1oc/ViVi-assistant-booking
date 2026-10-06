@@ -1,0 +1,394 @@
+/* 01-foundation.css — Biến màu, reset, khung trang, chữ, nút nền tảng
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 1–390.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/*
+ * index.css — TOÀN BỘ phần nhìn của website nằm trong một file này (~9.300 dòng).
+ *
+ * Dự án CÓ cài Tailwind (3 dòng @tailwind ngay dưới) nhưng chỉ dùng rải rác vài chỗ.
+ * Khoảng 95% giao diện vẫn viết bằng CSS thường theo tên class. Tailwind đã tắt "preflight"
+ * (xem tailwind.config.js) để không reset đè lên CSS có sẵn.
+ *
+ * ══ CÁCH TÌM CHỖ CẦN SỬA ══
+ *  1. Trên web: chuột phải vào phần cần sửa → Inspect → đọc tên class của nó.
+ *  2. Về file này bấm Cmd+F, gõ tên class đó.
+ *  3. Hoặc dùng mục lục dưới đây: gõ đoạn chữ trong ngoặc kép để nhảy thẳng tới.
+ *     Số dòng sẽ lệch dần sau mỗi lần sửa file — tìm theo chữ thì luôn đúng.
+ *
+ * ══ MỤC LỤC ══
+ *  DÒNG    55  ":root"
+ *      BẢNG MÀU, FONT, BO GÓC, KHOẢNG CÁCH dùng chung. Sửa ở đây là đổi cả site.
+ *  DÒNG   360  "Floating navigation"      — header, menu, mega-menu "Ô tô", menu mobile.
+ *  DÒNG   555  "Home hero"                — màn đầu trang chủ.
+ *  DÒNG   740  "Product rail"             — dải thẻ xe cuộn ngang ở trang chủ.
+ *  DÒNG  1097  "Ownership bento"          — khối hệ sinh thái sở hữu.
+ *  DÒNG  1258  "Pinned technology story"  — mục công nghệ có cột trái dính khi cuộn.
+ *  DÒNG  1326  "Voices + action"          — cảm nhận khách hàng + CTA cuối trang chủ.
+ *  DÒNG  1533  "Vehicle detail"           — TOÀN BỘ trang chi tiết xe.
+ *  DÒNG  2019  "Agent shared UI"          — bong bóng chat, avatar ViVi (dùng chung).
+ *  DÒNG  2266  "Standalone agent"        — khung ViVi bản đứng riêng.
+ *  DÒNG  2387  "Booking experience"      — nền của trang đặt lịch.
+ *  DÒNG  3191  "Responsive system"
+ *      TẤT CẢ breakpoint mobile/tablet gom ở đây. Sửa giao diện điện thoại thì vào mục này.
+ *  DÒNG  3863  "Agent-first booking studio" — bố cục 2 cột chat/workspace + 3 tab. Mục lớn nhất.
+ *  DÒNG  4942  "Bảng chọn / đổi mẫu xe"  — hộp thoại đổi xe trong luồng đặt lịch.
+ *  DÒNG  5403  "Single-image car hero"   — hero chi tiết xe + popup gợi ý đặt lịch.
+ *  DÒNG  5892  "2026 catalogue, media"   — tinh chỉnh catalogue và studio ViVi.
+ *  DÒNG  6523  "2026.08 legibility"      — đợt chỉnh chữ, header dính và luồng đặt lịch.
+ *  DÒNG  6703  "Bản đồ theo mô hình quen thuộc" — bản đồ showroom: danh sách trái, map phải.
+ *  DÒNG  7012  "Popup lịch"              — hộp xác nhận khung giờ.
+ *  DÒNG  7153  "Ownership chapters"      — DÙNG CHUNG cho trang Hậu mãi và Pin & trạm sạc.
+ *  DÒNG  7888  "Charging-specific"       — phần riêng của trang Pin & trạm sạc.
+ *  DÒNG  8466  "New home visual chapters" — các khối ảnh/video mới của trang chủ.
+ *  DÒNG  8999  "Production fallback"     — màn chờ, màn lỗi backend, dải băng vàng cảnh báo.
+ *  DÒNG  9078  "Compact desktop hero"    — chỉnh cho màn hình laptop thấp.
+ *  DÒNG  9211  "Leaflet Map Container"   — marker logo VinFast và chấm vị trí trên bản đồ.
+ *  DÒNG  9267  "Leaflet Popup Overrides" — đè style mặc định của popup Leaflet.
+ *
+ * ══ LƯU Ý KHI SỬA ══
+ *  · Một số chỗ viết style thẳng trong JSX (inline style) nên KHÔNG tìm thấy ở file này:
+ *    BookingAccessPanel.jsx (toàn bộ nút OTP) và nút "Hiện bảng" trong BookingPage.jsx.
+ *  · Ảnh xe có 3 kiểu đóng khung khác nhau tuỳ studioShot.mode — tìm ".vehicle-shot--cutout",
+ *    ".vehicle-shot--plate", ".vehicle-shot--photo". Sửa nhầm kiểu là ảnh lộ nền trắng.
+ *  · Animation KHÔNG nằm ở đây. Chuyển động do GSAP điều khiển trong từng file trang.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #171a20;
+  --ink-soft: #393c41;
+  --muted: #6b6f76;
+  --line: rgba(23, 26, 32, 0.12);
+  --line-strong: rgba(23, 26, 32, 0.2);
+  --paper: #f4f4f4;
+  --paper-soft: #eceeed;
+  --surface: #ffffff;
+  --blue: #1464f4;
+  --blue-dark: #0f4fc4;
+  --success: #247258;
+  --danger: #a43a3f;
+  --radius-xl: 32px;
+  --radius-lg: 24px;
+  --radius-md: 17px;
+  --ease-heavy: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-diffuse: 0 28px 70px -42px rgba(26, 35, 48, 0.32);
+  --font-display: 'Geist Variable', 'Geist', 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Be Vietnam Pro', 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 116px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body.menu-is-open {
+  overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  border: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  display: block;
+}
+
+::selection {
+  background: rgba(20, 100, 244, 0.2);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(23, 26, 32, 0.2);
+  border-radius: 999px;
+}
+
+.page,
+.app-shell {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.section-frame {
+  width: min(100% - 64px, 1440px);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 16px;
+  z-index: 120;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: var(--surface);
+  background: var(--ink);
+  transform: translateY(-160%);
+  transition: transform 0.45s var(--ease-heavy);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.eyebrow {
+  margin: 0 0 18px;
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.reveal-shell {
+  will-change: transform, opacity;
+}
+
+.smart-image {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.smart-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-soft), transform 0.9s var(--ease-soft);
+}
+
+.smart-image--loaded img {
+  opacity: 1;
+}
+
+.smart-image__skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(110deg, #e6e8e7 18%, #f6f7f6 42%, #e6e8e7 67%);
+  background-size: 220% 100%;
+  animation: skeleton-shift 1.65s var(--ease-soft) infinite;
+}
+
+.smart-image__error {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 24px;
+  color: var(--muted);
+  background: var(--paper-soft);
+  text-align: center;
+  font-size: 0.82rem;
+}
+
+@keyframes skeleton-shift {
+  from { background-position: 160% 0; }
+  to { background-position: -80% 0; }
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: max-content;
+  color: var(--ink);
+}
+
+.brand--inverse {
+  color: var(--surface);
+}
+
+.brand__mark {
+  width: 30px;
+  height: 24px;
+}
+
+.brand__word {
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+
+.island-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  min-height: 52px;
+  padding: 7px 8px 7px 23px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: color 0.65s var(--ease-heavy), background 0.65s var(--ease-heavy), transform 0.65s var(--ease-heavy), box-shadow 0.65s var(--ease-heavy);
+}
+
+.island-button:hover {
+  transform: translateY(-2px);
+}
+
+.island-button:active {
+  transform: scale(0.98);
+}
+
+.island-button__icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border-radius: 50%;
+  transition: transform 0.65s var(--ease-heavy), background 0.65s var(--ease-heavy);
+}
+
+.island-button:hover .island-button__icon {
+  transform: translate(3px, -1px) scale(1.04);
+}
+
+.island-button--dark {
+  color: var(--surface);
+  background: var(--ink);
+  box-shadow: 0 18px 34px -26px rgba(23, 26, 32, 0.7);
+}
+
+.island-button--dark .island-button__icon {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.island-button--light {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 18px 34px -26px rgba(23, 26, 32, 0.55);
+}
+
+.island-button--light .island-button__icon {
+  background: rgba(23, 26, 32, 0.08);
+}
+
+.island-button--blue {
+  color: var(--surface);
+  background: var(--blue);
+}
+
+.island-button--blue:hover {
+  background: var(--blue-dark);
+}
+
+.island-button--blue .island-button__icon {
+  background: rgba(255, 255, 255, 0.17);
+}
+
+.island-button--ghost-light {
+  color: var(--surface);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.17), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.island-button--ghost-light .island-button__icon {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/*
+ * Vòng focus bàn phím cho các CTA/điều hướng DÙNG CHUNG.
+ * Trước đây .island-button, link header/footer và dock đặt lịch không có style :focus-visible
+ * nào, chỉ còn viền mặc định của trình duyệt — gần như không thấy khi nút nằm trên ảnh tối.
+ * Chỉ thêm outline bằng token có sẵn; màu nền, bo góc và hiệu ứng hover của nút giữ nguyên.
+ * Ba variant --light / --ghost-light hiện chỉ dùng trên nền tối nên đổi sang outline trắng.
+ */
+/* Mặc định: nền sáng (paper/surface/#e9ebea) → outline xanh thương hiệu. */
+.island-button:focus-visible,
+.site-nav__links a:focus-visible,
+.site-nav__products > button:focus-visible,
+.menu-toggle:focus-visible,
+.detail-back:focus-visible,
+.detail-booking-dock > a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* Ngoại lệ theo NGỮ CẢNH, không theo variant: cùng .island-button--light xuất hiện cả trên
+   hero chi tiết xe (nền sáng #e9ebea) lẫn hai section CTA nền #101318, nên phải chọn màu
+   outline theo section bao ngoài. Xanh #1464f4 trên #101318 chỉ đạt ~2,7:1, dưới ngưỡng 3:1. */
+.home-action :focus-visible,
+.detail-action :focus-visible,
+.menu-overlay nav a:focus-visible,
+.site-footer nav a:focus-visible,
+.site-footer__learning-notice a:focus-visible {
+  outline: 2px solid var(--surface);
+  outline-offset: 3px;
+}
+
+.double-bezel {
+  padding: 7px;
+  border-radius: var(--radius-xl);
+  background: rgba(23, 26, 32, 0.045);
+  box-shadow: inset 0 0 0 1px rgba(23, 26, 32, 0.06), var(--shadow-diffuse);
+}
+
+.double-bezel--dark {
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09), 0 34px 74px -44px rgba(5, 8, 12, 0.72);
+}
+
+.double-bezel__core {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: calc(var(--radius-xl) - 7px);
+  background: var(--surface);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.62), inset 0 0 0 1px rgba(23, 26, 32, 0.055);
+}

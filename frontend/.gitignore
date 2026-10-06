@@ -1,0 +1,13 @@
+# media-index.html là catalogue media bàn giao cho dự án, cần được lưu trong Git.
+# Cập nhật bằng: npm run media:index
+
+# Kho ảnh/model GỐC chưa nén do chủ dự án tải về máy — 145 MB, gồm 3 file .glb 15–89 MB.
+# KHÔNG đưa vào Git: repo sẽ phình và GitHub chặn file quá lớn.
+#
+# Những gì code CẦN đã được lấy ra khỏi thư mục này và đưa vào Git:
+#   · ảnh gốc để tách nền  -> src/media/local/originals/        (6,4 MB)
+#   · model 3D đã nén Draco -> src/media/local/models/           (3,0 MB)
+# Đừng import trực tiếp từ thư mục dưới đây: máy vừa clone repo sẽ build hỏng.
+Ảnh xe vinfast/
+.vercel
+.env*

@@ -1,0 +1,117 @@
+/* 26-floating-demo.css — Floating Demo Bar cho môi trường demo, dùng token chung. */
+.floating-demo-bar { 
+  position: fixed;
+  z-index: 90;
+  top: 20px;
+  right: 34px;
+  bottom: auto;
+  width: min(390px, calc(100vw - 54px));
+  border: 1px solid rgba(23, 26, 32, 0.1);
+  border-radius: 16px;
+  color: var(--ink);
+  background: rgba(244, 244, 244, 0.89);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 28px 58px -38px rgba(23, 26, 32, 0.72);
+  backdrop-filter: blur(20px) saturate(135%);
+  -webkit-backdrop-filter: blur(20px) saturate(135%);
+}
+
+/* Demo thay thế hoàn toàn vùng trạng thái bên phải của header. Cột vẫn được
+   giữ nguyên để link Trang chủ và các phần còn lại không dịch chuyển. */
+.agent-booking-page.has-floating-demo .booking-topbar__persist {
+  visibility: hidden;
+}
+
+/* Container luôn dùng vùng trống sát mép phải viewport. Logo trong header tiếp
+   tục nằm ở đúng cột giữa mặc định và không bị dịch chuyển bởi chế độ demo. */
+@media (min-width: 901px) and (max-width: 980px) {
+  .floating-demo-bar {
+    width: min(360px, calc(100vw - 54px));
+  }
+}
+
+.floating-demo-bar__toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  color: var(--muted);
+  background: rgba(23, 26, 32, 0.06);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.2s var(--ease-soft), background 0.2s var(--ease-soft);
+}
+
+.floating-demo-bar__controls { position: absolute; z-index: 1; top: 3px; right: 3px; display: flex; align-items: center; gap: 4px; }
+.floating-demo-bar__controls .floating-demo-bar__icon-button,
+.floating-demo-bar__controls .floating-demo-bar__toggle { flex: 0 0 32px; width: 32px; min-width: 32px; height: 32px; min-height: 32px; padding: 0; }
+.floating-demo-bar__exit { display: inline-grid; width: 32px; height: 32px; padding: 0; border: none; place-items: center; color: var(--muted); background: rgba(23, 26, 32, 0.06); border-radius: 50%; cursor: pointer; transition: color 0.2s var(--ease-soft), background 0.2s var(--ease-soft); }
+.floating-demo-bar__exit:hover { color: var(--danger); background: rgba(210, 65, 65, 0.1); }
+.floating-demo-bar__toggle:hover { color: var(--ink); background: rgba(23, 26, 32, 0.12); }
+
+/* Thanh demo là lớp overlay độc lập: tuyệt đối không thay đổi chiều cao của
+   composer/chat. Người trình diễn có thể thu gọn nó bất kỳ lúc nào. */
+.floating-demo-bar.is-collapsed {
+  width: max-content;
+  border-radius: 999px;
+}
+.floating-demo-bar.is-collapsed { height: 38px; }
+.floating-demo-bar__compact-actions { padding: 3px 147px 3px 3px; }
+.floating-demo-bar__primary--compact { width: 112px; min-height: 32px; padding: 0 10px; font-size: 0.68rem; }
+
+.floating-demo-bar__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  grid-template-areas:
+    "head head"
+    "steps actions"
+    "context context"
+    "logs logs";
+  gap: 4px 8px;
+  padding: 8px 9px 7px;
+}
+.floating-demo-bar__head { grid-area: head; display: flex; align-items: end; justify-content: space-between; gap: 14px; padding: 2px 148px 4px 2px; }
+.floating-demo-bar__head > div { display: grid; gap: 3px; }
+.floating-demo-bar__head span { color: var(--blue); font-size: 0.62rem; font-weight: 750; letter-spacing: 0.14em; text-transform: uppercase; }
+.floating-demo-bar__head strong { font-family: var(--font-display); font-size: 0.78rem; letter-spacing: -0.025em; }
+.floating-demo-bar__head p { max-width: 190px; margin: 0; color: var(--muted); font-size: 0.66rem; line-height: 1.35; text-align: right; }
+.floating-demo-bar__steps { grid-area: steps; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; padding: 4px; margin: 0; border-radius: 12px; background: rgba(23, 26, 32, 0.045); list-style: none; }
+.floating-demo-bar__steps li { display: grid; align-content: center; justify-items: center; min-width: 0; color: var(--muted); }
+.floating-demo-bar__steps li > span { display: grid; width: 22px; height: 22px; place-items: center; border-radius: 50%; background: rgba(23, 26, 32, 0.08); font-size: 0.62rem; font-weight: 750; font-variant-numeric: tabular-nums; transition: background 0.45s var(--ease-heavy), color 0.45s var(--ease-heavy), transform 0.45s var(--ease-heavy); }
+.floating-demo-bar__steps .is-active { color: var(--ink); }
+.floating-demo-bar__steps .is-active > span { color: var(--surface); background: var(--blue); box-shadow: 0 0 0 5px rgba(20, 100, 244, 0.12); transform: scale(1.08); }
+.floating-demo-bar__steps .is-complete { color: var(--ink-soft); }
+.floating-demo-bar__steps .is-complete > span { color: var(--surface); background: var(--success); }
+.floating-demo-bar__current-step { grid-area: context; display: flex; align-items: baseline; gap: 7px; min-height: 27px; padding: 5px 7px 3px; margin: 0; color: var(--ink-soft); font-size: 0.75rem; font-weight: 520; line-height: 1.4; }
+.floating-demo-bar__current-step strong { flex: 0 0 auto; color: var(--blue); font-size: 0.68rem; font-weight: 780; letter-spacing: 0.02em; text-transform: uppercase; }
+.floating-demo-bar__current-step span { min-width: 0; }
+.floating-demo-bar__logs { grid-area: logs; margin: 0; border-top: 1px solid rgba(23, 26, 32, 0.07); }
+.floating-demo-bar__logs summary { display: flex; align-items: center; justify-content: flex-end; gap: 7px; padding: 2px 3px 0; color: var(--muted); font-size: 0.6rem; font-weight: 700; cursor: pointer; }
+.floating-demo-bar__logs summary span { display: grid; min-width: 16px; height: 16px; padding-inline: 4px; place-items: center; border-radius: 999px; color: var(--ink-soft); background: rgba(23, 26, 32, 0.07); font-size: 0.55rem; }
+.floating-demo-bar__logs ol { position: absolute; top: calc(100% + 8px); left: 0; display: grid; gap: 5px; box-sizing: border-box; width: 100%; max-height: 126px; padding: 10px; margin: 0; overflow: auto; border: 1px solid rgba(23, 26, 32, 0.1); border-radius: 14px; background: rgba(248, 249, 248, 0.97); box-shadow: 0 18px 42px -26px rgba(23, 26, 32, 0.65); backdrop-filter: blur(18px); list-style: none; }
+.floating-demo-bar__logs li { display: grid; grid-template-columns: 54px 1fr; gap: 7px; color: var(--ink-soft); font-size: 0.62rem; line-height: 1.35; }
+.floating-demo-bar__logs time { color: var(--muted); font-variant-numeric: tabular-nums; }
+.floating-demo-bar__logs li span { display: grid; gap: 1px; }
+.floating-demo-bar__logs li b { color: var(--ink); font-size: 0.58rem; font-weight: 750; letter-spacing: 0.03em; text-transform: uppercase; }
+.floating-demo-bar__primary,.floating-demo-bar__icon-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 38px; border-radius: 999px; cursor: pointer; transition: transform 0.35s var(--ease-heavy), background 0.35s var(--ease-heavy); }
+.floating-demo-bar.is-collapsed .floating-demo-bar__primary--compact { height: 32px; min-height: 32px; }
+.floating-demo-bar__primary { color: var(--surface); background: var(--blue); font-size: 0.74rem; font-weight: 720; }
+.floating-demo-bar__icon-button { color: var(--ink-soft); background: rgba(23, 26, 32, 0.07); }
+.floating-demo-bar__primary:hover,.floating-demo-bar__icon-button:hover { transform: translateY(-2px); }
+.floating-demo-bar__primary:disabled,.floating-demo-bar__icon-button:disabled { cursor: not-allowed; opacity: 0.5; transform: none; }
+.floating-demo-bar button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.is-spinning { animation: floating-demo-spin 0.9s linear infinite; }
+@keyframes floating-demo-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  /* A new mobile session never exposes the demo entry point. If a desktop
+     demo crosses the breakpoint, React keeps this compact controller visible
+     so the presenter can still pause or exit instead of losing the flow. */
+  .floating-demo-bar:not(.is-collapsed),
+  .recipient-modal__choice--demo { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) { .is-spinning { animation: none; } }
+.floating-demo-bar__actions { grid-area: actions; align-self: center; display: grid; margin: 0; }
+.floating-demo-bar__actions .floating-demo-bar__primary { min-height: 34px; padding: 0 12px; font-size: 0.68rem; white-space: nowrap; }

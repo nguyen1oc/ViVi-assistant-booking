@@ -1,0 +1,560 @@
+/* 23-lachong.css — Khối Lạc Hồng và cảnh "xe tiến ra"
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 11133–11689.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* ─── Lạc Hồng: xe trưng bày trên trang chủ ──────────────────────────────────
+   Khối này thay chỗ ".flagship-passage" (VF 8 / VF 9) cũ. CSS của flagship vẫn
+   được giữ nguyên phía trên, hiện không còn thẻ nào dùng tới.
+   Cùng bộ token với phần còn lại của site: --ink, --paper, --blue, --ease-soft. */
+
+/* Ảnh studio catalogue được cố ý cho tràn mép phải (.home-hero__visual có margin-right âm)
+   vì xe hướng sang trái. Ảnh Lạc Hồng chụp chếch, đuôi xe nằm bên phải — để tràn là mất
+   nguyên phần đuôi, trông như lỗi. Nên bản này được kéo vào trong và thu nhỏ lại. */
+.home-hero__car--lachong {
+  /* Chừa khoảng thở cho thông điệp thương hiệu và giữ toàn bộ đuôi xe trong khung 1440px. */
+  right: clamp(12px, 1.6vw, 24px);
+  width: min(46vw, 660px);
+  filter: drop-shadow(0 42px 46px rgba(23, 26, 32, 0.28));
+}
+
+@media (max-width: 900px) {
+  /* Trên mobile, bố cục gốc cố ý đẩy khung ảnh ra ngoài màn hình (right: -13vw, width: 108vw)
+     để ảnh studio hướng trái tràn mép. Ảnh Lạc Hồng chụp chếch nên tràn là mất đuôi xe —
+     :has() cho phép gỡ riêng trường hợp này mà không đụng tới ảnh studio của catalogue. */
+  .home-hero__visual:has(.home-hero__car--lachong) {
+    right: 0;
+    width: 100vw;
+  }
+
+  /* Vẫn là lớp phủ nằm đè lên phần dưới hero như thiết kế gốc — chỉ khác là bị kẹp
+     trong bề ngang màn hình. Đưa xe xuống dưới phần chữ sẽ đẩy hero dài ra và màn hình
+     đầu tiên không còn thấy xe. */
+  .home-hero__car--lachong {
+    right: 4vw;
+    width: min(92vw, 520px);
+  }
+}
+
+.home-hero__car--lachong img {
+  max-height: min(56vh, 500px);
+  width: 100%;
+  transform-origin: 50% 68%;
+}
+
+.lachong-passage {
+  padding: clamp(112px, 14vw, 210px) 0 clamp(96px, 11vw, 164px);
+  background:
+    radial-gradient(95% 64% at 72% 4%, rgba(20, 100, 244, 0.065), transparent 66%),
+    var(--paper);
+  overflow: hidden;
+}
+
+.lachong-passage__heading {
+  max-width: 1120px;
+}
+
+.lachong-passage__heading h2 {
+  max-width: 1060px;
+  margin: 16px 0 28px;
+  font-size: clamp(3.15rem, 7.1vw, 7.4rem);
+  font-weight: 520;
+  line-height: 0.94;
+  letter-spacing: -0.058em;
+  text-wrap: balance;
+}
+
+.lachong-word {
+  display: inline;
+  will-change: opacity;
+}
+
+.lachong-passage__heading > p:last-child {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: clamp(0.98rem, 1.25vw, 1.12rem);
+  line-height: 1.72;
+}
+
+/* Hai cảnh so le giữ trọng tâm ở năng lực VinFast; tên model chỉ là chú thích. */
+.lachong-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1.36fr) minmax(300px, 0.64fr);
+  gap: clamp(44px, 7vw, 108px);
+  align-items: center;
+  margin-top: clamp(96px, 12vw, 172px);
+}
+
+.lachong-block--sedan {
+  grid-template-columns: minmax(300px, 0.64fr) minmax(0, 1.36fr);
+}
+
+.lachong-figure {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+  background: transparent;
+  overflow: visible;
+}
+
+.lachong-figure::after {
+  content: '';
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  left: 10%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(18, 23, 29, 0.2), transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+
+.lachong-figure__car {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lachong-figure__car img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 34px 34px rgba(17, 22, 28, 0.23));
+}
+
+.lachong-block__copy {
+  display: grid;
+  align-content: center;
+}
+
+.lachong-block__narrative {
+  color: var(--blue);
+  font-size: 0.73rem;
+  font-weight: 650;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.lachong-block__copy > small {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 560;
+  letter-spacing: 0.035em;
+}
+
+.lachong-block__copy h3 {
+  margin: 11px 0 20px;
+  max-width: 13ch;
+  font-size: clamp(2.1rem, 3.7vw, 4.25rem);
+  font-weight: 520;
+  line-height: 0.98;
+  letter-spacing: -0.052em;
+  text-wrap: balance;
+}
+
+.lachong-block__copy > p:last-of-type {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.72;
+  max-width: 45ch;
+}
+
+.lachong-block__meta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 34px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.lachong-block__meta div {
+  display: grid;
+  gap: 3px;
+}
+
+.lachong-block__meta dt {
+  font-size: 0.69rem;
+  color: var(--muted);
+}
+
+.lachong-block__meta dd {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.lachong-disclaimer {
+  margin: clamp(40px, 5vw, 64px) 0 0;
+  max-width: 74ch;
+  font-size: 0.79rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.lachong-disclaimer span {
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+/* ─── Góc nhìn canvas: một bề mặt, chỉ chuyển động khi người dùng kéo ─────── */
+
+.lachong-spin-chapter {
+  margin-top: clamp(112px, 14vw, 196px);
+  padding: clamp(88px, 10vw, 150px) 0 clamp(72px, 9vw, 128px);
+  color: rgba(255, 255, 255, 0.94);
+  background: #080b0f;
+}
+
+.lachong-spin-block {
+  margin-top: 0;
+}
+
+.lachong-spin-block__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(250px, 0.55fr);
+  align-items: end;
+  gap: 30px;
+  margin-bottom: clamp(26px, 3vw, 42px);
+}
+
+.lachong-spin-block__intro h3 {
+  max-width: 780px;
+  margin: 12px 0 0;
+  font-size: clamp(2.25rem, 4.8vw, 5.2rem);
+  font-weight: 520;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.lachong-spin-block__intro > p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.lachong-spin-block__intro .eyebrow {
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.lachong-spin {
+  position: relative;
+  padding: 0;
+  background: transparent;
+  overflow: visible;
+  will-change: transform, opacity;
+}
+
+.lachong-spin__viewport {
+  position: relative;
+  min-height: 520px;
+  aspect-ratio: 16 / 8.7;
+  max-height: 78vh;
+  border-radius: 0;
+  background: #080b0f;
+  cursor: grab;
+  touch-action: pan-y;
+  overflow: hidden;
+  outline: none;
+  isolation: isolate;
+}
+
+.lachong-spin__viewport:active {
+  cursor: grabbing;
+}
+
+.lachong-spin__viewport:focus-visible {
+  box-shadow: inset 0 0 0 2px rgba(127, 174, 255, 0.92);
+}
+
+.lachong-spin__viewport::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background: radial-gradient(72% 70% at 50% 48%, transparent 46%, rgba(8, 11, 15, 0.34) 100%);
+  pointer-events: none;
+}
+
+.lachong-spin__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.lachong-spin__orbit {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 8.5%;
+  width: 72%;
+  height: 11%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.23);
+  border-radius: 50%;
+  opacity: 0.76;
+  pointer-events: none;
+}
+
+.lachong-spin__loading,
+.lachong-spin__hint {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: clamp(18px, 3vw, 32px);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 40px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(7, 10, 14, 0.66);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  font-size: 0.73rem;
+  font-weight: 540;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.lachong-spin__hint {
+  animation: lachong-hint 2.8s var(--ease-heavy) infinite;
+}
+
+.lachong-spin__loading svg {
+  animation: lachong-loading 0.9s linear infinite;
+}
+
+@keyframes lachong-hint {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(calc(-50% + 8px), 0); }
+}
+
+@keyframes lachong-loading {
+  to { transform: rotate(1turn); }
+}
+
+/* ─── Khối "xe tiến ra" ────────────────────────────────────────────────────── */
+
+.drive-out {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: clamp(28px, 5vw, 56px);
+  padding: clamp(90px, 12vw, 150px) 24px clamp(96px, 13vw, 160px);
+  background: linear-gradient(180deg, var(--paper), #e7e9ea 68%, var(--paper));
+  overflow: hidden;
+}
+
+.drive-out__aura {
+  position: absolute;
+  left: 50%;
+  top: 56%;
+  width: min(760px, 84vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0) 66%);
+  pointer-events: none;
+}
+
+.drive-out__copy {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  /* Đơn vị ch ở đây sẽ tính theo cỡ chữ 16px của thẻ này, KHÔNG phải cỡ chữ h2 bên trong,
+     nên phải đặt bằng px — dùng ch thì khung chỉ rộng ~190px và tiêu đề vỡ thành 4 dòng. */
+  max-width: min(700px, 84vw);
+}
+
+.drive-out__copy h2 {
+  margin: 10px 0 0;
+  font-size: clamp(1.75rem, 3.6vw, 2.9rem);
+  line-height: 1.08;
+  letter-spacing: -0.026em;
+}
+
+.drive-out__inline-scene {
+  display: inline-block;
+  width: clamp(72px, 7.5vw, 112px);
+  height: clamp(28px, 3.4vw, 44px);
+  margin: 0 0.18em;
+  border-radius: 999px;
+  background-image: linear-gradient(rgba(19, 23, 29, 0.08), rgba(19, 23, 29, 0.08)), var(--drive-out-scene);
+  background-position: 63% 66%;
+  background-size: 210%;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+  vertical-align: 0.08em;
+}
+
+.drive-out__marquee {
+  position: absolute;
+  z-index: 0;
+  top: 52%;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  color: transparent;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.drive-out__marquee > div {
+  display: flex;
+  width: max-content;
+  gap: 5vw;
+  animation: drive-out-marquee 38s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.drive-out__marquee span {
+  font-size: clamp(4.8rem, 12vw, 12rem);
+  font-weight: 680;
+  letter-spacing: -0.06em;
+  line-height: 0.78;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px rgba(23, 26, 32, 0.42);
+}
+
+@keyframes drive-out-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Ba vạch tim đường thu hẹp dần về phía chân trời để tạo chiều sâu. */
+.drive-out__lane {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.drive-out__lane span {
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(23, 26, 32, 0.13);
+}
+
+.drive-out__lane span:nth-child(1) { width: 74px; }
+.drive-out__lane span:nth-child(2) { width: 132px; }
+.drive-out__lane span:nth-child(3) { width: 208px; }
+
+.drive-out__car {
+  position: relative;
+  z-index: 2;
+  /* Ảnh nguồn chỉ 768 px: chặn bề ngang để không bị phóng quá tỉ lệ gốc rồi vỡ hạt. */
+  width: min(640px, 82vw);
+  will-change: transform, opacity, filter;
+}
+
+.drive-out__car img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 30px 34px rgba(23, 26, 32, 0.3));
+}
+
+@media (max-width: 900px) {
+  .lachong-block,
+  .lachong-block--sedan {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    margin-top: 94px;
+  }
+
+  /* Trên điện thoại luôn để ảnh xe lên trước phần chữ, kể cả khối so le. */
+  .lachong-block--sedan .lachong-figure {
+    order: -1;
+  }
+
+  .lachong-spin__viewport {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
+
+  .lachong-spin-block__intro {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .lachong-block__copy h3 {
+    max-width: 18ch;
+  }
+}
+
+@media (max-width: 560px) {
+  .lachong-passage {
+    padding-top: 104px;
+  }
+
+  .lachong-passage__heading h2 {
+    font-size: clamp(2.8rem, 14vw, 4.4rem);
+    line-height: 0.98;
+  }
+
+  .lachong-figure {
+    aspect-ratio: 4 / 3;
+    padding: 0;
+  }
+
+  .lachong-spin-block {
+    margin-top: 0;
+  }
+
+  .lachong-spin-chapter {
+    margin-top: 104px;
+    padding-block: 76px 64px;
+  }
+
+  .lachong-spin {
+    margin-inline: -4px;
+  }
+
+  .lachong-spin__viewport {
+    aspect-ratio: 1 / 1.08;
+    border-radius: 0;
+  }
+
+  .lachong-spin__hint,
+  .lachong-spin__loading {
+    bottom: 14px;
+    max-width: calc(100% - 28px);
+    font-size: 0.68rem;
+  }
+
+  .drive-out__car {
+    width: 92vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lachong-spin__hint,
+  .lachong-spin__loading svg {
+    animation: none;
+  }
+
+  .drive-out__marquee > div {
+    animation: none;
+  }
+}

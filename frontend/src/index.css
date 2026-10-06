@@ -1,0 +1,41 @@
+/* index.css — BẢNG MỤC LỤC, không chứa quy tắc CSS nào.
+ *
+ * Toàn bộ style nằm trong styles/. File này chỉ nạp chúng theo ĐÚNG thứ tự cũ.
+ *
+ * CSS ăn theo thứ tự: rule đứng sau thắng rule đứng trước khi cùng độ đặc hiệu.
+ * Đảo thứ tự các dòng @import dưới đây = đổi giao diện. Muốn thêm file mới thì thêm vào
+ * CUỐI danh sách, trừ khi bạn biết chắc nó phải chen vào giữa.
+ *
+ * Cần tìm style của một khối? Đọc styles/README.md.
+ */
+
+@import './styles/01-foundation.css';  /* Biến màu, reset, khung trang, chữ, nút nền tảng */
+@import './styles/02-navigation.css';  /* Thanh điều hướng nổi, menu, lớp phủ menu */
+@import './styles/03-home-hero.css';  /* Hero trang chủ và dải chữ chạy */
+@import './styles/04-vehicle-rail.css';  /* Dải mẫu xe trang chủ và thẻ xe */
+@import './styles/05-home-sections.css';  /* Bento sở hữu, chương công nghệ, cảm nhận, CTA cuối */
+@import './styles/06-vehicle-detail.css';  /* Trang chi tiết xe: hero, thông số, thư viện, bảng màu */
+@import './styles/07-agent.css';  /* Giao diện dùng chung của ViVi và trang agent riêng */
+@import './styles/08-booking-core.css';  /* Luồng đặt lịch: bố cục, biểu mẫu, danh sách khung giờ */
+@import './styles/09-responsive.css';  /* Hệ thống responsive dùng chung */
+@import './styles/10-booking-studio.css';  /* Studio đặt lịch: thanh công cụ, lịch đã đặt, panel xe */
+@import './styles/11-booking-upsell.css';  /* Khối upsell 3 mẫu xe và nhóm nút gợi ý của ViVi */
+@import './styles/12-booking-modals.css';  /* Popup chọn giờ, huỷ, đổi lịch, chọn xe, phiếu lịch */
+@import './styles/13-booking-success.css';  /* Bố cục hai cột màn đặt lịch thành công */
+@import './styles/14-detail-hero.css';  /* Hero một ảnh và lời mời lái thử theo ngữ cảnh */
+@import './styles/15-catalogue-2026.css';  /* Tinh chỉnh danh mục, media và studio ViVi bản 2026 */
+@import './styles/16-legibility.css';  /* Chỉnh độ đọc, header sticky, logo, avatar ViVi */
+@import './styles/17-map-slots.css';  /* Bản đồ showroom và popup xác nhận khung giờ */
+@import './styles/18-ownership.css';  /* Chương hậu mãi, pin và trạm sạc */
+@import './styles/19-charging.css';  /* Bề mặt riêng của trang trạm sạc */
+@import './styles/20-home-chapters.css';  /* Các chương hình ảnh mới của trang chủ */
+@import './styles/21-fallback-states.css';  /* Trạng thái dự phòng khi backend chưa sẵn sàng */
+@import './styles/22-leaflet.css';  /* Ghi đè thư viện bản đồ Leaflet */
+@import './styles/23-lachong.css';  /* Khối Lạc Hồng và cảnh "xe tiến ra" */
+@import './styles/24-motion-3d.css';  /* Chuyển động điện ảnh và sân khấu model GLB */
+@import './styles/25-calendar-success.css';  /* Lịch tuần, phiếu thành công, hướng dẫn sau đặt lịch */
+@import './styles/26-floating-demo.css';  /* Floating Demo Bar cho môi trường demo */
+@import './styles/26-mobile-hardening.css';  /* Lớp chốt mobile: safe-area, modal, hero, Booking hai bề mặt */
+@import './styles/27-invitation-preview.css';  /* Prototype thiệp mời cá nhân và hai mail dẫn vào thiệp */
+@import './styles/28-home-journey.css';  /* ViVi journey và dialog video nhà máy */
+@import './styles/29-back-to-top.css';  /* Nút mũi tên nổi đưa trang về đầu */

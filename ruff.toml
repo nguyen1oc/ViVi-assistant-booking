@@ -1,0 +1,18 @@
+target-version = "py311"
+line-length = 120
+
+# Không có thư mục nguồn nào ở gốc repo. Khai báo TƯỜNG MINH để ruff khỏi tự suy đoán.
+#
+# Vì sao cần dòng này: ruff quyết định `src.*` là thư viện của mình hay của bên thứ ba bằng
+# cách xem gốc repo có thư mục `src/` hay không. Chạy pytest từ gốc repo sẽ đẻ ra `src/__pycache__/`,
+# thế là máy đó phân loại import khác CI, và cùng một file thì máy báo sạch còn CI báo I001.
+# Đã mất một vòng CI đỏ vì chuyện này (18/08/2026). Để rỗng thì mọi máy cho cùng kết quả.
+src = []
+
+[lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[format]
+quote-style = "double"
+indent-style = "space"

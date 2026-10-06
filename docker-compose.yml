@@ -1,0 +1,138 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: vinfast_booking
+      POSTGRES_USER: vinfast
+      POSTGRES_PASSWORD: vinfast
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vinfast -d vinfast_booking"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db-seed:
+    image: vinfast-backend:dev
+    profiles: ["seed"]
+    # build:
+    #   context: ./backend
+    #   dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://vinfast:vinfast@postgres:5432/vinfast_booking
+      EVAL_DATA_DIR: /app/eval/data
+      BOOKING_ADVANCE_WINDOW_DAYS: ${BOOKING_ADVANCE_WINDOW_DAYS:-30}
+    command: ["python", "scripts/seed_dev_db.py"]
+    volumes:
+      - ./eval/data:/app/eval/data:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  backend:
+    image: vinfast-backend:dev
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "${BACKEND_HOST_PORT:-8001}:8000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://vinfast:vinfast@postgres:5432/vinfast_booking
+      REDIS_ENABLED: "true"
+      REDIS_URL: redis://redis:6379/0
+      EVAL_DATA_DIR: /app/eval/data
+      EVAL_ROOT: /app/eval
+      BOOKING_ADVANCE_WINDOW_DAYS: ${BOOKING_ADVANCE_WINDOW_DAYS:-30}
+    volumes:
+      - ./backend/logs:/app/logs
+      - ./eval/data:/app/eval/data:ro
+      - ./eval/golden:/app/eval/golden:ro
+      - ./eval/results:/app/eval/results:ro
+      - ./eval/human:/app/eval/human
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    image: vinfast-frontend:dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  internal-portal:
+    build:
+      context: ./internal-portal/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3100:80"
+    restart: unless-stopped
+    depends_on:
+      - backend
+
+  # human-review-api:
+  #   image: vinfast-backend:dev
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   command: ["uvicorn", "src.evaluation.human_review_app:app", "--host", "0.0.0.0", "--port", "8300"]
+  #   ports:
+  #     - "8300:8300"
+  #   environment:
+  #     EVAL_ROOT: /app/eval
+  #   volumes:
+  #     - ./eval/golden:/app/eval/golden:ro
+  #     - ./eval/results:/app/eval/results:ro
+  #     - ./eval/human:/app/eval/human
+  #   restart: unless-stopped
+  #   healthcheck:
+  #     test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8300/health')"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+
+  # human-review:
+  #   build:
+  #     context: ./human-review/frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3300:80"
+  #   restart: unless-stopped
+  #   depends_on:
+  #     human-review-api:
+  #       condition: service_healthy
+
+volumes:
+  postgres-data:
+  redis-data:

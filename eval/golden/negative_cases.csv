@@ -1,0 +1,17 @@
+case_id,case,expected,fixture_nodeid,metric_groups
+NEG-001,Cross-customer booking access token,DENY,backend/tests/test_services/test_access_security.py::test_access_session_rejects_booking_owned_by_another_customer,authorization_otp
+NEG-002,Expired access session,DENY,backend/tests/test_services/test_access_security.py::test_expired_access_session_is_rejected,authorization_otp
+NEG-003,Revoked access session,DENY,backend/tests/test_services/test_additional_edge_cases.py::test_revoked_access_session_is_rejected,authorization_otp
+NEG-004,OTP attempts exceed max_attempts,LOCK,backend/tests/test_services/test_access_security.py::test_otp_locks_after_max_attempts,authorization_otp
+NEG-005,Reuse consumed OTP challenge,DENY,backend/tests/test_services/test_access_security.py::test_otp_is_single_use,authorization_otp
+NEG-006,Duplicate mutation with same idempotency action_id,REPLAY_SAME_RESULT,backend/tests/test_services/test_search_and_hold.py::test_hold_slot_is_idempotent,double_booking|vehicle_slot
+NEG-007,Staff reads booking not assigned to own slot,DENY,backend/tests/test_internal_portal/test_internal_service.py::test_staff_only_sees_assigned_booking,authorization_otp
+NEG-008,Manager modifies showroom outside scope,DENY,backend/tests/test_internal_portal/test_internal_service.py::test_manager_cannot_cross_showroom_scope,authorization_otp
+NEG-009,Non-admin requests vehicle transfer,DENY,backend/tests/test_internal_portal/test_internal_capabilities.py::test_manager_api_manages_only_its_showroom_and_cannot_use_admin_commands,authorization_otp
+NEG-010,Notification delivery failure reaches max_attempts,TERMINAL_FAILED,backend/tests/test_services/test_background_notifications.py::test_missing_recipient_destination_retries_then_fails,reliability
+NEG-011,Vehicle unavailability overlaps requested slot,NOT_AVAILABLE,backend/tests/test_internal_portal/test_internal_service.py::test_portal_conflicts_compare_mixed_timezone_offsets,slot_availability
+NEG-012,Concurrent booking version mismatch,VERSION_CONFLICT,backend/tests/test_services/test_draft_and_confirm.py::test_update_draft_rejects_stale_version,concurrency_consistency
+NEG-013,Second booking attempts the same held slot,SLOT_NO_LONGER_AVAILABLE,backend/tests/test_services/test_search_and_hold.py::test_hold_slot_rejects_second_booking,double_booking|vehicle_slot
+NEG-014,Second booking attempts an overlapping slot of the same vehicle,SLOT_NO_LONGER_AVAILABLE,backend/tests/test_services/test_search_and_hold.py::test_hold_slot_rejects_overlapping_slot_of_same_vehicle,double_booking|vehicle_slot
+NEG-015,Concurrent holds compete for one slot,ONE_WINNER,backend/tests/test_services/test_search_and_hold.py::test_concurrent_hold_allows_only_one_winner,double_booking|vehicle_slot
+NEG-016,Overlapping bookings compete for one sales consultant,STAFF_CAPACITY_BLOCKED,backend/tests/test_services/test_search_and_hold.py::test_overlapping_slots_cannot_consume_the_same_sales_staff,double_booking|staff_capacity

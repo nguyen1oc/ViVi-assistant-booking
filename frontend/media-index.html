@@ -1,0 +1,2007 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kho ảnh VinFast — tra cứu theo mẫu xe</title>
+<style>
+  *{box-sizing:border-box} body{margin:0;font:15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f6f6f4;color:#1b1d21}
+  header.top{position:sticky;top:0;z-index:9;background:#fff;border-bottom:1px solid #e6e6e2;padding:18px 26px}
+  header.top h1{margin:0 0 4px;font-size:1.15rem} header.top p{margin:0;color:#6a6f76;font-size:.85rem}
+  nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+  nav a{font-size:.76rem;padding:5px 11px;border-radius:999px;background:#f0f0ed;color:#33383f;text-decoration:none;border:1px solid transparent}
+  nav a:hover{border-color:#1464F4;color:#1464F4}
+  main{padding:26px;max-width:1500px;margin:0 auto}
+  section{background:#fff;border:1px solid #e6e6e2;border-radius:16px;padding:22px;margin-bottom:22px}
+  .vhead{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:flex-start;border:0;padding:0;position:static;background:none}
+  h2{margin:0 0 4px;font-size:1.05rem} h2 code{font-size:.75rem;background:#eef3ff;color:#1464F4;padding:2px 8px;border-radius:6px;margin-left:6px}
+  h3{margin:22px 0 10px;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:#6a6f76}
+  .vhead p{margin:0;color:#6a6f76;font-size:.82rem}
+  dl{margin:0;display:grid;gap:3px;font-size:.78rem;min-width:260px}
+  dl div{display:flex;gap:8px} dt{color:#8a9099;min-width:74px} dd{margin:0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.76rem;background:#f2f2ef;padding:1px 5px;border-radius:4px}
+  .note{margin:14px 0 0;padding:10px 13px;background:#fff8e6;border-left:3px solid #e0a83b;border-radius:6px;font-size:.82rem}
+  .override{margin:14px 0 4px;font-size:.8rem;color:#6a6f76} .override.on{color:#1e9e4a;font-weight:600}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:14px;margin-top:14px}
+  .cell{margin:0} .frame{position:relative;aspect-ratio:4/3;background:repeating-conic-gradient(#eee 0 25%,#fff 0 50%) 50%/16px 16px;border:1px solid #e6e6e2;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .cell.is-key .frame{border-color:#1464F4;box-shadow:0 0 0 2px rgba(20,100,244,.18)}
+  .grid--raw .frame{background:#f0f0ed;border-style:dashed}
+  .grid--raw .badge{background:#6a6f76}
+  .frame img,.frame video{max-width:100%;max-height:100%;object-fit:contain}
+  .model-frame{text-decoration:none;background:radial-gradient(circle at 50% 35%,#27384f,#111820 68%);color:#fff}
+  .model-glyph{font-size:2.2rem;font-weight:720;letter-spacing:-.08em;text-shadow:0 12px 32px rgba(52,132,255,.5)}
+  .badge{position:absolute;top:6px;left:6px;font-size:.6rem;font-weight:700;letter-spacing:.04em;background:#1464F4;color:#fff;padding:3px 7px;border-radius:5px}
+  figcaption{padding:7px 2px 0} figcaption strong{display:block;font-size:.73rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  figcaption small{color:#8a9099;font-size:.68rem}
+  .copy{margin-top:5px;font-size:.66rem;padding:3px 7px;border-radius:5px;border:1px solid #dcdcd8;background:#fafaf8;cursor:pointer;color:#4a4f57}
+  .copy:hover{border-color:#1464F4;color:#1464F4} .copy.done{background:#e8f7ee;border-color:#1e9e4a;color:#1e9e4a}
+  ul.warn{margin:12px 0 0;padding-left:20px;font-size:.83rem} ul.warn li{margin-bottom:7px}
+</style></head><body>
+<header class="top">
+  <h1>Kho ảnh VinFast — tra cứu theo mẫu xe</h1>
+  <p>231 file ảnh/video · 3 model 3D · sinh tự động lúc 11:26:28 11/8/2026 · chạy lại bằng <code>npm run media:index</code></p>
+  <nav><a href="#vf3">VF 3</a><a href="#vf5">VF 5</a><a href="#vf6">VF 6</a><a href="#vf7">VF 7</a><a href="#vf-mpv-7">VF MPV 7</a><a href="#vf8">VF 8</a><a href="#vf8-the-he-moi">VF 8 Thế hệ mới</a><a href="#vf9">VF 9</a><a href="#herio-green">Herio Green</a><a href="#minio-green">Minio Green</a><a href="#nerio-green">Nerio Green</a><a href="#limo-green">Limo Green</a><a href="#ec-van">EC Van</a><a href="#ebus">VinFast eBus</a><a href="#trung-bay">Trưng bày</a><a href="#dung-chung">Dùng chung</a><a href="#model-3d">Model 3D</a><a href="#canh-bao">Cảnh báo</a></nav>
+</header>
+<main>
+<section id="vf3">
+    <header class="vhead">
+      <div>
+        <h2>VF 3 <code>vf3</code></h2>
+        <p>Động cơ điện · 9 file
+           · thư mục: <code>VF3</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>VF3/xám.png</code></dd></div>
+        
+        
+      </dl>
+    </header>
+    <p class="note">⚠ Chưa có brochure trong kho. Tên file trong thư mục vô nghĩa: 1..webp, 2..png, 3..jpg, 4..png.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/vf3/studio.png</code></p>
+    <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF3/1..webp" alt="1..webp"></div>
+    <figcaption>
+      <strong title="1..webp">1..webp</strong>
+      <small>webp · 185 KB</small>
+      <button class="copy" data-code="vehicleImage('VF3/1..webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF3/2..png" alt="2..png"></div>
+    <figcaption>
+      <strong title="2..png">2..png</strong>
+      <small>png · 1.0 MB</small>
+      <button class="copy" data-code="vehicleImage('VF3/2..png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF3/2.png" alt="2.png"></div>
+    <figcaption>
+      <strong title="2.png">2.png</strong>
+      <small>png · 137 KB</small>
+      <button class="copy" data-code="vehicleImage('VF3/2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF3/3..jpg" alt="3..jpg"></div>
+    <figcaption>
+      <strong title="3..jpg">3..jpg</strong>
+      <small>jpg · 537 KB</small>
+      <button class="copy" data-code="vehicleImage('VF3/3..jpg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF3/4..png" alt="4..png"></div>
+    <figcaption>
+      <strong title="4..png">4..png</strong>
+      <small>png · 617 KB</small>
+      <button class="copy" data-code="vehicleImage('VF3/4..png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF3/%C4%91%E1%BB%8F.png" alt="đỏ.png"></div>
+    <figcaption>
+      <strong title="đỏ.png">đỏ.png</strong>
+      <small>png · 1.1 MB</small>
+      <button class="copy" data-code="vehicleImage('VF3/đỏ.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF3/h%E1%BB%93ng.png" alt="hồng.png"></div>
+    <figcaption>
+      <strong title="hồng.png">hồng.png</strong>
+      <small>png · 1.0 MB</small>
+      <button class="copy" data-code="vehicleImage('VF3/hồng.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF3/x%C3%A1m.png" alt="xám.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="xám.png">xám.png</strong>
+      <small>png · 1.1 MB</small>
+      <button class="copy" data-code="vehicleImage('VF3/xám.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="vf5">
+    <header class="vhead">
+      <div>
+        <h2>VF 5 <code>vf5</code></h2>
+        <p>Động cơ điện · 9 file
+           · thư mục: <code>VF5</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>VF5/trắng.webp</code></dd></div>
+        
+        <div><dt>Brochure</dt><dd>VFVN_VF 5_Brochure Bản sửa 290126_1333PM.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ VF5/1..webp trùng byte với VF3/1..webp — một trong hai đặt nhầm thư mục.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/vf5/studio.png</code></p>
+    <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/1..webp" alt="1..webp"></div>
+    <figcaption>
+      <strong title="1..webp">1..webp</strong>
+      <small>webp · 185 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/1..webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/2.webp" alt="2.webp"></div>
+    <figcaption>
+      <strong title="2.webp">2.webp</strong>
+      <small>webp · 118 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/2.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/3..webp" alt="3..webp"></div>
+    <figcaption>
+      <strong title="3..webp">3..webp</strong>
+      <small>webp · 141 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/3..webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/4..webp" alt="4..webp"></div>
+    <figcaption>
+      <strong title="4..webp">4..webp</strong>
+      <small>webp · 116 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/4..webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/5..webp" alt="5..webp"></div>
+    <figcaption>
+      <strong title="5..webp">5..webp</strong>
+      <small>webp · 447 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/5..webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/%C4%91%E1%BB%8F.webp" alt="đỏ.webp"></div>
+    <figcaption>
+      <strong title="đỏ.webp">đỏ.webp</strong>
+      <small>webp · 95 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/đỏ.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/tr%E1%BA%AFng.webp" alt="trắng.webp"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="trắng.webp">trắng.webp</strong>
+      <small>webp · 88 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/trắng.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/v%C3%A0ng%20%C4%91en.webp" alt="vàng đen.webp"></div>
+    <figcaption>
+      <strong title="vàng đen.webp">vàng đen.webp</strong>
+      <small>webp · 76 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/vàng đen.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF5/x%C3%A1m.webp" alt="xám.webp"></div>
+    <figcaption>
+      <strong title="xám.webp">xám.webp</strong>
+      <small>webp · 73 KB</small>
+      <button class="copy" data-code="vehicleImage('VF5/xám.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="vf6">
+    <header class="vhead">
+      <div>
+        <h2>VF 6 <code>vf6</code></h2>
+        <p>Động cơ điện · 10 file
+           · thư mục: <code>VF6</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>common/vf6-front-model-cutout.png</code></dd></div>
+        
+        <div><dt>Brochure</dt><dd>VF6_Brochure.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Ảnh chính nằm ở common/, KHÔNG nằm trong thư mục VF6. common/ còn 2 bản khác: vf6-model-cutout.png và vf6-studio.webp.</p>
+    <p class="override on">Đang ghi đè 1 file trong <code>by-model/vf6/</code></p>
+       <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/by-model/vf6/studio.png" alt="studio.png"><span class="badge">GHI ĐÈ</span></div>
+    <figcaption>
+      <strong title="studio.png">studio.png</strong>
+      <small>png · 1.2 MB</small>
+      
+    </figcaption>
+  </figure></div>
+    <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vf6-front-model-cutout.png" alt="vf6-front-model-cutout.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="vf6-front-model-cutout.png">vf6-front-model-cutout.png</strong>
+      <small>png · 1.3 MB</small>
+      <button class="copy" data-code="commonImage('vf6-front-model-cutout.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/bottom-banner.webp" alt="bottom-banner.webp"></div>
+    <figcaption>
+      <strong title="bottom-banner.webp">bottom-banner.webp</strong>
+      <small>webp · 128 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/bottom-banner.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/interior-vf6-1.jpg" alt="interior-vf6-1.jpg"></div>
+    <figcaption>
+      <strong title="interior-vf6-1.jpg">interior-vf6-1.jpg</strong>
+      <small>jpg · 261 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/interior-vf6-1.jpg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/interior-vf6-2.jpg" alt="interior-vf6-2.jpg"></div>
+    <figcaption>
+      <strong title="interior-vf6-2.jpg">interior-vf6-2.jpg</strong>
+      <small>jpg · 374 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/interior-vf6-2.jpg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/technology-vf6-3.jpg" alt="technology-vf6-3.jpg"></div>
+    <figcaption>
+      <strong title="technology-vf6-3.jpg">technology-vf6-3.jpg</strong>
+      <small>jpg · 37 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/technology-vf6-3.jpg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/technology-vf6-4.jpg" alt="technology-vf6-4.jpg"></div>
+    <figcaption>
+      <strong title="technology-vf6-4.jpg">technology-vf6-4.jpg</strong>
+      <small>jpg · 36 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/technology-vf6-4.jpg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/VF6-banner.webp" alt="VF6-banner.webp"></div>
+    <figcaption>
+      <strong title="VF6-banner.webp">VF6-banner.webp</strong>
+      <small>webp · 553 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/VF6-banner.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/VF6-Lifestyle-10.webp" alt="VF6-Lifestyle-10.webp"></div>
+    <figcaption>
+      <strong title="VF6-Lifestyle-10.webp">VF6-Lifestyle-10.webp</strong>
+      <small>webp · 166 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/VF6-Lifestyle-10.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/VF6-Lifestyle-11.webp" alt="VF6-Lifestyle-11.webp"></div>
+    <figcaption>
+      <strong title="VF6-Lifestyle-11.webp">VF6-Lifestyle-11.webp</strong>
+      <small>webp · 508 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/VF6-Lifestyle-11.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF6/VF6-Lifestyle-12.webp" alt="VF6-Lifestyle-12.webp"></div>
+    <figcaption>
+      <strong title="VF6-Lifestyle-12.webp">VF6-Lifestyle-12.webp</strong>
+      <small>webp · 529 KB</small>
+      <button class="copy" data-code="vehicleImage('VF6/VF6-Lifestyle-12.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="vf7">
+    <header class="vhead">
+      <div>
+        <h2>VF 7 <code>vf7</code></h2>
+        <p>Động cơ điện · 20 file
+           · thư mục: <code>VF7</code> + <code>VF7 FMP</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>VF7/product-CE18.webp</code></dd></div>
+        
+        <div><dt>Brochure</dt><dd>VF7_Brochure.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Thư mục &quot;VF7 FMP&quot; (5 file D_01…D_05) CHƯA XÁC NHẬN thuộc mẫu nào — cần chủ dự án xác nhận.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/vf7/studio.png</code></p>
+    <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/product-CE11.webp" alt="product-CE11.webp"></div>
+    <figcaption>
+      <strong title="product-CE11.webp">product-CE11.webp</strong>
+      <small>webp · 143 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/product-CE11.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/product-CE18.webp" alt="product-CE18.webp"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="product-CE18.webp">product-CE18.webp</strong>
+      <small>webp · 140 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/product-CE18.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/product-CE1M.webp" alt="product-CE1M.webp"></div>
+    <figcaption>
+      <strong title="product-CE1M.webp">product-CE1M.webp</strong>
+      <small>webp · 151 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/product-CE1M.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/product-CE1V.webp" alt="product-CE1V.webp"></div>
+    <figcaption>
+      <strong title="product-CE1V.webp">product-CE1V.webp</strong>
+      <small>webp · 144 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/product-CE1V.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/product-CE1W.webp" alt="product-CE1W.webp"></div>
+    <figcaption>
+      <strong title="product-CE1W.webp">product-CE1W.webp</strong>
+      <small>webp · 155 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/product-CE1W.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-hero-car.webp" alt="vf7-hero-car.webp"></div>
+    <figcaption>
+      <strong title="vf7-hero-car.webp">vf7-hero-car.webp</strong>
+      <small>webp · 180 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-hero-car.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-noi-that-compare-left.webp" alt="vf7-noi-that-compare-left.webp"></div>
+    <figcaption>
+      <strong title="vf7-noi-that-compare-left.webp">vf7-noi-that-compare-left.webp</strong>
+      <small>webp · 91 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-noi-that-compare-left.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-noi-that-compare-right.webp" alt="vf7-noi-that-compare-right.webp"></div>
+    <figcaption>
+      <strong title="vf7-noi-that-compare-right.webp">vf7-noi-that-compare-right.webp</strong>
+      <small>webp · 100 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-noi-that-compare-right.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-noi-that-overview.webp" alt="vf7-noi-that-overview.webp"></div>
+    <figcaption>
+      <strong title="vf7-noi-that-overview.webp">vf7-noi-that-overview.webp</strong>
+      <small>webp · 174 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-noi-that-overview.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-passion.webp" alt="vf7-passion.webp"></div>
+    <figcaption>
+      <strong title="vf7-passion.webp">vf7-passion.webp</strong>
+      <small>webp · 75 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-passion.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-slide-in-croped.webp" alt="vf7-slide-in-croped.webp"></div>
+    <figcaption>
+      <strong title="vf7-slide-in-croped.webp">vf7-slide-in-croped.webp</strong>
+      <small>webp · 114 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-slide-in-croped.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-tuy-chon-gia.webp" alt="vf7-tuy-chon-gia.webp"></div>
+    <figcaption>
+      <strong title="vf7-tuy-chon-gia.webp">vf7-tuy-chon-gia.webp</strong>
+      <small>webp · 162 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-tuy-chon-gia.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-uu-diem-1.webp" alt="vf7-uu-diem-1.webp"></div>
+    <figcaption>
+      <strong title="vf7-uu-diem-1.webp">vf7-uu-diem-1.webp</strong>
+      <small>webp · 88 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-uu-diem-1.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-uu-diem-3.webp" alt="vf7-uu-diem-3.webp"></div>
+    <figcaption>
+      <strong title="vf7-uu-diem-3.webp">vf7-uu-diem-3.webp</strong>
+      <small>webp · 128 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-uu-diem-3.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7/vf7-uu-diem-4.webp" alt="vf7-uu-diem-4.webp"></div>
+    <figcaption>
+      <strong title="vf7-uu-diem-4.webp">vf7-uu-diem-4.webp</strong>
+      <small>webp · 59 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7/vf7-uu-diem-4.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7%20FMP/D_01.webp" alt="D_01.webp"></div>
+    <figcaption>
+      <strong title="D_01.webp">D_01.webp</strong>
+      <small>webp · 213 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7 FMP/D_01.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7%20FMP/D_02.webp" alt="D_02.webp"></div>
+    <figcaption>
+      <strong title="D_02.webp">D_02.webp</strong>
+      <small>webp · 100 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7 FMP/D_02.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7%20FMP/D_03.webp" alt="D_03.webp"></div>
+    <figcaption>
+      <strong title="D_03.webp">D_03.webp</strong>
+      <small>webp · 101 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7 FMP/D_03.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7%20FMP/D_04.webp" alt="D_04.webp"></div>
+    <figcaption>
+      <strong title="D_04.webp">D_04.webp</strong>
+      <small>webp · 363 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7 FMP/D_04.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF7%20FMP/D_05.webp" alt="D_05.webp"></div>
+    <figcaption>
+      <strong title="D_05.webp">D_05.webp</strong>
+      <small>webp · 73 KB</small>
+      <button class="copy" data-code="vehicleImage('VF7 FMP/D_05.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="vf-mpv-7">
+    <header class="vhead">
+      <div>
+        <h2>VF MPV 7 <code>vf-mpv-7</code></h2>
+        <p>Động cơ điện · 1 file
+           · thư mục: <em>không có thư mục riêng</em></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>common/vf-mpv-7-model-cutout.png</code></dd></div>
+        
+        
+      </dl>
+    </header>
+    <p class="note">⚠ KHÔNG có thư mục ảnh riêng. Cả mẫu xe chỉ có đúng 1 ảnh nằm trong common/.</p>
+    <p class="override on">Đang ghi đè 1 file trong <code>by-model/vf-mpv-7/</code></p>
+       <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/by-model/vf-mpv-7/studio.png" alt="studio.png"><span class="badge">GHI ĐÈ</span></div>
+    <figcaption>
+      <strong title="studio.png">studio.png</strong>
+      <small>png · 1.4 MB</small>
+      
+    </figcaption>
+  </figure></div>
+    <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vf-mpv-7-model-cutout.png" alt="vf-mpv-7-model-cutout.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="vf-mpv-7-model-cutout.png">vf-mpv-7-model-cutout.png</strong>
+      <small>png · 1.6 MB</small>
+      <button class="copy" data-code="commonImage('vf-mpv-7-model-cutout.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="vf8">
+    <header class="vhead">
+      <div>
+        <h2>VF 8 <code>vf8</code></h2>
+        <p>Động cơ điện · 24 file
+           · thư mục: <code>VF8</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>VF8/product-CE18.webp</code></dd></div>
+        <div><dt>Video</dt><dd><code>VF8/VF8.mp4</code></dd></div>
+        <div><dt>Brochure</dt><dd>VF8Brochure.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ VF8/VF8.mp4 trùng byte với video của VF 8 Thế hệ mới — hai bản ghi riêng, cố ý giữ tách.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/vf8/studio.png</code></p>
+    <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/11-boombag.webp" alt="11-boombag.webp"></div>
+    <figcaption>
+      <strong title="11-boombag.webp">11-boombag.webp</strong>
+      <small>webp · 28 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/11-boombag.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/360.webp" alt="360.webp"></div>
+    <figcaption>
+      <strong title="360.webp">360.webp</strong>
+      <small>webp · 5 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/360.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/ai.webp" alt="ai.webp"></div>
+    <figcaption>
+      <strong title="ai.webp">ai.webp</strong>
+      <small>webp · 79 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/ai.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/banner.webp" alt="banner.webp"></div>
+    <figcaption>
+      <strong title="banner.webp">banner.webp</strong>
+      <small>webp · 240 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/banner.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/canhbaovc.webp" alt="canhbaovc.webp"></div>
+    <figcaption>
+      <strong title="canhbaovc.webp">canhbaovc.webp</strong>
+      <small>webp · 25 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/canhbaovc.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/gheda-vegan.webp" alt="gheda-vegan.webp"></div>
+    <figcaption>
+      <strong title="gheda-vegan.webp">gheda-vegan.webp</strong>
+      <small>webp · 20 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/gheda-vegan.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/giamsatnl.webp" alt="giamsatnl.webp"></div>
+    <figcaption>
+      <strong title="giamsatnl.webp">giamsatnl.webp</strong>
+      <small>webp · 17 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/giamsatnl.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/guong.webp" alt="guong.webp"></div>
+    <figcaption>
+      <strong title="guong.webp">guong.webp</strong>
+      <small>webp · 9 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/guong.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/hud.webp" alt="hud.webp"></div>
+    <figcaption>
+      <strong title="hud.webp">hud.webp</strong>
+      <small>webp · 10 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/hud.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/interior-img1.webp" alt="interior-img1.webp"></div>
+    <figcaption>
+      <strong title="interior-img1.webp">interior-img1.webp</strong>
+      <small>webp · 65 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/interior-img1.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/journey.webp" alt="journey.webp"></div>
+    <figcaption>
+      <strong title="journey.webp">journey.webp</strong>
+      <small>webp · 271 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/journey.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/panorama.webp" alt="panorama.webp"></div>
+    <figcaption>
+      <strong title="panorama.webp">panorama.webp</strong>
+      <small>webp · 5 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/panorama.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/product-171V.webp" alt="product-171V.webp"></div>
+    <figcaption>
+      <strong title="product-171V.webp">product-171V.webp</strong>
+      <small>webp · 165 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/product-171V.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/product-1V18.webp" alt="product-1V18.webp"></div>
+    <figcaption>
+      <strong title="product-1V18.webp">product-1V18.webp</strong>
+      <small>webp · 164 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/product-1V18.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/product-CE11.webp" alt="product-CE11.webp"></div>
+    <figcaption>
+      <strong title="product-CE11.webp">product-CE11.webp</strong>
+      <small>webp · 147 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/product-CE11.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/product-CE18.webp" alt="product-CE18.webp"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="product-CE18.webp">product-CE18.webp</strong>
+      <small>webp · 135 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/product-CE18.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/product-CE1M.webp" alt="product-CE1M.webp"></div>
+    <figcaption>
+      <strong title="product-CE1M.webp">product-CE1M.webp</strong>
+      <small>webp · 151 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/product-CE1M.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/product-CE22.webp" alt="product-CE22.webp"></div>
+    <figcaption>
+      <strong title="product-CE22.webp">product-CE22.webp</strong>
+      <small>webp · 150 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/product-CE22.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/sos.webp" alt="sos.webp"></div>
+    <figcaption>
+      <strong title="sos.webp">sos.webp</strong>
+      <small>webp · 110 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/sos.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/thietkekdh.webp" alt="thietkekdh.webp"></div>
+    <figcaption>
+      <strong title="thietkekdh.webp">thietkekdh.webp</strong>
+      <small>webp · 13 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/thietkekdh.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><video src="src/media/local/vehicle-media/VF8/VF8.mp4" muted preload="metadata"></video></div>
+    <figcaption>
+      <strong title="VF8.mp4">VF8.mp4</strong>
+      <small>mp4 · 10.2 MB</small>
+      <button class="copy" data-code="vehicleVideo('VF8/VF8.mp4')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/vf8eco.webp" alt="vf8eco.webp"></div>
+    <figcaption>
+      <strong title="vf8eco.webp">vf8eco.webp</strong>
+      <small>webp · 113 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/vf8eco.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/vf8plus.webp" alt="vf8plus.webp"></div>
+    <figcaption>
+      <strong title="vf8plus.webp">vf8plus.webp</strong>
+      <small>webp · 117 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/vf8plus.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8/volang.webp" alt="volang.webp"></div>
+    <figcaption>
+      <strong title="volang.webp">volang.webp</strong>
+      <small>webp · 19 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8/volang.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="vf8-the-he-moi">
+    <header class="vhead">
+      <div>
+        <h2>VF 8 Thế hệ mới <code>vf8-the-he-moi</code></h2>
+        <p>Động cơ điện · 17 file
+           · thư mục: <code>VF8 All the new</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>VF8 All the new/VF8PH-23.webp</code></dd></div>
+        <div><dt>Video</dt><dd><code>VF8 All the new/VF8.mp4</code></dd></div>
+        <div><dt>Brochure</dt><dd>VF 8 The he moi All News_Brochure_final 20.05.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Tên thư mục &quot;VF8 All the new&quot; không khớp mã xe vf8-the-he-moi — dễ tìm nhầm.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/vf8-the-he-moi/studio.png</code></p>
+    <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/car-left.webp" alt="car-left.webp"></div>
+    <figcaption>
+      <strong title="car-left.webp">car-left.webp</strong>
+      <small>webp · 361 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/car-left.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/ex-ex5-e.png" alt="ex-ex5-e.png"></div>
+    <figcaption>
+      <strong title="ex-ex5-e.png">ex-ex5-e.png</strong>
+      <small>png · 172 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/ex-ex5-e.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/ex-right.webp" alt="ex-right.webp"></div>
+    <figcaption>
+      <strong title="ex-right.webp">ex-right.webp</strong>
+      <small>webp · 89 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/ex-right.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/hero-banner.svg" alt="hero-banner.svg"></div>
+    <figcaption>
+      <strong title="hero-banner.svg">hero-banner.svg</strong>
+      <small>svg · 2.0 MB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/hero-banner.svg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/tech-t1.png" alt="tech-t1.png"></div>
+    <figcaption>
+      <strong title="tech-t1.png">tech-t1.png</strong>
+      <small>png · 131 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/tech-t1.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/tech1.webp" alt="tech1.webp"></div>
+    <figcaption>
+      <strong title="tech1.webp">tech1.webp</strong>
+      <small>webp · 162 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/tech1.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/tech2.webp" alt="tech2.webp"></div>
+    <figcaption>
+      <strong title="tech2.webp">tech2.webp</strong>
+      <small>webp · 56 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/tech2.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/tech3.png" alt="tech3.png"></div>
+    <figcaption>
+      <strong title="tech3.png">tech3.png</strong>
+      <small>png · 56 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/tech3.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><video src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8.mp4" muted preload="metadata"></video></div>
+    <figcaption>
+      <strong title="VF8.mp4">VF8.mp4</strong>
+      <small>mp4 · 10.2 MB</small>
+      <button class="copy" data-code="vehicleVideo('VF8 All the new/VF8.mp4')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8PH-13.webp" alt="VF8PH-13.webp"></div>
+    <figcaption>
+      <strong title="VF8PH-13.webp">VF8PH-13.webp</strong>
+      <small>webp · 49 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/VF8PH-13.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8PH-15.webp" alt="VF8PH-15.webp"></div>
+    <figcaption>
+      <strong title="VF8PH-15.webp">VF8PH-15.webp</strong>
+      <small>webp · 52 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/VF8PH-15.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8PH-17.webp" alt="VF8PH-17.webp"></div>
+    <figcaption>
+      <strong title="VF8PH-17.webp">VF8PH-17.webp</strong>
+      <small>webp · 54 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/VF8PH-17.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8PH-19.webp" alt="VF8PH-19.webp"></div>
+    <figcaption>
+      <strong title="VF8PH-19.webp">VF8PH-19.webp</strong>
+      <small>webp · 63 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/VF8PH-19.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8PH-21.webp" alt="VF8PH-21.webp"></div>
+    <figcaption>
+      <strong title="VF8PH-21.webp">VF8PH-21.webp</strong>
+      <small>webp · 61 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/VF8PH-21.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8PH-22.webp" alt="VF8PH-22.webp"></div>
+    <figcaption>
+      <strong title="VF8PH-22.webp">VF8PH-22.webp</strong>
+      <small>webp · 63 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/VF8PH-22.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8PH-23.webp" alt="VF8PH-23.webp"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="VF8PH-23.webp">VF8PH-23.webp</strong>
+      <small>webp · 53 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/VF8PH-23.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF8%20All%20the%20new/VF8PH-24.webp" alt="VF8PH-24.webp"></div>
+    <figcaption>
+      <strong title="VF8PH-24.webp">VF8PH-24.webp</strong>
+      <small>webp · 49 KB</small>
+      <button class="copy" data-code="vehicleImage('VF8 All the new/VF8PH-24.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="vf9">
+    <header class="vhead">
+      <div>
+        <h2>VF 9 <code>vf9</code></h2>
+        <p>Động cơ điện · 29 file
+           · thư mục: <code>VF9</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>common/vf9-studio.png</code></dd></div>
+        <div><dt>Video</dt><dd><code>VF9/VF9.mp4</code></dd></div>
+        <div><dt>Brochure</dt><dd>VF 9_ Brochure.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Ảnh chính nằm ở common/. VF9/VF9 model.webp trùng byte với about-us.png.webp ở gốc vehicle-media.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/vf9/studio.png</code></p>
+    <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vf9-studio.png" alt="vf9-studio.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="vf9-studio.png">vf9-studio.png</strong>
+      <small>png · 505 KB</small>
+      <button class="copy" data-code="commonImage('vf9-studio.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE11-cutout.webp" alt="CE11-cutout.webp"></div>
+    <figcaption>
+      <strong title="CE11-cutout.webp">CE11-cutout.webp</strong>
+      <small>webp · 262 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE11-cutout.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE11.webp" alt="CE11.webp"></div>
+    <figcaption>
+      <strong title="CE11.webp">CE11.webp</strong>
+      <small>webp · 116 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE11.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE17-cutout.webp" alt="CE17-cutout.webp"></div>
+    <figcaption>
+      <strong title="CE17-cutout.webp">CE17-cutout.webp</strong>
+      <small>webp · 283 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE17-cutout.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE17.webp" alt="CE17.webp"></div>
+    <figcaption>
+      <strong title="CE17.webp">CE17.webp</strong>
+      <small>webp · 119 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE17.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE18-cutout.webp" alt="CE18-cutout.webp"></div>
+    <figcaption>
+      <strong title="CE18-cutout.webp">CE18-cutout.webp</strong>
+      <small>webp · 268 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE18-cutout.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE18.webp" alt="CE18.webp"></div>
+    <figcaption>
+      <strong title="CE18.webp">CE18.webp</strong>
+      <small>webp · 118 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE18.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE1M-cutout.webp" alt="CE1M-cutout.webp"></div>
+    <figcaption>
+      <strong title="CE1M-cutout.webp">CE1M-cutout.webp</strong>
+      <small>webp · 456 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE1M-cutout.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE1M.webp" alt="CE1M.webp"></div>
+    <figcaption>
+      <strong title="CE1M.webp">CE1M.webp</strong>
+      <small>webp · 129 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE1M.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE1V-cutout.webp" alt="CE1V-cutout.webp"></div>
+    <figcaption>
+      <strong title="CE1V-cutout.webp">CE1V-cutout.webp</strong>
+      <small>webp · 340 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE1V-cutout.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE1V.webp" alt="CE1V.webp"></div>
+    <figcaption>
+      <strong title="CE1V.webp">CE1V.webp</strong>
+      <small>webp · 127 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE1V.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE1W-cutout.webp" alt="CE1W-cutout.webp"></div>
+    <figcaption>
+      <strong title="CE1W-cutout.webp">CE1W-cutout.webp</strong>
+      <small>webp · 396 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE1W-cutout.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE1W.webp" alt="CE1W.webp"></div>
+    <figcaption>
+      <strong title="CE1W.webp">CE1W.webp</strong>
+      <small>webp · 130 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE1W.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE22-cutout.webp" alt="CE22-cutout.webp"></div>
+    <figcaption>
+      <strong title="CE22-cutout.webp">CE22-cutout.webp</strong>
+      <small>webp · 359 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE22-cutout.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/CE22.webp" alt="CE22.webp"></div>
+    <figcaption>
+      <strong title="CE22.webp">CE22.webp</strong>
+      <small>webp · 119 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/CE22.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/charging-tag-line-bg.webp" alt="charging-tag-line-bg.webp"></div>
+    <figcaption>
+      <strong title="charging-tag-line-bg.webp">charging-tag-line-bg.webp</strong>
+      <small>webp · 95 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/charging-tag-line-bg.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/cs-charging-station.webp" alt="cs-charging-station.webp"></div>
+    <figcaption>
+      <strong title="cs-charging-station.webp">cs-charging-station.webp</strong>
+      <small>webp · 403 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/cs-charging-station.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/cs-home-charger.webp" alt="cs-home-charger.webp"></div>
+    <figcaption>
+      <strong title="cs-home-charger.webp">cs-home-charger.webp</strong>
+      <small>webp · 38 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/cs-home-charger.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/img-vf9-top-side.webp" alt="img-vf9-top-side.webp"></div>
+    <figcaption>
+      <strong title="img-vf9-top-side.webp">img-vf9-top-side.webp</strong>
+      <small>webp · 90 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/img-vf9-top-side.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/img-video.webp" alt="img-video.webp"></div>
+    <figcaption>
+      <strong title="img-video.webp">img-video.webp</strong>
+      <small>webp · 109 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/img-video.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/int-preview-1.webp" alt="int-preview-1.webp"></div>
+    <figcaption>
+      <strong title="int-preview-1.webp">int-preview-1.webp</strong>
+      <small>webp · 193 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/int-preview-1.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/int-slide-1.webp" alt="int-slide-1.webp"></div>
+    <figcaption>
+      <strong title="int-slide-1.webp">int-slide-1.webp</strong>
+      <small>webp · 32 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/int-slide-1.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/int-slide-2.webp" alt="int-slide-2.webp"></div>
+    <figcaption>
+      <strong title="int-slide-2.webp">int-slide-2.webp</strong>
+      <small>webp · 38 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/int-slide-2.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/int-slide-3.webp" alt="int-slide-3.webp"></div>
+    <figcaption>
+      <strong title="int-slide-3.webp">int-slide-3.webp</strong>
+      <small>webp · 30 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/int-slide-3.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/int-slide-4.webp" alt="int-slide-4.webp"></div>
+    <figcaption>
+      <strong title="int-slide-4.webp">int-slide-4.webp</strong>
+      <small>webp · 23 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/int-slide-4.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/interior-first-sight.webp" alt="interior-first-sight.webp"></div>
+    <figcaption>
+      <strong title="interior-first-sight.webp">interior-first-sight.webp</strong>
+      <small>webp · 216 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/interior-first-sight.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/logo-vf9-tag-line.svg" alt="logo-vf9-tag-line.svg"></div>
+    <figcaption>
+      <strong title="logo-vf9-tag-line.svg">logo-vf9-tag-line.svg</strong>
+      <small>svg · 1 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/logo-vf9-tag-line.svg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/VF9/VF9%20model.webp" alt="VF9 model.webp"></div>
+    <figcaption>
+      <strong title="VF9 model.webp">VF9 model.webp</strong>
+      <small>webp · 322 KB</small>
+      <button class="copy" data-code="vehicleImage('VF9/VF9 model.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><video src="src/media/local/vehicle-media/VF9/VF9.mp4" muted preload="metadata"></video></div>
+    <figcaption>
+      <strong title="VF9.mp4">VF9.mp4</strong>
+      <small>mp4 · 10.0 MB</small>
+      <button class="copy" data-code="vehicleVideo('VF9/VF9.mp4')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="herio-green">
+    <header class="vhead">
+      <div>
+        <h2>Herio Green <code>herio-green</code></h2>
+        <p>Dòng xe dịch vụ · 12 file
+           · thư mục: <code>Dịch vụ_Herio Green</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>Dịch vụ_Herio Green/trắng.png</code></dd></div>
+        
+        <div><dt>Brochure</dt><dd>Dịch vụ_Catalogue-VinFast-Herio-Green.pdf</dd></div>
+      </dl>
+    </header>
+    
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/herio-green/studio.png</code></p>
+    <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/Banner-new.webp" alt="Banner-new.webp"></div>
+    <figcaption>
+      <strong title="Banner-new.webp">Banner-new.webp</strong>
+      <small>webp · 124 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/Banner-new.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/%C4%90en.png" alt="Đen.png"></div>
+    <figcaption>
+      <strong title="Đen.png">Đen.png</strong>
+      <small>png · 412 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/Đen.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/%C4%91%E1%BB%8F.png" alt="đỏ.png"></div>
+    <figcaption>
+      <strong title="đỏ.png">đỏ.png</strong>
+      <small>png · 507 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/đỏ.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/E-bike.webp" alt="E-bike.webp"></div>
+    <figcaption>
+      <strong title="E-bike.webp">E-bike.webp</strong>
+      <small>webp · 50 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/E-bike.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/herio-green-section-3-1.webp" alt="herio-green-section-3-1.webp"></div>
+    <figcaption>
+      <strong title="herio-green-section-3-1.webp">herio-green-section-3-1.webp</strong>
+      <small>webp · 52 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/herio-green-section-3-1.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/herio-green-section-3-3.webp" alt="herio-green-section-3-3.webp"></div>
+    <figcaption>
+      <strong title="herio-green-section-3-3.webp">herio-green-section-3-3.webp</strong>
+      <small>webp · 110 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/herio-green-section-3-3.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/Hero-new.webp" alt="Hero-new.webp"></div>
+    <figcaption>
+      <strong title="Hero-new.webp">Hero-new.webp</strong>
+      <small>webp · 141 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/Hero-new.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/parallax-1.webp" alt="parallax-1.webp"></div>
+    <figcaption>
+      <strong title="parallax-1.webp">parallax-1.webp</strong>
+      <small>webp · 18 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/parallax-1.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/parallax-2.webp" alt="parallax-2.webp"></div>
+    <figcaption>
+      <strong title="parallax-2.webp">parallax-2.webp</strong>
+      <small>webp · 23 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/parallax-2.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/parallax-3.webp" alt="parallax-3.webp"></div>
+    <figcaption>
+      <strong title="parallax-3.webp">parallax-3.webp</strong>
+      <small>webp · 22 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/parallax-3.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/parallax-4.webp" alt="parallax-4.webp"></div>
+    <figcaption>
+      <strong title="parallax-4.webp">parallax-4.webp</strong>
+      <small>webp · 19 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/parallax-4.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Herio%20Green/tr%E1%BA%AFng.png" alt="trắng.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="trắng.png">trắng.png</strong>
+      <small>png · 415 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Herio Green/trắng.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="minio-green">
+    <header class="vhead">
+      <div>
+        <h2>Minio Green <code>minio-green</code></h2>
+        <p>Dòng xe dịch vụ · 10 file
+           · thư mục: <code>Dịch vụ_MINIO Green</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>Dịch vụ_MINIO Green/Minio.webp</code></dd></div>
+        
+        <div><dt>Brochure</dt><dd>Dịch vụ_Brochure Minio Green 090126.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Có 5 bản copy y hệt của interior-gallery-right@2x.webp — dấu vết tải trùng, nên xoá 4 bản thừa.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/minio-green/studio.png</code></p>
+    <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/feature-exterior@2x.webp" alt="feature-exterior@2x.webp"></div>
+    <figcaption>
+      <strong title="feature-exterior@2x.webp">feature-exterior@2x.webp</strong>
+      <small>webp · 41 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/feature-exterior@2x.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/feature-interior@2x.webp" alt="feature-interior@2x.webp"></div>
+    <figcaption>
+      <strong title="feature-interior@2x.webp">feature-interior@2x.webp</strong>
+      <small>webp · 173 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/feature-interior@2x.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/gallery-featured-img3.webp" alt="gallery-featured-img3.webp"></div>
+    <figcaption>
+      <strong title="gallery-featured-img3.webp">gallery-featured-img3.webp</strong>
+      <small>webp · 46 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/gallery-featured-img3.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/interior-gallery-left@2x.webp" alt="interior-gallery-left@2x.webp"></div>
+    <figcaption>
+      <strong title="interior-gallery-left@2x.webp">interior-gallery-left@2x.webp</strong>
+      <small>webp · 63 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/interior-gallery-left@2x.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/interior-gallery-right@2x%20(1).webp" alt="interior-gallery-right@2x (1).webp"></div>
+    <figcaption>
+      <strong title="interior-gallery-right@2x (1).webp">interior-gallery-right@2x (1).webp</strong>
+      <small>webp · 84 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/interior-gallery-right@2x (1).webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/interior-gallery-right@2x%20(2).webp" alt="interior-gallery-right@2x (2).webp"></div>
+    <figcaption>
+      <strong title="interior-gallery-right@2x (2).webp">interior-gallery-right@2x (2).webp</strong>
+      <small>webp · 84 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/interior-gallery-right@2x (2).webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/interior-gallery-right@2x%20(3).webp" alt="interior-gallery-right@2x (3).webp"></div>
+    <figcaption>
+      <strong title="interior-gallery-right@2x (3).webp">interior-gallery-right@2x (3).webp</strong>
+      <small>webp · 84 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/interior-gallery-right@2x (3).webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/interior-gallery-right@2x%20(4).webp" alt="interior-gallery-right@2x (4).webp"></div>
+    <figcaption>
+      <strong title="interior-gallery-right@2x (4).webp">interior-gallery-right@2x (4).webp</strong>
+      <small>webp · 84 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/interior-gallery-right@2x (4).webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/interior-gallery-right@2x.webp" alt="interior-gallery-right@2x.webp"></div>
+    <figcaption>
+      <strong title="interior-gallery-right@2x.webp">interior-gallery-right@2x.webp</strong>
+      <small>webp · 84 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/interior-gallery-right@2x.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_MINIO%20Green/Minio.webp" alt="Minio.webp"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="Minio.webp">Minio.webp</strong>
+      <small>webp · 51 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_MINIO Green/Minio.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="nerio-green">
+    <header class="vhead">
+      <div>
+        <h2>Nerio Green <code>nerio-green</code></h2>
+        <p>Dòng xe dịch vụ · 8 file
+           · thư mục: <code>Dịch vụ_Nerio Green</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>common/nerio-green-studio.png</code></dd></div>
+        
+        <div><dt>Brochure</dt><dd>Dịch vụ_Catalogue-VinFast-Nerio-Green.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Ảnh chính nằm ở common/, không nằm trong thư mục xe.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/nerio-green/studio.png</code></p>
+    <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/nerio-green-studio.png" alt="nerio-green-studio.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="nerio-green-studio.png">nerio-green-studio.png</strong>
+      <small>png · 1.2 MB</small>
+      <button class="copy" data-code="commonImage('nerio-green-studio.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Nerio%20Green/nerio-img-01.webp" alt="nerio-img-01.webp"></div>
+    <figcaption>
+      <strong title="nerio-img-01.webp">nerio-img-01.webp</strong>
+      <small>webp · 111 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Nerio Green/nerio-img-01.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Nerio%20Green/nerio-img-04.webp" alt="nerio-img-04.webp"></div>
+    <figcaption>
+      <strong title="nerio-img-04.webp">nerio-img-04.webp</strong>
+      <small>webp · 97 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Nerio Green/nerio-img-04.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Nerio%20Green/nerio-img-06.webp" alt="nerio-img-06.webp"></div>
+    <figcaption>
+      <strong title="nerio-img-06.webp">nerio-img-06.webp</strong>
+      <small>webp · 86 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Nerio Green/nerio-img-06.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Nerio%20Green/nerio-img-07.webp" alt="nerio-img-07.webp"></div>
+    <figcaption>
+      <strong title="nerio-img-07.webp">nerio-img-07.webp</strong>
+      <small>webp · 134 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Nerio Green/nerio-img-07.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Nerio%20Green/nerio-img-09.webp" alt="nerio-img-09.webp"></div>
+    <figcaption>
+      <strong title="nerio-img-09.webp">nerio-img-09.webp</strong>
+      <small>webp · 93 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Nerio Green/nerio-img-09.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Nerio%20Green/nerio-img-10.webp" alt="nerio-img-10.webp"></div>
+    <figcaption>
+      <strong title="nerio-img-10.webp">nerio-img-10.webp</strong>
+      <small>webp · 142 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Nerio Green/nerio-img-10.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Nerio%20Green/nerio-img-11.webp" alt="nerio-img-11.webp"></div>
+    <figcaption>
+      <strong title="nerio-img-11.webp">nerio-img-11.webp</strong>
+      <small>webp · 91 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Nerio Green/nerio-img-11.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="limo-green">
+    <header class="vhead">
+      <div>
+        <h2>Limo Green <code>limo-green</code></h2>
+        <p>Dòng xe dịch vụ · 9 file
+           · thư mục: <code>Dịch vụ_Limo Green</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>common/limo-green-studio.webp</code></dd></div>
+        <div><dt>Video</dt><dd><code>Dịch vụ_Limo Green/Limo Green_Spacious Interior.mp4</code></dd></div>
+        <div><dt>Brochure</dt><dd>Dịch  vụ_Brochure Limo Green 090126.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Ảnh catalogue gốc nằm ở common/. Bản dùng thật đã được thay bằng by-model/limo-green/studio.webp có alpha; video nội thất chỉ hiện ở trang chi tiết.</p>
+    <p class="override on">Đang ghi đè 1 file trong <code>by-model/limo-green/</code></p>
+       <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/by-model/limo-green/studio.webp" alt="studio.webp"><span class="badge">GHI ĐÈ</span></div>
+    <figcaption>
+      <strong title="studio.webp">studio.webp</strong>
+      <small>webp · 42 KB</small>
+      
+    </figcaption>
+  </figure></div>
+    <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/limo-green-studio.webp" alt="limo-green-studio.webp"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="limo-green-studio.webp">limo-green-studio.webp</strong>
+      <small>webp · 48 KB</small>
+      <button class="copy" data-code="commonImage('limo-green-studio.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Limo%20Green/footer.webp" alt="footer.webp"></div>
+    <figcaption>
+      <strong title="footer.webp">footer.webp</strong>
+      <small>webp · 1.2 MB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Limo Green/footer.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Limo%20Green/img_slider.webp" alt="img_slider.webp"></div>
+    <figcaption>
+      <strong title="img_slider.webp">img_slider.webp</strong>
+      <small>webp · 34 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Limo Green/img_slider.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><video src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Limo%20Green/Limo%20Green_Spacious%20Interior.mp4" muted preload="metadata"></video></div>
+    <figcaption>
+      <strong title="Limo Green_Spacious Interior.mp4">Limo Green_Spacious Interior.mp4</strong>
+      <small>mp4 · 5.2 MB</small>
+      <button class="copy" data-code="vehicleVideo('Dịch vụ_Limo Green/Limo Green_Spacious Interior.mp4')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><video src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Limo%20Green/Limo_noithat.mov" muted preload="metadata"></video></div>
+    <figcaption>
+      <strong title="Limo_noithat.mov">Limo_noithat.mov</strong>
+      <small>mov · 13.6 MB</small>
+      <button class="copy" data-code="vehicleVideo('Dịch vụ_Limo Green/Limo_noithat.mov')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Limo%20Green/limo-green-3.webp" alt="limo-green-3.webp"></div>
+    <figcaption>
+      <strong title="limo-green-3.webp">limo-green-3.webp</strong>
+      <small>webp · 10 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Limo Green/limo-green-3.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Limo%20Green/limo-green-4.webp" alt="limo-green-4.webp"></div>
+    <figcaption>
+      <strong title="limo-green-4.webp">limo-green-4.webp</strong>
+      <small>webp · 4 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Limo Green/limo-green-4.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Limo%20Green/limo-green-5.webp" alt="limo-green-5.webp"></div>
+    <figcaption>
+      <strong title="limo-green-5.webp">limo-green-5.webp</strong>
+      <small>webp · 12 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Limo Green/limo-green-5.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_Limo%20Green/limo-green-section-3-logo.webp" alt="limo-green-section-3-logo.webp"></div>
+    <figcaption>
+      <strong title="limo-green-section-3-logo.webp">limo-green-section-3-logo.webp</strong>
+      <small>webp · 12 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_Limo Green/limo-green-section-3-logo.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="ec-van">
+    <header class="vhead">
+      <div>
+        <h2>EC Van <code>ec-van</code></h2>
+        <p>Dòng xe dịch vụ · 10 file
+           · thư mục: <code>Dịch vụ_ EC Van</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>Dịch vụ_ EC Van/ecvan-jade.webp</code></dd></div>
+        
+        <div><dt>Brochure</dt><dd>Dịch vụ_brochure-ec-van-040726-e.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Tên thư mục THỪA MỘT DẤU CÁCH sau &quot;Dịch vụ_&quot; — gõ tay rất dễ sai, luôn copy từ đây.</p>
+    <p class="override">Chưa ghi đè. Muốn đổi ảnh: bỏ file vào <code>src/media/local/by-model/ec-van/studio.png</code></p>
+    <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/banner.webp" alt="banner.webp"></div>
+    <figcaption>
+      <strong title="banner.webp">banner.webp</strong>
+      <small>webp · 296 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/banner.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-banner-01.webp" alt="ecvan-banner-01.webp"></div>
+    <figcaption>
+      <strong title="ecvan-banner-01.webp">ecvan-banner-01.webp</strong>
+      <small>webp · 2.9 MB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-banner-01.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-img-01.webp" alt="ecvan-img-01.webp"></div>
+    <figcaption>
+      <strong title="ecvan-img-01.webp">ecvan-img-01.webp</strong>
+      <small>webp · 391 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-img-01.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-img-02.webp" alt="ecvan-img-02.webp"></div>
+    <figcaption>
+      <strong title="ecvan-img-02.webp">ecvan-img-02.webp</strong>
+      <small>webp · 366 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-img-02.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-img-03.webp" alt="ecvan-img-03.webp"></div>
+    <figcaption>
+      <strong title="ecvan-img-03.webp">ecvan-img-03.webp</strong>
+      <small>webp · 368 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-img-03.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-img-04.webp" alt="ecvan-img-04.webp"></div>
+    <figcaption>
+      <strong title="ecvan-img-04.webp">ecvan-img-04.webp</strong>
+      <small>webp · 494 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-img-04.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-jade-01.webp" alt="ecvan-jade-01.webp"></div>
+    <figcaption>
+      <strong title="ecvan-jade-01.webp">ecvan-jade-01.webp</strong>
+      <small>webp · 31 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-jade-01.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-jade-02.webp" alt="ecvan-jade-02.webp"></div>
+    <figcaption>
+      <strong title="ecvan-jade-02.webp">ecvan-jade-02.webp</strong>
+      <small>webp · 30 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-jade-02.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-jade-03.webp" alt="ecvan-jade-03.webp"></div>
+    <figcaption>
+      <strong title="ecvan-jade-03.webp">ecvan-jade-03.webp</strong>
+      <small>webp · 19 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-jade-03.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_%20EC%20Van/ecvan-jade.webp" alt="ecvan-jade.webp"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="ecvan-jade.webp">ecvan-jade.webp</strong>
+      <small>webp · 384 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_ EC Van/ecvan-jade.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="ebus">
+    <header class="vhead">
+      <div>
+        <h2>VinFast eBus <code>ebus</code></h2>
+        <p>Dòng xe dịch vụ · 5 file
+           · thư mục: <code>Dịch vụ_EBus</code></p>
+      </div>
+      <dl>
+        <div><dt>Ảnh chính</dt><dd><code>Dịch vụ_EBus/ebus-img-01.webp</code></dd></div>
+        
+        <div><dt>Brochure</dt><dd>Dịch vụ_VinFast-eBus_Broschure_092025.pdf</dd></div>
+      </dl>
+    </header>
+    <p class="note">⚠ Ảnh đường phố gốc chỉ dùng làm nguồn. Bản dùng thật là by-model/ebus/studio.webp đã tách alpha.</p>
+    <p class="override on">Đang ghi đè 1 file trong <code>by-model/ebus/</code></p>
+       <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/by-model/ebus/studio.webp" alt="studio.webp"><span class="badge">GHI ĐÈ</span></div>
+    <figcaption>
+      <strong title="studio.webp">studio.webp</strong>
+      <small>webp · 34 KB</small>
+      
+    </figcaption>
+  </figure></div>
+    <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_EBus/ebus-img-01.webp" alt="ebus-img-01.webp"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="ebus-img-01.webp">ebus-img-01.webp</strong>
+      <small>webp · 436 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_EBus/ebus-img-01.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_EBus/ebus-img-02.webp" alt="ebus-img-02.webp"></div>
+    <figcaption>
+      <strong title="ebus-img-02.webp">ebus-img-02.webp</strong>
+      <small>webp · 424 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_EBus/ebus-img-02.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_EBus/ebus-img-03.webp" alt="ebus-img-03.webp"></div>
+    <figcaption>
+      <strong title="ebus-img-03.webp">ebus-img-03.webp</strong>
+      <small>webp · 579 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_EBus/ebus-img-03.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_EBus/ebus-img-05.webp" alt="ebus-img-05.webp"></div>
+    <figcaption>
+      <strong title="ebus-img-05.webp">ebus-img-05.webp</strong>
+      <small>webp · 574 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_EBus/ebus-img-05.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/D%E1%BB%8Bch%20v%E1%BB%A5_EBus/ebus-img-06.webp" alt="ebus-img-06.webp"></div>
+    <figcaption>
+      <strong title="ebus-img-06.webp">ebus-img-06.webp</strong>
+      <small>webp · 319 KB</small>
+      <button class="copy" data-code="vehicleImage('Dịch vụ_EBus/ebus-img-06.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="dung-chung">
+    <header class="vhead"><div><h2>Ảnh dùng chung <code>không thuộc mẫu xe</code></h2>
+      <p>Logo, ViVi, nhà máy, trạm sạc và các file nằm rời ở gốc thư mục.</p></div></header>
+    <h3>Trạm sạc — dùng cho trang Pin &amp; trạm sạc</h3><div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/charger-150-cutout-v2.png" alt="charger-150-cutout-v2.png"></div>
+    <figcaption>
+      <strong title="charger-150-cutout-v2.png">charger-150-cutout-v2.png</strong>
+      <small>png · 526 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'charger-150-cutout-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/charger-250-cutout-v2.png" alt="charger-250-cutout-v2.png"></div>
+    <figcaption>
+      <strong title="charger-250-cutout-v2.png">charger-250-cutout-v2.png</strong>
+      <small>png · 452 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'charger-250-cutout-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/charger-30-cutout-v2.png" alt="charger-30-cutout-v2.png"></div>
+    <figcaption>
+      <strong title="charger-30-cutout-v2.png">charger-30-cutout-v2.png</strong>
+      <small>png · 573 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'charger-30-cutout-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/charger-60-cutout-v2.png" alt="charger-60-cutout-v2.png"></div>
+    <figcaption>
+      <strong title="charger-60-cutout-v2.png">charger-60-cutout-v2.png</strong>
+      <small>png · 305 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'charger-60-cutout-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/img_1705981400.png.webp" alt="img_1705981400.png.webp"></div>
+    <figcaption>
+      <strong title="img_1705981400.png.webp">img_1705981400.png.webp</strong>
+      <small>webp · 8 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'img_1705981400.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-11_1660273822.png.webp" alt="pin-tramsac-11_1660273822.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-11_1660273822.png.webp">pin-tramsac-11_1660273822.png.webp</strong>
+      <small>webp · 38 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-11_1660273822.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-12_1660273840.png.webp" alt="pin-tramsac-12_1660273840.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-12_1660273840.png.webp">pin-tramsac-12_1660273840.png.webp</strong>
+      <small>webp · 22 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-12_1660273840.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-13_1660273860.png.webp" alt="pin-tramsac-13_1660273860.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-13_1660273860.png.webp">pin-tramsac-13_1660273860.png.webp</strong>
+      <small>webp · 58 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-13_1660273860.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-14_1660273636.png.webp" alt="pin-tramsac-14_1660273636.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-14_1660273636.png.webp">pin-tramsac-14_1660273636.png.webp</strong>
+      <small>webp · 63 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-14_1660273636.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-5_1660273699.png.webp" alt="pin-tramsac-5_1660273699.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-5_1660273699.png.webp">pin-tramsac-5_1660273699.png.webp</strong>
+      <small>webp · 228 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-5_1660273699.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-6_1660273722.png.webp" alt="pin-tramsac-6_1660273722.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-6_1660273722.png.webp">pin-tramsac-6_1660273722.png.webp</strong>
+      <small>webp · 162 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-6_1660273722.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-7_1660273744.png.webp" alt="pin-tramsac-7_1660273744.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-7_1660273744.png.webp">pin-tramsac-7_1660273744.png.webp</strong>
+      <small>webp · 10 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-7_1660273744.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-8_1660273763.png.webp" alt="pin-tramsac-8_1660273763.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-8_1660273763.png.webp">pin-tramsac-8_1660273763.png.webp</strong>
+      <small>webp · 7 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-8_1660273763.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Tr%E1%BA%A1m%20s%E1%BA%A1c/pin-tramsac-9_1660273785.png.webp" alt="pin-tramsac-9_1660273785.png.webp"></div>
+    <figcaption>
+      <strong title="pin-tramsac-9_1660273785.png.webp">pin-tramsac-9_1660273785.png.webp</strong>
+      <small>webp · 8 KB</small>
+      <button class="copy" data-code="vehicleAssetByName('Trạm sạc', 'pin-tramsac-9_1660273785.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+    <h3>common/ — ảnh dùng chung</h3><div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/after-sales-consultation.webp" alt="after-sales-consultation.webp"></div>
+    <figcaption>
+      <strong title="after-sales-consultation.webp">after-sales-consultation.webp</strong>
+      <small>webp · 62 KB</small>
+      <button class="copy" data-code="commonImage('after-sales-consultation.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/after-sales-hero.webp" alt="after-sales-hero.webp"></div>
+    <figcaption>
+      <strong title="after-sales-hero.webp">after-sales-hero.webp</strong>
+      <small>webp · 154 KB</small>
+      <button class="copy" data-code="commonImage('after-sales-hero.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/limo-green-studio.webp" alt="limo-green-studio.webp"></div>
+    <figcaption>
+      <strong title="limo-green-studio.webp">limo-green-studio.webp</strong>
+      <small>webp · 48 KB</small>
+      <button class="copy" data-code="commonImage('limo-green-studio.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/nerio-green-studio.png" alt="nerio-green-studio.png"></div>
+    <figcaption>
+      <strong title="nerio-green-studio.png">nerio-green-studio.png</strong>
+      <small>png · 1.2 MB</small>
+      <button class="copy" data-code="commonImage('nerio-green-studio.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vf-mpv-7-model-cutout.png" alt="vf-mpv-7-model-cutout.png"></div>
+    <figcaption>
+      <strong title="vf-mpv-7-model-cutout.png">vf-mpv-7-model-cutout.png</strong>
+      <small>png · 1.6 MB</small>
+      <button class="copy" data-code="commonImage('vf-mpv-7-model-cutout.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vf6-front-model-cutout.png" alt="vf6-front-model-cutout.png"></div>
+    <figcaption>
+      <strong title="vf6-front-model-cutout.png">vf6-front-model-cutout.png</strong>
+      <small>png · 1.3 MB</small>
+      <button class="copy" data-code="commonImage('vf6-front-model-cutout.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vf6-model-cutout.png" alt="vf6-model-cutout.png"></div>
+    <figcaption>
+      <strong title="vf6-model-cutout.png">vf6-model-cutout.png</strong>
+      <small>png · 1.0 MB</small>
+      <button class="copy" data-code="commonImage('vf6-model-cutout.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vf6-studio.webp" alt="vf6-studio.webp"></div>
+    <figcaption>
+      <strong title="vf6-studio.webp">vf6-studio.webp</strong>
+      <small>webp · 348 KB</small>
+      <button class="copy" data-code="commonImage('vf6-studio.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vf9-studio.png" alt="vf9-studio.png"></div>
+    <figcaption>
+      <strong title="vf9-studio.png">vf9-studio.png</strong>
+      <small>png · 505 KB</small>
+      <button class="copy" data-code="commonImage('vf9-studio.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vinfast-logo.png" alt="vinfast-logo.png"></div>
+    <figcaption>
+      <strong title="vinfast-logo.png">vinfast-logo.png</strong>
+      <small>png · 100 KB</small>
+      <button class="copy" data-code="commonImage('vinfast-logo.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vinfast-road-banner.webp" alt="vinfast-road-banner.webp"></div>
+    <figcaption>
+      <strong title="vinfast-road-banner.webp">vinfast-road-banner.webp</strong>
+      <small>webp · 523 KB</small>
+      <button class="copy" data-code="commonImage('vinfast-road-banner.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vivi-avatar.png" alt="vivi-avatar.png"></div>
+    <figcaption>
+      <strong title="vivi-avatar.png">vivi-avatar.png</strong>
+      <small>png · 67 KB</small>
+      <button class="copy" data-code="commonImage('vivi-avatar.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/common/vivi-portrait-cutout.png" alt="vivi-portrait-cutout.png"></div>
+    <figcaption>
+      <strong title="vivi-portrait-cutout.png">vivi-portrait-cutout.png</strong>
+      <small>png · 427 KB</small>
+      <button class="copy" data-code="commonImage('vivi-portrait-cutout.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+    <h3>Nằm rời ở gốc vehicle-media/</h3><div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/about-us.png.webp" alt="about-us.png.webp"></div>
+    <figcaption>
+      <strong title="about-us.png.webp">about-us.png.webp</strong>
+      <small>webp · 322 KB</small>
+      <button class="copy" data-code="vehicleImage('about-us.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/%E1%BA%A2nh%20ViVi.jpeg" alt="Ảnh ViVi.jpeg"></div>
+    <figcaption>
+      <strong title="Ảnh ViVi.jpeg">Ảnh ViVi.jpeg</strong>
+      <small>jpeg · 11 KB</small>
+      <button class="copy" data-code="vehicleImage('Ảnh ViVi.jpeg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Banner" alt="Banner"></div>
+    <figcaption>
+      <strong title="Banner">Banner</strong>
+      <small> · 1015 KB</small>
+      <button class="copy" data-code="vehicleImage('Banner')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/footprint-vf8.png.webp" alt="footprint-vf8.png.webp"></div>
+    <figcaption>
+      <strong title="footprint-vf8.png.webp">footprint-vf8.png.webp</strong>
+      <small>webp · 227 KB</small>
+      <button class="copy" data-code="vehicleImage('footprint-vf8.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/footprint-vf9.png.webp" alt="footprint-vf9.png.webp"></div>
+    <figcaption>
+      <strong title="footprint-vf9.png.webp">footprint-vf9.png.webp</strong>
+      <small>webp · 165 KB</small>
+      <button class="copy" data-code="vehicleImage('footprint-vf9.png.webp')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/nha-may-vinfast.jpg" alt="nha-may-vinfast.jpg"></div>
+    <figcaption>
+      <strong title="nha-may-vinfast.jpg">nha-may-vinfast.jpg</strong>
+      <small>jpg · 283 KB</small>
+      <button class="copy" data-code="vehicleImage('nha-may-vinfast.jpg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><video src="src/media/local/vehicle-media/Video%20ch%C3%ADnh.mp4" muted preload="metadata"></video></div>
+    <figcaption>
+      <strong title="Video chính.mp4">Video chính.mp4</strong>
+      <small>mp4 · 6.2 MB</small>
+      <button class="copy" data-code="vehicleImage('Video chính.mp4')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/vehicle-media/Vinfast-logo-new_NO_Tagline%20-2D-Horizontal%20black.png" alt="Vinfast-logo-new_NO_Tagline -2D-Horizontal black.png"></div>
+    <figcaption>
+      <strong title="Vinfast-logo-new_NO_Tagline -2D-Horizontal black.png">Vinfast-logo-new_NO_Tagline -2D-Horizontal black.png</strong>
+      <small>png · 214 KB</small>
+      <button class="copy" data-code="vehicleImage('Vinfast-logo-new_NO_Tagline -2D-Horizontal black.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div>
+  </section>
+<section id="trung-bay"><header class="vhead"><div>
+    <h2>Xe trưng bày <code>đã tách nền</code></h2>
+    <p>Lạc Hồng — chỉ xuất hiện trên trang chủ, không nằm trong catalogue backend và không đặt lịch được.
+       Ảnh dùng thật nằm ở <code>src/media/local/showcase/</code>, ảnh gốc ở <code>local/originals/</code>.</p>
+    </div></header><h3>Lạc Hồng 900 LX — <code>lac-hong-900lx</code> · chưa mở lái thử</h3>
+      <div class="grid"><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/front-emerge-v2.png" alt="front-emerge-v2.png"></div>
+    <figcaption>
+      <strong title="front-emerge-v2.png">front-emerge-v2.png</strong>
+      <small>png · 1.1 MB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/front-emerge-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/front-emerge.png" alt="front-emerge.png"></div>
+    <figcaption>
+      <strong title="front-emerge.png">front-emerge.png</strong>
+      <small>png · 151 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/front-emerge.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/hero-v2.png" alt="hero-v2.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="hero-v2.png">hero-v2.png</strong>
+      <small>png · 1.7 MB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/hero-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/hero.png" alt="hero.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="hero.png">hero.png</strong>
+      <small>png · 1.7 MB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/hero.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/origin-vietnam.jpg" alt="origin-vietnam.jpg"></div>
+    <figcaption>
+      <strong title="origin-vietnam.jpg">origin-vietnam.jpg</strong>
+      <small>jpg · 178 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/origin-vietnam.jpg')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-1-v2.png" alt="spin-1-v2.png"></div>
+    <figcaption>
+      <strong title="spin-1-v2.png">spin-1-v2.png</strong>
+      <small>png · 1.0 MB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-1-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-1.png" alt="spin-1.png"></div>
+    <figcaption>
+      <strong title="spin-1.png">spin-1.png</strong>
+      <small>png · 591 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-1.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-2-v2.png" alt="spin-2-v2.png"></div>
+    <figcaption>
+      <strong title="spin-2-v2.png">spin-2-v2.png</strong>
+      <small>png · 818 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-2-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-2.png" alt="spin-2.png"></div>
+    <figcaption>
+      <strong title="spin-2.png">spin-2.png</strong>
+      <small>png · 366 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-3-v2.png" alt="spin-3-v2.png"></div>
+    <figcaption>
+      <strong title="spin-3-v2.png">spin-3-v2.png</strong>
+      <small>png · 877 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-3-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-3.png" alt="spin-3.png"></div>
+    <figcaption>
+      <strong title="spin-3.png">spin-3.png</strong>
+      <small>png · 759 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-3.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-4-v2.png" alt="spin-4-v2.png"></div>
+    <figcaption>
+      <strong title="spin-4-v2.png">spin-4-v2.png</strong>
+      <small>png · 786 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-4-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-4.png" alt="spin-4.png"></div>
+    <figcaption>
+      <strong title="spin-4.png">spin-4.png</strong>
+      <small>png · 704 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-4.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-5-v2.png" alt="spin-5-v2.png"></div>
+    <figcaption>
+      <strong title="spin-5-v2.png">spin-5-v2.png</strong>
+      <small>png · 1.1 MB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-5-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900lx/spin-5.png" alt="spin-5.png"></div>
+    <figcaption>
+      <strong title="spin-5.png">spin-5.png</strong>
+      <small>png · 688 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900lx/spin-5.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div><p class="override">Ảnh gốc chưa tách nền — <code>src/media/local/originals/lac-hong-900lx/</code>.
+          Code không dùng tới, giữ để tách nền lại khi cần.</p>
+         <div class="grid grid--raw"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/originals/lac-hong-900lx/anh-su-kien.jpg" alt="anh-su-kien.jpg"><span class="badge">ẢNH GỐC</span></div>
+    <figcaption>
+      <strong title="anh-su-kien.jpg">anh-su-kien.jpg</strong>
+      <small>jpg · 1.4 MB</small>
+      
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/originals/lac-hong-900lx/dau-xe-chinh-dien.jpeg" alt="dau-xe-chinh-dien.jpeg"><span class="badge">ẢNH GỐC</span></div>
+    <figcaption>
+      <strong title="dau-xe-chinh-dien.jpeg">dau-xe-chinh-dien.jpeg</strong>
+      <small>jpeg · 26 KB</small>
+      
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/originals/lac-hong-900lx/render-goc-1.webp" alt="render-goc-1.webp"><span class="badge">ẢNH GỐC</span></div>
+    <figcaption>
+      <strong title="render-goc-1.webp">render-goc-1.webp</strong>
+      <small>webp · 26 KB</small>
+      
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/originals/lac-hong-900lx/render-goc-2.webp" alt="render-goc-2.webp"><span class="badge">ẢNH GỐC</span></div>
+    <figcaption>
+      <strong title="render-goc-2.webp">render-goc-2.webp</strong>
+      <small>webp · 35 KB</small>
+      
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/originals/lac-hong-900lx/render-goc-3.webp" alt="render-goc-3.webp"><span class="badge">ẢNH GỐC</span></div>
+    <figcaption>
+      <strong title="render-goc-3.webp">render-goc-3.webp</strong>
+      <small>webp · 20 KB</small>
+      
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/originals/lac-hong-900lx/render-goc-4.webp" alt="render-goc-4.webp"><span class="badge">ẢNH GỐC</span></div>
+    <figcaption>
+      <strong title="render-goc-4.webp">render-goc-4.webp</strong>
+      <small>webp · 43 KB</small>
+      
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/originals/lac-hong-900lx/render-goc-5.webp" alt="render-goc-5.webp"><span class="badge">ẢNH GỐC</span></div>
+    <figcaption>
+      <strong title="render-goc-5.webp">render-goc-5.webp</strong>
+      <small>webp · 75 KB</small>
+      
+    </figcaption>
+  </figure></div><h3>Lạc Hồng 900S — <code>lac-hong-900s</code> · chưa mở lái thử</h3>
+      <div class="grid"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900s/hero-v2.png" alt="hero-v2.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="hero-v2.png">hero-v2.png</strong>
+      <small>png · 957 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900s/hero-v2.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900s/hero.png" alt="hero.png"><span class="badge">ẢNH CHÍNH</span></div>
+    <figcaption>
+      <strong title="hero.png">hero.png</strong>
+      <small>png · 569 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900s/hero.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure><figure class="cell">
+    <div class="frame"><img loading="lazy" src="src/media/local/showcase/lac-hong-900s/rear.png" alt="rear.png"></div>
+    <figcaption>
+      <strong title="rear.png">rear.png</strong>
+      <small>png · 588 KB</small>
+      <button class="copy" data-code="showcaseImage('lac-hong-900s/rear.png')">copy đường dẫn</button>
+    </figcaption>
+  </figure></div><p class="override">Ảnh gốc chưa tách nền — <code>src/media/local/originals/lac-hong-900s/</code>.
+          Code không dùng tới, giữ để tách nền lại khi cần.</p>
+         <div class="grid grid--raw"><figure class="cell is-key">
+    <div class="frame"><img loading="lazy" src="src/media/local/originals/lac-hong-900s/infographic-goc.jpg" alt="infographic-goc.jpg"><span class="badge">ẢNH GỐC</span></div>
+    <figcaption>
+      <strong title="infographic-goc.jpg">infographic-goc.jpg</strong>
+      <small>jpg · 4.7 MB</small>
+      
+    </figcaption>
+  </figure></div></section>
+<section id="model-3d"><header class="vhead"><div>
+    <h2>Model 3D <code>3 file</code></h2>
+    <p>GLB/GLTF/FBX/OBJ/USDZ trong kho nguồn. Nhấn ô để mở hoặc tải file; nút bên dưới copy đường dẫn tương đối.</p>
+  </div></header><div class="grid"><figure class="cell cell--model">
+  <a class="frame model-frame" href="%E1%BA%A2nh%20xe%20vinfast/Tra%CC%A3m%20sa%CC%A3c/Vinfast%20-%203d%20model%20-%20tra%CC%A3m%20sa%CC%A3c.glb" title="Mở hoặc tải Vinfast - 3d model - trạm sạc.glb">
+    <span class="model-glyph">3D</span><span class="badge">GLB</span>
+  </a>
+  <figcaption>
+    <strong title="Vinfast - 3d model - trạm sạc.glb">Vinfast - 3d model - trạm sạc.glb</strong>
+    <small>88.5 MB · Ảnh xe vinfast/Trạm sạc</small>
+    <button class="copy" data-code="Ảnh xe vinfast/Trạm sạc/Vinfast - 3d model - trạm sạc.glb">copy đường dẫn</button>
+  </figcaption>
+</figure><figure class="cell cell--model">
+  <a class="frame model-frame" href="%E1%BA%A2nh%20xe%20vinfast/VF3/vinfast_vf3_plus_2026.glb" title="Mở hoặc tải vinfast_vf3_plus_2026.glb">
+    <span class="model-glyph">3D</span><span class="badge">GLB</span>
+  </a>
+  <figcaption>
+    <strong title="vinfast_vf3_plus_2026.glb">vinfast_vf3_plus_2026.glb</strong>
+    <small>14.7 MB · Ảnh xe vinfast/VF3</small>
+    <button class="copy" data-code="Ảnh xe vinfast/VF3/vinfast_vf3_plus_2026.glb">copy đường dẫn</button>
+  </figcaption>
+</figure><figure class="cell cell--model">
+  <a class="frame model-frame" href="%E1%BA%A2nh%20xe%20vinfast/VF9/vinfast_vf9_model_no_interior.glb" title="Mở hoặc tải vinfast_vf9_model_no_interior.glb">
+    <span class="model-glyph">3D</span><span class="badge">GLB</span>
+  </a>
+  <figcaption>
+    <strong title="vinfast_vf9_model_no_interior.glb">vinfast_vf9_model_no_interior.glb</strong>
+    <small>40.5 MB · Ảnh xe vinfast/VF9</small>
+    <button class="copy" data-code="Ảnh xe vinfast/VF9/vinfast_vf9_model_no_interior.glb">copy đường dẫn</button>
+  </figcaption>
+</figure></div></section>
+<section id="canh-bao"><header class="vhead"><div><h2>Cảnh báo</h2>
+        <p>Máy tự dò khi sinh trang này.</p></div></header>
+        <ul class="warn"><li><code>vehicle-media/Banner</code> là ảnh WebP nhưng <strong>không có đuôi file</strong> nên Vite không quét được — đổi tên thành <code>Banner.webp</code> mới dùng được.</li><li>Trùng nội dung: <code>brochures/Chính sách bảo hành Ô tô VinFast - VinFast.pdf</code> = <code>brochures/Dịch vụ pin ô tô điện VinFast - VinFast.pdf</code></li><li>Trùng nội dung: <code>vehicle-media/Dịch vụ_MINIO Green/interior-gallery-right@2x (1).webp</code> = <code>vehicle-media/Dịch vụ_MINIO Green/interior-gallery-right@2x (2).webp</code> = <code>vehicle-media/Dịch vụ_MINIO Green/interior-gallery-right@2x (3).webp</code> = <code>vehicle-media/Dịch vụ_MINIO Green/interior-gallery-right@2x (4).webp</code> = <code>vehicle-media/Dịch vụ_MINIO Green/interior-gallery-right@2x.webp</code></li><li>Trùng nội dung: <code>vehicle-media/VF3/1..webp</code> = <code>vehicle-media/VF5/1..webp</code></li><li>Trùng nội dung: <code>vehicle-media/VF8/VF8.mp4</code> = <code>vehicle-media/VF8 All the new/VF8.mp4</code></li><li>Trùng nội dung: <code>vehicle-media/VF9/VF9 model.webp</code> = <code>vehicle-media/about-us.png.webp</code></li></ul></section>
+</main>
+<script>
+document.addEventListener('click', (event) => {
+  const button = event.target.closest('.copy')
+  if (!button) return
+  navigator.clipboard.writeText(button.dataset.code)
+  button.textContent = 'đã copy'
+  button.classList.add('done')
+  setTimeout(() => { button.textContent = 'copy đường dẫn'; button.classList.remove('done') }, 1400)
+})
+</script>
+</body></html>

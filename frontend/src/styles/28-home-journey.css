@@ -1,0 +1,1287 @@
+/* Hai thử nghiệm UX từ Google Antigravity, đã chuyển sang ngôn ngữ VinFast:
+ * 1) ViVi journey đồng bộ media + nội dung, không auto-play và không scroll-jacking.
+ * 2) Video nhà máy mở thành dialog toàn màn hình, điều khiển được bằng bàn phím.
+ */
+
+/* Factory film interaction */
+.factory-film {
+  overflow: clip;
+  background: #eff0ed;
+}
+
+.factory-film__media {
+  --factory-pointer-x: 82%;
+  --factory-pointer-y: 76%;
+  will-change: transform;
+  transform-origin: center center;
+}
+
+.factory-film__open {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  padding: 0;
+  border-radius: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.factory-film__open:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.95);
+  outline-offset: -8px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .factory-film__open { cursor: none; }
+}
+
+.factory-film__watch-pill {
+  position: absolute;
+  top: var(--factory-pointer-y);
+  left: var(--factory-pointer-x);
+  z-index: 4;
+  display: flex;
+  min-height: 52px;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px 8px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 46px -24px rgba(0, 0, 0, 0.72);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.86);
+  transition: opacity 180ms ease, transform 260ms var(--ease-soft);
+  backdrop-filter: blur(14px);
+}
+
+.factory-film__watch-pill > span:first-child {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--blue);
+}
+
+.factory-film__watch-pill strong {
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.factory-film__media:hover .factory-film__watch-pill,
+.factory-film__open:focus-visible ~ .factory-film__watch-pill {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.factory-film-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 2200;
+  display: grid;
+  padding: clamp(12px, 2.5vw, 36px);
+  place-items: center;
+  overflow-y: auto;
+  background: rgba(5, 7, 10, 0.88);
+  animation: factory-dialog-in 260ms ease-out both;
+  backdrop-filter: blur(20px);
+}
+
+.factory-film-dialog__panel {
+  width: min(1500px, 100%);
+  padding: clamp(14px, 2vw, 28px);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: clamp(22px, 2.5vw, 38px);
+  color: #fff;
+  background: #101318;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.54);
+  animation: factory-panel-in 380ms var(--ease-soft) both;
+}
+
+.factory-film-dialog__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 2px 2px 18px;
+}
+
+.factory-film-dialog__head span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.factory-film-dialog__head h2 {
+  margin: 5px 0 0;
+  font-size: clamp(1.35rem, 2.2vw, 2.35rem);
+  font-weight: 520;
+  letter-spacing: -0.04em;
+}
+
+.factory-film-dialog__head button {
+  display: grid;
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.factory-film-dialog__head button:hover { background: rgba(255, 255, 255, 0.14); transform: scale(1.04); }
+.factory-film-dialog__head button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.factory-film-dialog__media {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: clamp(16px, 2vw, 28px);
+  background: #050607;
+}
+
+.factory-film-dialog__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.factory-film-dialog__caption {
+  margin: 14px 4px 0;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.72rem;
+}
+
+@keyframes factory-dialog-in { from { opacity: 0; } }
+@keyframes factory-panel-in { from { opacity: 0; transform: translateY(22px) scale(0.98); } }
+
+/* ViVi guided journey */
+.vivi-journey {
+  overflow: hidden;
+  padding: clamp(88px, 8vw, 128px) 0;
+  background: #fff;
+}
+
+.vivi-journey__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.14fr) minmax(300px, 0.6fr);
+  align-items: end;
+  gap: clamp(44px, 7vw, 112px);
+  margin-bottom: clamp(38px, 4.5vw, 64px);
+}
+
+.vivi-journey__heading h2 {
+  max-width: 950px;
+  margin: 0;
+  font-size: clamp(3rem, 5.7vw, 6.45rem);
+  font-weight: 520;
+  letter-spacing: -0.073em;
+  line-height: 0.94;
+}
+
+.vivi-journey__intro > p {
+  max-width: 54ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.68;
+}
+
+/* Năm bước thuộc cùng một hành trình nên nằm trên CÙNG một thanh, ngay trước
+ * media mà chúng điều khiển. Số, icon và nhãn dùng ba hàng cố định để mọi tâm
+ * thị giác thẳng nhau, kể cả "Showroom" dài hơn các nhãn còn lại. */
+.vivi-journey__tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 10px;
+  border: 1px solid rgba(39, 36, 31, 0.09);
+  border-radius: 28px;
+  background: rgba(248, 246, 241, 0.78);
+}
+
+.vivi-journey__tabs button {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 126px;
+  grid-template-rows: 52px auto;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 20px 12px 16px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  color: #68645d;
+  background: transparent;
+  text-align: center;
+  cursor: pointer;
+  transition: color 200ms ease, border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+}
+
+.vivi-journey__tabs button:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.vivi-journey__tabs button.is-active {
+  border-color: rgba(39, 36, 31, 0.12);
+  color: var(--ink);
+  background: #fffdfa;
+  box-shadow: 0 16px 36px -30px rgba(42, 37, 29, 0.7);
+}
+
+.vivi-journey__tabs button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.vivi-journey__step-number {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font: 600 0.66rem/1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.vivi-journey__step-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 50%;
+  color: #3f3d39;
+  background: #dfddd7;
+}
+
+.vivi-journey__tabs button.is-active .vivi-journey__step-icon {
+  color: #fff;
+  background: var(--ink);
+}
+
+.vivi-journey__tabs strong {
+  align-self: center;
+  font-size: 0.76rem;
+  font-weight: 620;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.vivi-journey__stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.26fr) minmax(360px, 0.74fr);
+  min-height: 680px;
+  overflow: hidden;
+  border: 1px solid rgba(23, 26, 32, 0.09);
+  border-radius: clamp(28px, 3vw, 46px);
+  background: #f8f6f1;
+  box-shadow: 0 42px 88px -64px rgba(48, 42, 34, 0.58);
+}
+
+.vivi-journey__media {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  padding: clamp(38px, 5vw, 78px);
+  place-items: center;
+  overflow: hidden;
+  background: #d5cec2;
+}
+
+.vivi-journey__media::before {
+  content: '';
+  position: absolute;
+  inset: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.54);
+  border-radius: 30px;
+}
+
+.vivi-journey__mascot {
+  position: absolute;
+  bottom: -22px;
+  left: -12px;
+  z-index: 2;
+  width: clamp(128px, 14vw, 215px);
+  filter: drop-shadow(0 18px 25px rgba(55, 48, 39, 0.2));
+  pointer-events: none;
+}
+
+.vivi-journey__visual {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  animation: journey-visual-in 380ms var(--ease-soft) both;
+}
+
+.vivi-journey__media-note {
+  position: absolute;
+  bottom: 24px;
+  right: 28px;
+  color: rgba(23, 26, 32, 0.48);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vivi-journey__app {
+  width: 100%;
+  min-height: 510px;
+  padding: clamp(18px, 2vw, 28px);
+  overflow: hidden;
+  border: 1px solid rgba(23, 26, 32, 0.1);
+  border-radius: clamp(24px, 2.3vw, 34px);
+  background: rgba(255, 255, 255, 0.93);
+  box-shadow: 0 34px 68px -46px rgba(32, 32, 29, 0.34), inset 0 1px rgba(255, 255, 255, 0.88);
+}
+
+.vivi-journey__app-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.vivi-journey__avatar,
+.vivi-journey__mini-avatar {
+  display: grid;
+  flex: 0 0 auto;
+  overflow: hidden;
+  place-items: center;
+  border: 1px solid rgba(39, 36, 31, 0.12);
+  border-radius: 50%;
+  background: #f7f4ef;
+}
+
+.vivi-journey__avatar { width: 45px; height: 45px; }
+.vivi-journey__mini-avatar { width: 34px; height: 34px; }
+.vivi-journey__avatar img,
+.vivi-journey__mini-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.vivi-journey__app-head > span:nth-child(2) { display: grid; gap: 2px; }
+.vivi-journey__app-head strong { font-size: 0.86rem; }
+.vivi-journey__app-head small { color: var(--muted); font-size: 0.67rem; }
+.vivi-journey__app-head em {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  color: var(--success);
+  font-size: 0.65rem;
+  font-style: normal;
+}
+.vivi-journey__app-head em span { width: 7px; height: 7px; border-radius: 50%; background: var(--success); }
+
+.vivi-journey__app-label {
+  margin: 22px 0 17px;
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.vivi-journey__chat { display: grid; gap: 22px; }
+.vivi-journey__bubble {
+  max-width: 76%;
+  margin: 0;
+  padding: 15px 18px;
+  border-radius: 20px;
+  font-size: clamp(0.82rem, 1vw, 0.96rem);
+  line-height: 1.58;
+}
+.vivi-journey__bubble--user { justify-self: end; border-bottom-right-radius: 7px; color: #fff; background: var(--ink); }
+.vivi-journey__bubble--assistant { border-bottom-left-radius: 7px; color: var(--ink-soft); background: #edf0f2; }
+.vivi-journey__assistant-row { display: flex; align-items: flex-end; gap: 10px; }
+.vivi-journey__composer {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+  padding: 6px 8px 6px 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+.vivi-journey__composer svg { box-sizing: content-box; padding: 10px; border-radius: 50%; color: #fff; background: var(--ink); }
+
+.vivi-journey__vehicle-card {
+  position: relative;
+  display: grid;
+  min-height: 290px;
+  grid-template-columns: 0.62fr 1.38fr;
+  align-items: center;
+  overflow: hidden;
+  padding: 28px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #e5e0d8, #f7f4ee);
+}
+.vivi-journey__vehicle-card::after { content: 'VF 9'; position: absolute; right: 16px; bottom: -30px; color: rgba(23, 26, 32, 0.045); font: 600 7.5rem/1 var(--font-display); letter-spacing: -0.09em; }
+.vivi-journey__vehicle-copy { position: relative; z-index: 2; display: grid; align-content: center; }
+.vivi-journey__vehicle-copy > small { color: var(--muted); font-size: 0.64rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.vivi-journey__vehicle-copy > strong { margin: 3px 0 13px; font: 540 clamp(2.8rem, 5vw, 5rem)/1 var(--font-display); letter-spacing: -0.08em; }
+.vivi-journey__vehicle-copy > span { display: flex; align-items: center; gap: 6px; color: #5e564b; font-size: 0.7rem; font-weight: 600; }
+.vivi-journey__vehicle-card .smart-image { position: relative; z-index: 1; width: 138%; height: 260px; margin-left: -23%; overflow: visible; }
+.vivi-journey__vehicle-card .smart-image img { width: 100%; height: 100%; object-fit: contain; }
+.vivi-journey__facts { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 18px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.vivi-journey__facts > span { display: grid; gap: 4px; padding: 16px 14px; border-right: 1px solid var(--line); text-align: center; }
+.vivi-journey__facts > span:last-child { border-right: 0; }
+.vivi-journey__facts strong { font-size: 0.94rem; }
+.vivi-journey__facts small { color: var(--muted); font-size: 0.62rem; }
+
+.vivi-journey__showroom-layout { display: grid; min-height: 385px; grid-template-columns: 1fr 0.94fr; overflow: hidden; border: 1px solid var(--line); border-radius: 24px; }
+.vivi-journey__showroom-list { z-index: 1; padding: 23px; background: #fff; }
+.vivi-journey__showroom-list > strong { display: block; font-size: 0.88rem; }
+.vivi-journey__showroom-list > small { display: block; margin: 3px 0 18px; color: var(--muted); font-size: 0.64rem; }
+.vivi-journey__showroom-list > div { display: grid; grid-template-columns: 29px minmax(0, 1fr) auto; align-items: center; gap: 8px; margin-top: 8px; padding: 11px; border: 1px solid transparent; border-radius: 13px; }
+.vivi-journey__showroom-list > div.is-active { border-color: rgba(65, 58, 49, 0.18); background: #eee9e1; }
+.vivi-journey__showroom-list > div > span { color: #5e564b; font-size: 0.64rem; font-weight: 700; }
+.vivi-journey__showroom-list p { display: grid; gap: 2px; margin: 0; }
+.vivi-journey__showroom-list p strong { overflow: hidden; font-size: 0.68rem; text-overflow: ellipsis; white-space: nowrap; }
+.vivi-journey__showroom-list p small { color: var(--muted); font-size: 0.58rem; }
+.vivi-journey__showroom-list em { color: var(--muted); font-size: 0.6rem; font-style: normal; white-space: nowrap; }
+.vivi-journey__map { position: relative; overflow: hidden; background-color: #edf0ec; background-image: linear-gradient(rgba(90, 106, 92, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(90, 106, 92, 0.08) 1px, transparent 1px); background-size: 34px 34px; }
+.vivi-journey__route { position: absolute; width: 145%; height: 32px; border: 9px solid rgba(255, 255, 255, 0.88); border-right: 0; border-left: 0; transform: rotate(-26deg); }
+.vivi-journey__route--one { top: 27%; left: -23%; }
+.vivi-journey__route--two { top: 64%; left: -12%; transform: rotate(31deg); }
+.vivi-journey__map-pin,
+.vivi-journey__location { position: absolute; display: grid; width: 34px; height: 34px; place-items: center; border: 3px solid #fff; border-radius: 50%; color: #fff; background: var(--ink); box-shadow: 0 7px 17px rgba(22, 29, 37, 0.22); }
+.vivi-journey__map-pin--one { top: 22%; left: 58%; background: #756958; transform: scale(1.18); }
+.vivi-journey__map-pin--two { top: 63%; left: 25%; }
+.vivi-journey__map-pin--three { top: 70%; left: 72%; }
+.vivi-journey__location { top: 47%; left: 48%; width: 29px; height: 29px; background: #fff; color: #5e564b; }
+
+.vivi-journey__date-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.vivi-journey__date-row > span { display: grid; min-height: 76px; place-items: center; align-content: center; gap: 4px; border: 1px solid var(--line); border-radius: 17px; }
+.vivi-journey__date-row > span.is-active { border-color: var(--ink); color: #fff; background: var(--ink); }
+.vivi-journey__date-row small { font-size: 0.6rem; }
+.vivi-journey__date-row strong { font-size: 1rem; }
+.vivi-journey__time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 18px; }
+.vivi-journey__time-grid span { padding: 12px 8px; border: 1px solid var(--line); border-radius: 13px; color: var(--ink-soft); font-size: 0.7rem; text-align: center; }
+.vivi-journey__time-grid span.is-active { border-color: #8b7d69; color: #51493f; background: #eee9e1; font-weight: 700; }
+.vivi-journey__summary { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; margin-top: 26px; padding: 16px; border-radius: 17px; color: #fff; background: var(--ink); }
+.vivi-journey__summary > span { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 50%; color: var(--ink); background: #fff; }
+.vivi-journey__summary p { display: grid; gap: 3px; margin: 0; }
+.vivi-journey__summary strong { font-size: 0.76rem; }
+.vivi-journey__summary small { color: rgba(255, 255, 255, 0.58); font-size: 0.62rem; }
+
+/* Bước 5 dựng lại đúng hai hiện vật khách nhận được, đặt CẠNH nhau trong một
+ * lưới. Bản trước cho phiếu lịch position:absolute đè lên thư nên ảnh xe và
+ * chữ chồng lên nhau — bỏ hẳn cách xếp đó.
+ *
+ * Bảng màu lấy nguyên từ thư thật (backend/src/services/booking/email_templates.py,
+ * bản dựng ở resources/mockups/email-xac-nhan.html) và từ .invitation-card:
+ *   nền thư #121212 · thẻ trong thư #1E1E1E · vàng #F5C542 · nút vàng #FFD24A
+ *   · chữ #E0E0E0. Hai hiện vật tối này nằm trên sân khấu trắng nên tương phản đủ. */
+.vivi-journey__confirmation {
+  --email-pad: clamp(16px, 1.5vw, 22px);
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+  align-items: start;
+  gap: clamp(14px, 1.5vw, 22px);
+}
+
+.vivi-journey__email,
+.vivi-journey__invite {
+  overflow: hidden;
+  border-radius: 20px;
+  color: #e0e0e0;
+  background: #121212;
+  box-shadow: 0 26px 56px -34px rgba(23, 26, 32, 0.62);
+}
+
+.vivi-journey__email {
+  display: grid;
+  align-content: start;
+  padding: var(--email-pad);
+}
+
+.vivi-journey__email > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.vivi-journey__email > header > span { display: flex; align-items: center; gap: 9px; }
+
+.vivi-journey__email > header img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  filter: grayscale(1) brightness(3.2);
+}
+
+.vivi-journey__email > header strong { font-size: 0.72rem; letter-spacing: 0.3em; }
+
+.vivi-journey__email > header small {
+  color: rgba(224, 224, 224, 0.46);
+  font-size: 0.53rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.vivi-journey__email-headline {
+  margin: 20px 0 0;
+  color: #fff;
+  font: 540 clamp(1.5rem, 2.3vw, 2.15rem)/0.98 var(--font-display);
+  letter-spacing: -0.045em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Vạch vàng mang tên khách chạy tràn hai mép thư, đúng như hàng bg-gold trong thư thật. */
+.vivi-journey__email-name {
+  margin: 15px calc(var(--email-pad) * -1) 0;
+  padding: 9px 14px;
+  color: #121212;
+  background: #f5c542;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.vivi-journey__email-lede {
+  margin: 15px 0 0;
+  color: rgba(224, 224, 224, 0.8);
+  font-size: 0.6rem;
+  line-height: 1.78;
+  text-align: justify;
+}
+
+.vivi-journey__email-lede em { color: #f5c542; font-style: normal; font-weight: 700; }
+
+.vivi-journey__email-panel {
+  margin-top: 16px;
+  padding: 15px 14px;
+  border: 1px solid #f5c542;
+  border-radius: 10px;
+  background: #1e1e1e;
+}
+
+.vivi-journey__email-panel > strong {
+  display: block;
+  color: #fff;
+  font: 540 0.92rem/1.34 var(--font-display);
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.vivi-journey__email-panel dl { display: grid; margin: 12px 0 0; }
+
+.vivi-journey__email-panel dl div {
+  display: grid;
+  grid-template-columns: 0.84fr 1.16fr;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-top: 1px solid rgba(245, 197, 66, 0.18);
+}
+
+.vivi-journey__email-panel dl div:first-child { padding-top: 0; border-top: 0; }
+
+.vivi-journey__email-panel dt {
+  color: #f5c542;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.vivi-journey__email-panel dd {
+  margin: 0;
+  color: rgba(224, 224, 224, 0.88);
+  font-size: 0.55rem;
+  line-height: 1.5;
+}
+
+.vivi-journey__email-cta {
+  margin-top: 16px;
+  padding: 11px 10px;
+  border-top: 1px solid #ffe9a8;
+  border-radius: 4px;
+  color: #121212;
+  background: #ffd24a;
+  font-size: 0.52rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Thiệp mời — bản thu nhỏ của .invitation-card (27-invitation-preview.css). */
+.vivi-journey__invite {
+  display: grid;
+  align-content: start;
+  gap: 13px;
+  padding: var(--email-pad);
+  border: 1px solid rgba(245, 197, 66, 0.34);
+}
+
+.vivi-journey__invite > header { display: grid; gap: 4px; text-align: center; }
+
+.vivi-journey__invite > header small {
+  color: #f5c542;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.vivi-journey__invite > header strong {
+  color: #fff;
+  font: 540 clamp(1.05rem, 1.55vw, 1.5rem)/1.1 var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.vivi-journey__invite-vehicle {
+  position: relative;
+  display: grid;
+  min-height: 104px;
+  place-items: center;
+}
+
+.vivi-journey__invite-vehicle > span {
+  position: absolute;
+  top: 50%;
+  color: rgba(245, 197, 66, 0.11);
+  font: 600 clamp(2.6rem, 5vw, 3.9rem)/1 var(--font-display);
+  letter-spacing: -0.07em;
+  transform: translateY(-52%);
+}
+
+.vivi-journey__invite-vehicle .smart-image {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 104px;
+  overflow: visible;
+}
+
+.vivi-journey__invite-vehicle .smart-image img { width: 100%; height: 100%; object-fit: contain; }
+
+.vivi-journey__invite-card {
+  display: grid;
+  gap: 11px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: #1e1e1e;
+}
+
+.vivi-journey__invite-card small {
+  display: block;
+  color: #f5c542;
+  font-size: 0.47rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.vivi-journey__invite-when {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 16px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid rgba(245, 197, 66, 0.18);
+}
+
+.vivi-journey__invite-when p { display: grid; gap: 3px; margin: 0; }
+.vivi-journey__invite-when strong { color: #fff; font-family: var(--font-display); font-weight: 540; letter-spacing: -0.04em; }
+.vivi-journey__invite-when p:first-child strong { font-size: clamp(1.25rem, 2vw, 1.65rem); line-height: 1; }
+.vivi-journey__invite-when p:last-child strong { font-size: 0.76rem; line-height: 1.2; }
+.vivi-journey__invite-when b { color: rgba(224, 224, 224, 0.66); font-size: 0.56rem; font-weight: 500; }
+
+.vivi-journey__invite-where { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 9px; }
+.vivi-journey__invite-where svg { margin-top: 2px; color: #f5c542; }
+.vivi-journey__invite-where p { display: grid; gap: 3px; margin: 0; }
+.vivi-journey__invite-where strong { color: #fff; font-size: 0.68rem; }
+
+.vivi-journey__invite-code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(245, 197, 66, 0.18);
+}
+
+.vivi-journey__invite-code strong {
+  color: #fff;
+  font-size: 0.6rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+
+.vivi-journey__story { display: flex; min-width: 0; flex-direction: column; padding: clamp(28px, 3.5vw, 56px); background: #fffdfa; }
+
+.vivi-journey__panel { display: flex; flex: 1; flex-direction: column; justify-content: center; padding: clamp(46px, 6vw, 96px) 0 48px; animation: journey-copy-in 320ms var(--ease-soft) both; }
+.vivi-journey__panel > p { margin: 0 0 18px; color: #766b5e; font-size: 0.67rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.vivi-journey__panel h3 { max-width: 12ch; margin: 0; font-size: clamp(2.35rem, 4vw, 4.4rem); font-weight: 520; letter-spacing: -0.065em; line-height: 0.98; }
+.vivi-journey__panel > span { max-width: 48ch; margin-top: 26px; color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+.vivi-journey__controls { display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--line); }
+.vivi-journey__controls > span { color: var(--muted); font-size: 0.68rem; }
+.vivi-journey__controls > span strong { color: var(--ink); font-size: 1rem; }
+.vivi-journey__controls > div { display: flex; gap: 9px; }
+.vivi-journey__controls button { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); background: var(--paper); cursor: pointer; transition: color 180ms ease, background 180ms ease, transform 180ms ease; }
+.vivi-journey__controls button:hover { color: #fff; background: var(--ink); transform: scale(1.04); }
+.vivi-journey__controls button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+/* Sân khấu ViVi: nền TRẮNG với trường chấm (ViViParticleField), theo bản
+ * particle light-theme của Google Antigravity. Trước đây khối này là nền đen nên
+ * mọi minh hoạ phải đảo màu; giờ bỏ hết lớp đảo màu đó và dùng lại bảng màu sáng
+ * đã khai báo ở đầu file, chỉ giữ những chỉnh bố cục thật sự cần.
+ *
+ * Chấm nằm DƯỚI nội dung (z-index 0) và có thêm một lớp loang trắng ::after để
+ * chữ không phải đọc trên nền hạt đang chuyển động. */
+.vivi-journey__stage {
+  position: relative;
+  grid-template-columns: minmax(0, 1.34fr) minmax(390px, 0.66fr);
+  min-height: 700px;
+  border-color: rgba(23, 26, 32, 0.1);
+  background: #fff;
+  box-shadow: 0 40px 86px -64px rgba(23, 26, 32, 0.42);
+}
+
+.vivi-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.vivi-particles__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vivi-journey__media {
+  z-index: 1;
+  padding: clamp(40px, 4.6vw, 76px);
+  background: transparent;
+}
+
+.vivi-journey__media::before { display: none; }
+
+.vivi-journey__media::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: radial-gradient(118% 88% at 46% 50%, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.6) 46%, rgba(255, 255, 255, 0) 78%);
+  pointer-events: none;
+}
+
+.vivi-journey__mascot {
+  bottom: -14px;
+  left: -16px;
+  z-index: 3;
+  filter: drop-shadow(0 20px 34px rgba(23, 26, 32, 0.22));
+}
+
+.vivi-journey__visual {
+  z-index: 2;
+  width: min(100%, 720px);
+}
+
+.vivi-journey__media-note {
+  z-index: 2;
+  color: rgba(23, 26, 32, 0.42);
+}
+
+.vivi-journey__illustration {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 510px;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--ink);
+}
+
+.vivi-journey__illustration-label {
+  margin-bottom: 24px;
+  color: rgba(23, 26, 32, 0.5);
+  font-size: 0.67rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Xe bước 2 thả trôi trên trường chấm, không đóng khung trong thẻ. */
+.vivi-journey__vehicle-card {
+  min-height: 310px;
+  padding: 20px 0;
+  overflow: visible;
+  background: transparent;
+}
+
+.vivi-journey__vehicle-card::after { right: 0; color: rgba(23, 26, 32, 0.05); }
+
+/* Những khối chữ nhiều thì cần mặt phẳng riêng để không đọc trên nền hạt. */
+.vivi-journey__showroom-layout {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(7px);
+}
+
+.vivi-journey__date-row > span,
+.vivi-journey__time-grid span {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.vivi-journey__date-row > span.is-active { background: var(--ink); }
+.vivi-journey__time-grid span.is-active { background: #eee9e1; }
+
+.vivi-journey__story {
+  position: relative;
+  z-index: 3;
+  min-height: 668px;
+  margin: 16px 16px 16px 0;
+  padding: clamp(24px, 2.5vw, 38px);
+  /* Panel trắng đứng trên sân khấu cũng trắng, cần một nét viền mảnh để thấy mép. */
+  border: 1px solid rgba(23, 26, 32, 0.08);
+  border-radius: 34px;
+  background: #fff;
+  box-shadow: 0 28px 70px -50px rgba(0, 0, 0, 0.82);
+}
+
+.vivi-journey__tabs {
+  flex: 0 0 auto;
+  gap: 3px;
+  margin: 0;
+  padding: 0 0 18px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+}
+
+.vivi-journey__tabs button {
+  min-height: 88px;
+  grid-template-rows: 34px auto;
+  gap: 7px;
+  padding: 15px 3px 10px;
+  border-radius: 15px;
+}
+
+.vivi-journey__tabs button:hover {
+  color: var(--ink);
+  background: #f2f2ef;
+}
+
+.vivi-journey__tabs button.is-active {
+  border-color: #15181e;
+  color: #fff;
+  background: #15181e;
+  box-shadow: none;
+}
+
+.vivi-journey__step-number {
+  top: 8px;
+  right: 8px;
+  font-size: 0.52rem;
+}
+
+.vivi-journey__step-icon {
+  width: 34px;
+  height: 34px;
+  background: #ececea;
+}
+
+.vivi-journey__tabs button.is-active .vivi-journey__step-icon {
+  color: #15181e;
+  background: #fff;
+}
+
+.vivi-journey__tabs strong {
+  width: 100%;
+  overflow: hidden;
+  font-size: clamp(0.52rem, 0.72vw, 0.62rem);
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vivi-journey__panel {
+  padding: clamp(42px, 5vw, 76px) 0 34px;
+}
+
+.vivi-journey__panel > p { margin-bottom: 16px; }
+.vivi-journey__panel h3 { font-size: clamp(2.45rem, 3.65vw, 4rem); }
+.vivi-journey__panel > span { margin-top: 22px; }
+
+/* Nhịp dọc trang chủ: các section cũ tự có cả padding đầu lẫn padding cuối,
+ * nên khi hai section đứng cạnh nhau khoảng trắng có thể cộng lên 350–430px.
+ * Chuẩn hoá riêng trang chủ; những cảnh media toàn màn vẫn giữ chiều cao riêng. */
+.page--home .models-section {
+  padding-block: clamp(112px, 9vw, 144px);
+}
+
+.page--home .factory-origin,
+.page--home .ownership-section,
+.page--home .technology-story,
+.page--home .voices-section {
+  padding-block: clamp(96px, 8vw, 136px);
+}
+
+.page--home .lachong-passage {
+  padding-top: clamp(96px, 9vw, 136px);
+  padding-bottom: clamp(48px, 5vw, 72px);
+}
+
+.page--home .lachong-block {
+  margin-top: clamp(72px, 8vw, 116px);
+}
+
+.page--home .lachong-spin-chapter {
+  margin-top: clamp(80px, 9vw, 128px);
+  padding-block: clamp(72px, 8vw, 112px);
+}
+
+.page--home .drive-out {
+  padding-block: clamp(88px, 8vw, 120px) clamp(72px, 7vw, 104px);
+}
+
+@keyframes journey-visual-in { from { opacity: 0; transform: translateY(16px) scale(0.985); } }
+@keyframes journey-copy-in { from { opacity: 0; transform: translateY(14px); } }
+
+/* Chỉ phần tiêu đề đổi sang một cột ở đây. Việc xếp dọc cả sân khấu do khối
+ * @media (max-width: 900px) bên dưới lo — cùng mốc với 26-mobile-hardening.css. */
+@media (max-width: 1120px) {
+  .vivi-journey__heading { grid-template-columns: 1fr; align-items: start; gap: 30px; }
+  .vivi-journey__intro { display: block; }
+  .vivi-journey__intro > p { margin: 0; }
+}
+
+@media (max-width: 720px) {
+  .vivi-journey { padding-block: 80px; }
+  .vivi-journey__heading { margin-bottom: 34px; }
+  .vivi-journey__heading h2 { font-size: clamp(2.8rem, 13vw, 4.5rem); }
+  .vivi-journey__intro { display: block; }
+  .vivi-journey__intro > p { margin: 0; font-size: 0.94rem; }
+  .vivi-journey__stage { min-height: 0; border-radius: 28px; }
+  .vivi-journey__media { min-height: 520px; padding: 20px 14px 56px; }
+  .vivi-journey__media::before { display: none; }
+  .vivi-journey__mascot { bottom: 0; left: -20px; width: 118px; opacity: 0.92; }
+  .vivi-journey__media-note { right: 18px; bottom: 20px; }
+  .vivi-journey__app { min-height: 420px; padding: 17px; border-radius: 22px; }
+  .vivi-journey__story { min-height: 520px; padding: 26px 20px; }
+  .vivi-journey__tabs {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+    padding: 8px;
+    border-radius: 22px;
+  }
+  .vivi-journey__tabs button { min-height: 112px; grid-column: span 2; grid-template-rows: 44px auto; gap: 9px; padding: 18px 10px 14px; }
+  .vivi-journey__tabs button:nth-child(n + 4) { grid-column: span 3; }
+  .vivi-journey__step-number { top: 12px; right: 13px; }
+  .vivi-journey__step-icon { width: 44px; height: 44px; }
+  .vivi-journey__step-icon svg { width: 24px; height: 24px; }
+  .vivi-journey__tabs strong { font-size: 0.7rem; }
+  .vivi-journey__panel { justify-content: flex-start; padding-block: 54px 38px; }
+  .vivi-journey__panel h3 { max-width: 14ch; font-size: clamp(2.25rem, 10vw, 3.35rem); }
+  .vivi-journey__bubble { max-width: 88%; }
+  .vivi-journey__vehicle-card { min-height: 245px; grid-template-columns: 0.75fr 1.25fr; padding: 20px; }
+  .vivi-journey__vehicle-card .smart-image { height: 200px; }
+  .vivi-journey__vehicle-card::after { font-size: 5rem; }
+  .vivi-journey__showroom-layout { min-height: 335px; grid-template-columns: 1.14fr 0.86fr; }
+  .vivi-journey__showroom-list { padding: 15px 12px; }
+  .vivi-journey__showroom-list > div { grid-template-columns: 22px minmax(0, 1fr); padding: 9px 7px; }
+  .vivi-journey__showroom-list em { display: none; }
+  .vivi-journey__confirmation { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .vivi-journey__invite-vehicle,
+  .vivi-journey__invite-vehicle .smart-image { height: 94px; min-height: 94px; }
+  .factory-film__watch-pill { top: 18px; right: 18px; left: auto; min-height: 46px; padding-right: 14px; opacity: 1; transform: none; }
+  .factory-film__watch-pill > span:first-child { width: 32px; height: 32px; }
+  .factory-film__media:hover .factory-film__watch-pill,
+  .factory-film__open:focus-visible ~ .factory-film__watch-pill { transform: none; }
+  .factory-film-dialog { align-items: center; padding: 10px; }
+  .factory-film-dialog__panel { padding: 12px; border-radius: 22px; }
+  .factory-film-dialog__head { padding: 3px 3px 12px; }
+  .factory-film-dialog__head h2 { max-width: 15ch; font-size: 1.25rem; }
+  .factory-film-dialog__head button { width: 44px; height: 44px; }
+  .factory-film-dialog__media { border-radius: 15px; }
+
+  .page--home .models-section,
+  .page--home .factory-origin,
+  .page--home .ownership-section,
+  .page--home .technology-story,
+  .page--home .voices-section {
+    padding-block: 88px;
+  }
+
+  .page--home .lachong-passage {
+    padding-top: 88px;
+    padding-bottom: 44px;
+  }
+
+  .page--home .lachong-block { margin-top: 72px; }
+  .page--home .lachong-spin-chapter { margin-top: 76px; padding-block: 68px; }
+}
+
+@media (max-width: 430px) {
+  .vivi-journey__media { min-height: 490px; }
+  .vivi-journey__app-head em { display: none; }
+  .vivi-journey__app-label { margin-top: 17px; }
+  .vivi-journey__bubble { padding: 12px 14px; font-size: 0.76rem; }
+  .vivi-journey__vehicle-copy > span { font-size: 0.6rem; }
+  .vivi-journey__facts > span { padding-inline: 6px; }
+  .vivi-journey__showroom-layout { grid-template-columns: 1fr; }
+  .vivi-journey__showroom-list { min-height: 300px; }
+  .vivi-journey__map { display: none; }
+  .vivi-journey__date-row { gap: 5px; }
+  .vivi-journey__time-grid { grid-template-columns: repeat(2, 1fr); }
+  .vivi-journey__summary { padding: 13px 11px; }
+  .vivi-journey__confirmation { --email-pad: 14px; }
+  .vivi-journey__email-headline { font-size: 1.5rem; }
+  .vivi-journey__email-panel dl div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .vivi-journey__invite-vehicle,
+  .vivi-journey__invite-vehicle .smart-image { height: 86px; min-height: 86px; }
+  .factory-film__watch-pill strong { display: none; }
+  .factory-film__watch-pill { padding: 7px; }
+}
+
+/* Tablet ngang vẫn đủ chiều rộng thật cho thanh 5 bước cạnh phần media, nên giữ
+ * hai cột; chỉ bóp lại tỉ lệ và khoảng đệm. */
+@media (min-width: 901px) and (max-width: 1120px) {
+  .vivi-journey__stage {
+    grid-template-columns: minmax(0, 1.14fr) minmax(360px, 0.86fr);
+  }
+
+  .vivi-journey__media { min-height: 0; padding-inline: 36px; }
+  .vivi-journey__story { min-height: 668px; }
+  .vivi-journey__panel h3 { max-width: 12ch; }
+}
+
+@media (max-width: 900px) {
+  .vivi-journey__stage {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .vivi-journey__media {
+    min-height: 590px;
+    padding: 44px clamp(28px, 8vw, 64px) 68px;
+  }
+
+  .vivi-journey__illustration { min-height: 450px; }
+
+  .vivi-journey__story {
+    min-height: 530px;
+    margin: 0 14px 14px;
+    border-radius: 30px;
+  }
+
+  .vivi-journey__panel { padding-block: 48px 34px; }
+  .vivi-journey__panel h3 { max-width: 16ch; }
+}
+
+@media (max-width: 720px) {
+  .vivi-journey { padding-block: 78px; }
+  .vivi-journey__heading h2 { font-size: clamp(2.7rem, 12.5vw, 4.2rem); }
+
+  .vivi-journey__stage { border-radius: 27px; }
+
+  .vivi-journey__media {
+    min-height: 500px;
+    padding: 34px 22px 62px;
+  }
+
+  .vivi-journey__illustration { min-height: 390px; }
+  .vivi-journey__illustration-label { margin-bottom: 18px; }
+  .vivi-journey__mascot { left: -24px; width: 112px; opacity: 0.84; }
+
+  .vivi-journey__story {
+    min-height: 500px;
+    margin: 0 9px 9px;
+    padding: 20px 16px 24px;
+    border-radius: 23px;
+  }
+
+  .vivi-journey__tabs {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 2px;
+    padding: 0 0 14px;
+    border-radius: 0;
+  }
+
+  .vivi-journey__tabs button,
+  .vivi-journey__tabs button:nth-child(n + 4) {
+    grid-column: auto;
+    min-height: 72px;
+    grid-template-rows: 28px auto;
+    gap: 6px;
+    padding: 12px 2px 8px;
+    border-radius: 12px;
+  }
+
+  .vivi-journey__step-number { top: 6px; right: 6px; font-size: 0.46rem; }
+  .vivi-journey__step-icon { width: 28px; height: 28px; }
+  .vivi-journey__step-icon svg { width: 19px; height: 19px; }
+  .vivi-journey__tabs strong { font-size: clamp(0.46rem, 2.1vw, 0.57rem); }
+
+  .vivi-journey__panel {
+    justify-content: center;
+    padding: 38px 0 30px;
+  }
+
+  .vivi-journey__panel h3 {
+    max-width: 14ch;
+    font-size: clamp(2.2rem, 9.5vw, 3.15rem);
+  }
+
+  .vivi-journey__panel > span { margin-top: 20px; }
+  .vivi-journey__vehicle-card { padding-inline: 0; }
+  .vivi-journey__showroom-list { background: rgba(255, 255, 255, 0.94); }
+}
+
+@media (max-width: 430px) {
+  .vivi-journey__media { min-height: 460px; padding-inline: 16px; }
+  .vivi-journey__illustration { min-height: 360px; }
+  .vivi-journey__media-note { right: 16px; font-size: 0.56rem; }
+  .vivi-journey__story { min-height: 480px; padding-inline: 13px; }
+  .vivi-journey__tabs button,
+  .vivi-journey__tabs button:nth-child(n + 4) { min-height: 69px; }
+  .vivi-journey__bubble { max-width: 91%; }
+  .vivi-journey__composer { margin-top: 22px; }
+  .vivi-journey__vehicle-card { min-height: 250px; }
+  .vivi-journey__vehicle-card .smart-image { margin-left: -18%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .factory-film-dialog,
+  .factory-film-dialog__panel,
+  .vivi-journey__visual,
+  .vivi-journey__panel { animation: none; }
+  .factory-film__watch-pill,
+  .vivi-journey__tabs button,
+  .vivi-journey__controls button { transition: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Tối ưu mobile cho khối ViVi
+ *
+ * Bám đúng thang breakpoint đang dùng chung của site (xem styles/README.md và
+ * 09-responsive.css): 980 · 900 · 720 · 560 · 430 · 360. Đặt ở CUỐI file vì
+ * theo luật thứ tự, khối sau thắng khối trước khi cùng độ đặc hiệu.
+ *
+ * Nguyên tắc: desktop coi thư và thiệp ở bước 5 là ẢNH THU NHỎ nên chữ cỡ 8px
+ * đọc như hoạ tiết. Trên mobile hai thẻ đó rộng gần hết màn, không còn là ảnh
+ * thu nhỏ nữa — chữ phải là chữ đọc được. Đây là chỗ khác biệt lớn nhất giữa
+ * hai đầu, không phải chỉ thu nhỏ đều mọi thứ.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+  /* Mascot đứng trong dải đệm đáy của sân khấu. Trước đây nó đè lên góc thẻ ở
+   * bước 3 và bước 5 vì thẻ trên mobile rộng gần hết panel, khác desktop. */
+  .vivi-journey__mascot { bottom: -4px; left: -14px; width: 100px; opacity: 0.92; }
+  .vivi-journey__media { min-height: 0; padding: 40px clamp(24px, 6vw, 56px) 104px; }
+  .vivi-journey__illustration { min-height: 400px; }
+}
+
+@media (max-width: 720px) {
+  .vivi-journey__mascot { width: 92px; }
+  .vivi-journey__media { padding: 30px 20px 96px; }
+  .vivi-journey__illustration { min-height: 350px; }
+  .vivi-journey__media-note { right: 16px; bottom: 18px; }
+
+  /* Danh sách showroom là mặt phẳng sáng trên trường chấm, không phải thẻ tối. */
+  .vivi-journey__showroom-layout { min-height: 320px; }
+
+  /* Bước 5 — chữ trở lại cỡ đọc được. Căn đều trên cột hẹp tạo khe trắng loang
+   * lổ giữa các từ, nên chuyển về căn trái. */
+  .vivi-journey__email-lede { font-size: 0.74rem; line-height: 1.7; text-align: left; }
+  .vivi-journey__email > header strong { font-size: 0.8rem; letter-spacing: 0.26em; }
+  .vivi-journey__email > header small { font-size: 0.6rem; }
+  .vivi-journey__email > header img { width: 25px; height: 25px; }
+  .vivi-journey__email-headline { font-size: clamp(1.75rem, 7.4vw, 2.3rem); }
+  .vivi-journey__email-name { padding-block: 11px; font-size: 0.76rem; }
+  .vivi-journey__email-panel { padding: 17px 15px; }
+  .vivi-journey__email-panel > strong { font-size: 1.02rem; }
+  .vivi-journey__email-panel dl div { padding: 10px 0; }
+  .vivi-journey__email-panel dt { font-size: 0.6rem; letter-spacing: 0.08em; }
+  .vivi-journey__email-panel dd { font-size: 0.7rem; line-height: 1.55; }
+  .vivi-journey__email-cta { padding: 14px 10px; font-size: 0.62rem; letter-spacing: 0.12em; }
+
+  .vivi-journey__invite > header small { font-size: 0.6rem; }
+  .vivi-journey__invite > header strong { font-size: 1.32rem; }
+  .vivi-journey__invite-card { padding: 16px; }
+  .vivi-journey__invite-card small { font-size: 0.56rem; }
+  .vivi-journey__invite-when p:first-child strong { font-size: 1.7rem; }
+  .vivi-journey__invite-when p:last-child strong { font-size: 0.9rem; }
+  .vivi-journey__invite-when b { font-size: 0.68rem; }
+  .vivi-journey__invite-where strong { font-size: 0.82rem; }
+  .vivi-journey__invite-code strong { font-size: 0.72rem; }
+}
+
+/* Dưới 560px, năm bước xếp một hàng ép nhãn xuống ~7px. Bẻ thành hai hàng 3+2
+ * để nhãn về cỡ đọc được và ô chạm rộng hơn ngón tay. */
+@media (max-width: 560px) {
+  .vivi-journey__tabs {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .vivi-journey__tabs button,
+  .vivi-journey__tabs button:nth-child(n + 4) {
+    min-height: 78px;
+    grid-column: span 2;
+    grid-template-rows: 32px auto;
+    gap: 7px;
+    padding: 13px 6px 10px;
+  }
+
+  .vivi-journey__tabs button:nth-child(n + 4) { grid-column: span 3; }
+  .vivi-journey__step-icon { width: 32px; height: 32px; }
+  .vivi-journey__step-icon svg { width: 20px; height: 20px; }
+  .vivi-journey__step-number { top: 7px; right: 8px; font-size: 0.5rem; }
+  .vivi-journey__tabs strong { font-size: 0.66rem; }
+}
+
+@media (max-width: 430px) {
+  .vivi-journey__mascot { width: 84px; }
+  .vivi-journey__media { min-height: 0; padding: 26px 15px 88px; }
+  .vivi-journey__illustration { min-height: 320px; }
+  .vivi-journey__media-note { font-size: 0.6rem; }
+  .vivi-journey__story { min-height: 0; padding-inline: 14px; }
+
+  /* Bản đồ đã ẩn ở khổ này nên thẻ showroom phải ôm sát nội dung, đừng giữ
+   * min-height của bố cục hai cột — nó để lại một mảng trống hơn 150px. */
+  .vivi-journey__showroom-layout { min-height: 0; }
+  .vivi-journey__showroom-list { min-height: 0; padding-bottom: 18px; }
+
+  /* Nhãn và giá trị xếp chồng, hàng nào cũng còn đủ chỗ thở. */
+  .vivi-journey__email-panel dl div { gap: 5px; padding: 9px 0; }
+  .vivi-journey__invite-when { gap: 14px; }
+}
+
+@media (max-width: 360px) {
+  .vivi-journey__tabs strong { font-size: 0.62rem; }
+  .vivi-journey__email-lede { font-size: 0.72rem; }
+  .vivi-journey__invite-code { flex-direction: column; align-items: flex-start; gap: 4px; }
+}

@@ -1,0 +1,78 @@
+/* 22-leaflet.css — Ghi đè thư viện bản đồ Leaflet
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 11058–11132.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/* Leaflet Map Container and Markers */
+.studio-map__leaflet-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.leaflet-showroom-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #dadce0;
+  box-shadow: 0 4px 10px rgba(60, 64, 67, 0.2);
+  cursor: pointer;
+  transition: transform 0.24s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.24s ease;
+  padding: 4px;
+}
+
+.leaflet-showroom-marker img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.leaflet-showroom-marker:hover,
+.leaflet-showroom-marker.is-active {
+  border-color: var(--blue);
+  transform: scale(1.18);
+  z-index: 999;
+}
+
+.leaflet-user-marker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1a73e8;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 6px rgba(26, 115, 232, 0.35);
+  animation: pulse-user-location 1.8s infinite;
+}
+
+@keyframes pulse-user-location {
+  0% {
+    box-shadow: 0 0 0 0px rgba(26, 115, 232, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(26, 115, 232, 0);
+  }
+}
+
+/* Leaflet Popup Overrides */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-family: inherit;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.leaflet-popup-content strong {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.leaflet-popup-content small {
+  font-size: 0.62rem;
+  color: var(--muted);
+}

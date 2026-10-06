@@ -1,0 +1,163 @@
+/* 13-booking-success.css — Bố cục hai cột màn đặt lịch thành công
+   Tách từ index.css ngày 18/08/2026. Nguyên bản: dòng 6990–7149.
+   THỨ TỰ NẠP LÀ MỘT PHẦN CỦA THIẾT KẾ — xem styles/README.md trước khi đổi. */
+
+/*
+ * Panel TRÁI sau khi đặt lịch xong: model xe ở trên, phiếu lịch ở dưới, cuộn chung.
+ * Trước đây khối này nằm trong `.booking-success-layout` — một bố cục 3 cột riêng cho màn
+ * thành công. Bố cục đó đã bỏ (màn thành công nay dùng đúng 2 panel như mọi bước khác, để
+ * khung chat với ViVi không biến mất), nên khối phải tự đứng được trong .booking-workspace.
+ */
+.booking-success-documents {
+  display: grid;
+  align-content: start;
+  gap: 18px;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+/*
+ * Nén khối xe lại để PHIẾU LỊCH được nhìn thấy ngay, không phải cuộn mới thấy.
+ * Ba quy tắc dưới đây vốn có trong bố cục `.booking-success-layout` cũ; khi bỏ bố cục đó
+ * em quên mang sang, thế là model xe chiếm gần hết cột trái và phiếu bị đẩy xuống dưới —
+ * nhìn như thông tin đã bị xoá bớt, dù thực ra vẫn còn đủ trong DOM.
+ */
+.booking-success-documents .studio-vehicle {
+  padding-block: 20px 14px;
+}
+
+.booking-success-documents .studio-vehicle__image {
+  width: 100%;
+  max-height: min(26vh, 240px);
+}
+
+/* Thông số đã nằm trong khối "Xem lại thông tin xe" ngay bên dưới, không cần lặp ở đây. */
+.booking-success-documents .studio-vehicle__specs {
+  display: none;
+}
+
+.booking-success-documents .studio-vehicle__heading strong {
+  font-size: clamp(2rem, 3vw, 2.9rem);
+}
+
+.booking-success-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(440px, 2fr);
+  height: calc(100dvh - 72px);
+}
+
+.booking-success-layout > * {
+  min-width: 0;
+  border-right: 1px solid var(--line);
+}
+
+.booking-success-layout .studio-vehicle {
+  padding: 24px 22px 24px;
+}
+
+.booking-success-layout .studio-vehicle__heading strong {
+  font-size: clamp(2.4rem, 3.4vw, 3.9rem);
+}
+
+/* Cột xác nhận hẹp hơn nên ảnh phải nằm gọn trong cột, không được tràn 108% như trước. */
+.booking-success-layout .studio-vehicle__image {
+  width: 100%;
+  max-height: min(30vh, 280px);
+}
+
+.booking-success-layout .studio-vehicle__specs,
+.booking-success-layout .studio-vehicle > a {
+  display: none;
+}
+
+.studio-ticket--compact {
+  padding: 38px 24px;
+  background: #f5f6f5;
+}
+
+.studio-ticket--compact .studio-ticket__vehicle {
+  grid-template-columns: 110px 1fr;
+}
+
+.studio-ticket--compact .studio-ticket__vehicle .smart-image {
+  width: 110px;
+  height: 68px;
+}
+
+.studio-ticket--compact dl div {
+  grid-template-columns: 94px 1fr;
+}
+
+.vivi-studio--success {
+  background: #f8f9f8;
+}
+
+.vivi-success-copy {
+  display: grid;
+  align-content: start;
+  max-width: 680px;
+  height: 100%;
+  padding: 40px 8% 8%;
+}
+
+.vivi-success-copy > svg {
+  margin-bottom: 16px;
+  color: var(--success);
+}
+
+.vivi-success-copy > p:first-of-type {
+  margin: 0 0 1px;
+  color: var(--blue);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.vivi-success-copy h1 {
+  max-width: 640px;
+  margin: 0;
+  font-size: clamp(calc(2.5rem - 14px), calc(4.5vw - 14px), calc(5.0rem - 14px));
+  font-weight: 550;
+  letter-spacing: -0.07em;
+  line-height: 0.94;
+}
+
+.vivi-success-copy > span {
+  width: max-content;
+  margin-top: 14px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: 0.69rem;
+  font-weight: 700;
+}
+
+.vivi-success-copy > p:last-of-type {
+  max-width: 560px;
+  margin: 18px 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.vivi-success-copy > div {
+  display: flex;
+  gap: 9px;
+}
+
+.vivi-success-copy button,
+.vivi-success-copy a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 0 17px;
+  border-radius: 14px;
+  font-size: 0.73rem;
+  font-weight: 680;
+  cursor: pointer;
+}
+
+.vivi-success-copy button { color: #fff; background: var(--blue); }
+.vivi-success-copy a { background: #e7e9e8; }

@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-24T10:19:42Z",
+  "policy": {
+    "regression_suite_fixed_cases": 57,
+    "holdout_one_shot": true,
+    "failed_cases_replaced_or_rerun": false,
+    "overall_requires_full_two_reviewer_coverage": true
+  },
+  "freeze": {
+    "schema_version": "1.0",
+    "status": "COMPLETED",
+    "attempt_count": 1,
+    "started_at": "2026-08-24T10:11:20Z",
+    "completed_at": "2026-08-24T10:16:38Z",
+    "dataset_sha256": "5683ea861a60de11a4f7ed1ee6d992ef8844580c5ff5e8a7d7d3bce79751a975",
+    "regression_sha256": "e88a3dfca130ab17944a3d1872eda7a24bbb9d52a995cb5416c01669d257eb0c",
+    "application_sha256": "6f2b33648d26db4dac60c93151bac7091660609ac68958c7c759adb3cdacb29a",
+    "git": {
+      "commit": "b6c8e45219e0b90361bde5e6016670e3f8709d52",
+      "dirty": true,
+      "worktree_status_sha256": "03413e6f5733c19037e42e1721457edd07b8a342c8950882c0d7ffb047123ebc"
+    },
+    "policy": {
+      "one_shot": true,
+      "rerun_allowed": false,
+      "replace_failed_cases_allowed": false,
+      "code_tuning_from_holdout_allowed": false
+    },
+    "model": "gpt-5.6-luna"
+  },
+  "splits": {
+    "regression": {
+      "status": "COMPLETE",
+      "task_success_rate": 1.0,
+      "passed_cases": 57,
+      "failed_cases": 0,
+      "scored_cases": 57,
+      "total_cases": 57,
+      "wilson_95": {
+        "lower": 0.9369,
+        "upper": 1.0
+      },
+      "intent_accuracy": 1.0,
+      "tool_accuracy": 1.0,
+      "argument_field_f1": 1.0,
+      "latency_p95_ms": 14525.1
+    },
+    "hidden_holdout": {
+      "status": "COMPLETE",
+      "task_success_rate": 0.5333,
+      "passed_cases": 16,
+      "failed_cases": 14,
+      "scored_cases": 30,
+      "total_cases": 30,
+      "wilson_95": {
+        "lower": 0.3614,
+        "upper": 0.6977
+      },
+      "intent_accuracy": 0.8333,
+      "tool_accuracy": 0.8667,
+      "argument_field_f1": 0.7871,
+      "latency_p95_ms": 14374.1
+    }
+  },
+  "hidden_holdout_by_mutation_category": {
+    "expression": {
+      "passed_cases": 3,
+      "scored_cases": 5,
+      "total_cases": 5,
+      "task_success_rate": 0.6
+    },
+    "typo": {
+      "passed_cases": 2,
+      "scored_cases": 5,
+      "total_cases": 5,
+      "task_success_rate": 0.4
+    },
+    "time": {
+      "passed_cases": 3,
+      "scored_cases": 5,
+      "total_cases": 5,
+      "task_success_rate": 0.6
+    },
+    "showroom": {
+      "passed_cases": 4,
+      "scored_cases": 5,
+      "total_cases": 5,
+      "task_success_rate": 0.8
+    },
+    "multi_turn": {
+      "passed_cases": 0,
+      "scored_cases": 5,
+      "total_cases": 5,
+      "task_success_rate": 0.0
+    },
+    "tool_failure": {
+      "passed_cases": 4,
+      "scored_cases": 5,
+      "total_cases": 5,
+      "task_success_rate": 0.8
+    }
+  },
+  "human_review_gate": {
+    "status": "PARTIAL",
+    "minimum_reviews_per_case": 2,
+    "required_coverage_rate": 1.0,
+    "regression": {
+      "case_count": 57,
+      "cases_with_minimum_reviews": 10,
+      "coverage_rate": 0.1754
+    },
+    "hidden_holdout": {
+      "case_count": 30,
+      "cases_with_minimum_reviews": 0,
+      "coverage_rate": 0.0
+    },
+    "combined": {
+      "case_count": 87,
+      "cases_with_minimum_reviews": 10,
+      "coverage_rate": 0.1149
+    },
+    "sufficient_for_overall": false
+  },
+  "overall": {
+    "status": "WITHHELD_HUMAN_REVIEW_INSUFFICIENT",
+    "task_success_rate": null,
+    "passed_cases": null,
+    "scored_cases": null,
+    "note": "Overall is intentionally withheld until every regression and holdout case has two completed human reviews."
+  }
+}

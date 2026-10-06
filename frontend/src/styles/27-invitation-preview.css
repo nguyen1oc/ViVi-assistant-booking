@@ -1,0 +1,1159 @@
+/* Frontend prototype for the personal invitation and its two source emails.
+   This file is intentionally isolated from production booking selectors. */
+
+body.invitation-film-open {
+  overflow: hidden;
+}
+
+.invitation-preview {
+  --invite-black: #121212;
+  --invite-card: #1e1e1e;
+  --invite-gold: #f5c542;
+  --invite-gold-bright: #ffd24a;
+  --invite-white: #ffffff;
+  min-height: 100dvh;
+  overflow-x: clip;
+  color: var(--invite-white);
+  background: var(--invite-black);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.invitation-state {
+  display: grid;
+  min-height: 100dvh;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  padding: max(28px, env(safe-area-inset-top)) 24px max(28px, env(safe-area-inset-bottom));
+  color: #ffffff;
+  background: #121212;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: center;
+}
+
+.invitation-state__loader {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(245, 197, 66, 0.28);
+  border-top-color: #f5c542;
+  border-radius: 50%;
+  animation: invitation-state-spin 0.8s linear infinite;
+}
+
+.invitation-state p {
+  max-width: 38ch;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.invitation-state--error span {
+  color: #f5c542;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.invitation-state--error h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 6vw, 3rem);
+  line-height: 1.1;
+}
+
+.invitation-state--error a {
+  min-height: 44px;
+  padding: 12px 22px;
+  border: 1px solid #f5c542;
+  border-radius: 4px;
+  color: #121212;
+  background: #f5c542;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@keyframes invitation-state-spin {
+  to { transform: rotate(360deg); }
+}
+
+.invitation-preview ::selection,
+.email-preview ::selection {
+  color: var(--invite-black, #121212);
+  background: var(--invite-gold, #f5c542);
+}
+
+.invitation-preview__content {
+  min-height: 100dvh;
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.invitation-preview__content.is-ready {
+  opacity: 1;
+  transform: none;
+}
+
+.invitation-film {
+  position: fixed;
+  z-index: 11000;
+  inset: 0;
+  overflow: hidden;
+  color: #ffffff;
+  background: #121212;
+  isolation: isolate;
+}
+
+.invitation-film::after {
+  position: absolute;
+  right: 0;
+  bottom: clamp(58px, 10vh, 110px);
+  left: 0;
+  height: 1px;
+  background: rgba(245, 197, 66, 0.18);
+  content: '';
+}
+
+.invitation-film__skip {
+  position: absolute;
+  z-index: 8;
+  top: max(18px, env(safe-area-inset-top));
+  right: max(20px, env(safe-area-inset-right));
+  min-width: 82px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.82);
+  background: #121212;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.invitation-film__skip:hover,
+.invitation-film__skip:focus-visible {
+  border-color: #f5c542;
+  color: #f5c542;
+}
+
+.invitation-film__skip:focus-visible,
+.invitation-header a:focus-visible,
+.invitation-header button:focus-visible,
+.email-preview-toolbar a:focus-visible,
+.email-preview-toolbar button:focus-visible,
+.email-preview__action:focus-visible {
+  outline: 2px solid #f5c542;
+  outline-offset: 4px;
+}
+
+.invitation-film__brand {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 28px;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.invitation-film__brand img {
+  width: min(46vw, 460px);
+  height: auto;
+  filter: invert(1);
+}
+
+.invitation-film__brand-rule,
+.invitation-film__message-rule {
+  display: block;
+  width: min(148px, 28vw);
+  height: 2px;
+  background: #f5c542;
+}
+
+.invitation-film__road {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+}
+
+.invitation-film__vehicle {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: min(82vw, 1220px);
+  height: auto;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 34px 28px rgba(0, 0, 0, 0.78));
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.invitation-film__streak {
+  position: absolute;
+  z-index: 1;
+  top: calc(50% + var(--streak-y, 0px));
+  left: -4vw;
+  width: min(54vw, 780px);
+  height: 1px;
+  background: #f5c542;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.invitation-film__streak:nth-child(1) { --streak-y: -92px; width: min(43vw, 620px); }
+.invitation-film__streak:nth-child(2) { --streak-y: 0px; left: 3vw; }
+.invitation-film__streak:nth-child(3) { --streak-y: 106px; width: min(36vw, 520px); }
+
+.invitation-film__message {
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  justify-items: center;
+  gap: 15px;
+  width: min(780px, calc(100vw - 48px));
+  text-align: center;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.invitation-film__message p {
+  margin: 2px 0 0;
+  color: #f5c542;
+  font-size: clamp(0.68rem, 1vw, 0.82rem);
+  font-weight: 700;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+}
+
+.invitation-film__message strong {
+  max-width: 18ch;
+  color: #ffffff;
+  font-size: clamp(2.2rem, 5.4vw, 5.1rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  text-wrap: balance;
+}
+
+.invitation-header {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(100% - 48px, 1180px);
+  min-height: 92px;
+  margin-inline: auto;
+  border-bottom: 1px solid rgba(245, 197, 66, 0.38);
+}
+
+.invitation-header__logo {
+  width: clamp(142px, 15vw, 190px);
+  height: auto;
+  filter: invert(1);
+}
+
+.invitation-header__home,
+.invitation-header__replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: fit-content;
+  min-height: 44px;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.72);
+  background: transparent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.invitation-header__replay {
+  justify-self: end;
+}
+
+.invitation-header__home:hover,
+.invitation-header__replay:hover {
+  color: #f5c542;
+}
+
+.invitation-main {
+  width: min(100% - 48px, 920px);
+  margin-inline: auto;
+  padding: clamp(66px, 8vw, 96px) 0 70px;
+  text-align: center;
+}
+
+.invitation-title p {
+  margin: 0 0 16px;
+  color: #f5c542;
+  font-size: clamp(0.9rem, 1.35vw, 1.08rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.invitation-title h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.invitation-guest {
+  display: grid;
+  justify-items: center;
+  gap: 17px;
+  margin-top: 30px;
+}
+
+.invitation-guest span {
+  width: 64px;
+  height: 1px;
+  background: #f5c542;
+}
+
+.invitation-guest strong {
+  color: #f5c542;
+  font-size: clamp(1.2rem, 2.7vw, 1.7rem);
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.invitation-vehicle {
+  position: relative;
+  display: grid;
+  min-height: clamp(300px, 46vw, 430px);
+  margin: clamp(46px, 7vw, 72px) auto 0;
+  place-items: center;
+  isolation: isolate;
+}
+
+.invitation-vehicle__model {
+  position: absolute;
+  z-index: -1;
+  top: 43%;
+  left: 50%;
+  width: 100%;
+  color: rgba(255, 255, 255, 0.055);
+  font-size: clamp(5.4rem, 17vw, 10.5rem);
+  font-weight: 800;
+  letter-spacing: -0.08em;
+  line-height: 0.75;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+.invitation-vehicle__visual {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  width: 100%;
+  place-items: center;
+  isolation: isolate;
+}
+
+/* A CSS ground shadow stays independent from the transparent WebP. Applying filter and
+   transform to the image itself made Safari retain a low-resolution composited texture. */
+.invitation-vehicle__visual::after {
+  position: absolute;
+  z-index: -1;
+  bottom: 4%;
+  left: 50%;
+  width: min(72%, 620px);
+  height: clamp(24px, 5vw, 46px);
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0) 72%);
+  content: '';
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.invitation-vehicle__image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(92%, 780px);
+  max-height: 350px;
+  object-fit: contain;
+  image-rendering: auto;
+  user-select: none;
+}
+
+.invitation-vehicle__caption {
+  position: absolute;
+  right: 0;
+  bottom: 8px;
+  display: grid;
+  gap: 5px;
+  padding-left: 22px;
+  border-left: 1px solid #f5c542;
+  text-align: left;
+}
+
+.invitation-vehicle__caption span {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.invitation-vehicle__caption strong {
+  color: #ffffff;
+  font-size: clamp(0.94rem, 1.8vw, 1.08rem);
+  line-height: 1.3;
+}
+
+.invitation-card {
+  position: relative;
+  overflow: hidden;
+  width: min(100%, 760px);
+  margin: 22px auto 0;
+  padding: clamp(34px, 7vw, 58px);
+  border: 1px solid #f5c542;
+  border-radius: 8px;
+  background: #1e1e1e;
+  text-align: left;
+}
+
+.invitation-card__intro {
+  text-align: center;
+}
+
+.invitation-card__time span,
+.invitation-card__date span,
+.invitation-card__showroom span,
+.invitation-card__meta dt {
+  margin: 0;
+  color: #f5c542;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.invitation-card__intro h2 {
+  margin: 0 auto;
+  color: #ffffff;
+  font-size: clamp(1.58rem, 4vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  text-align: center;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.invitation-card__schedule {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  align-items: end;
+  margin-top: clamp(40px, 7vw, 62px);
+  padding: 0 0 clamp(34px, 6vw, 48px);
+  border-bottom: 1px solid rgba(245, 197, 66, 0.5);
+}
+
+.invitation-card__time strong {
+  display: block;
+  margin-top: 6px;
+  color: #ffffff;
+  font-size: clamp(4rem, 12vw, 7.2rem);
+  font-weight: 700;
+  letter-spacing: -0.07em;
+  line-height: 0.86;
+}
+
+.invitation-card__date {
+  padding: 0 0 5px clamp(28px, 5vw, 48px);
+  border-left: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.invitation-card__date strong,
+.invitation-card__date b {
+  display: block;
+  color: #ffffff;
+}
+
+.invitation-card__date strong {
+  margin-top: 13px;
+  font-size: clamp(1.24rem, 3vw, 1.7rem);
+  line-height: 1.15;
+}
+
+.invitation-card__date b {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+}
+
+.invitation-card__showroom {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 13px;
+  margin-top: clamp(34px, 6vw, 48px);
+  color: #f5c542;
+  text-align: center;
+}
+
+.invitation-card__showroom svg {
+  margin: 0;
+}
+
+.invitation-card__showroom h3 {
+  margin: 8px 0 0;
+  color: #ffffff;
+  font-size: clamp(1.22rem, 3.2vw, 1.7rem);
+  line-height: 1.2;
+}
+
+.invitation-card__showroom p {
+  max-width: 48ch;
+  margin: 9px auto 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.invitation-card__meta {
+  display: block;
+  margin: clamp(36px, 6vw, 50px) 0 0;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  text-align: center;
+}
+
+.invitation-card__meta div {
+  min-width: 0;
+}
+
+.invitation-card__meta dd {
+  margin: 8px 0 0;
+  overflow-wrap: anywhere;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.invitation-note {
+  width: min(100%, 61ch);
+  margin: 30px auto 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.82rem;
+  line-height: 1.8;
+}
+
+.invitation-footer {
+  display: grid;
+  grid-template-columns: minmax(32px, 1fr) auto minmax(32px, 1fr);
+  align-items: center;
+  gap: 18px;
+  margin-top: 52px;
+}
+
+.invitation-footer span {
+  height: 1px;
+  background: rgba(245, 197, 66, 0.46);
+}
+
+.invitation-footer p {
+  margin: 0;
+  color: #f5c542;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Browser-only email preview */
+.email-preview-page {
+  min-height: 100dvh;
+  padding: 28px 20px 64px;
+  color: #121212;
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.email-preview-toolbar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: min(100%, 800px);
+  margin-inline: auto;
+}
+
+.email-preview-toolbar > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  min-height: 44px;
+  color: #121212;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.email-preview-tabs {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid #121212;
+}
+
+.email-preview-tabs button {
+  min-height: 44px;
+  padding: 0 18px;
+  color: #121212;
+  background: #ffffff;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.email-preview-tabs button + button {
+  border-left: 1px solid #121212;
+}
+
+.email-preview-tabs button.is-active {
+  color: #121212;
+  background: #f5c542;
+}
+
+.email-preview-caption {
+  margin: 18px auto 28px;
+  color: rgba(18, 18, 18, 0.58);
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+.email-preview {
+  --invite-black: #121212;
+  --invite-card: #1e1e1e;
+  --invite-gold: #f5c542;
+  width: min(100%, 600px);
+  margin-inline: auto;
+  overflow: hidden;
+  color: #e0e0e0;
+  background: #121212;
+  box-shadow: 0 24px 60px rgba(18, 18, 18, 0.16);
+}
+
+.email-preview__brand-band {
+  display: grid;
+  min-height: 106px;
+  place-items: center;
+  border-bottom: 1px solid rgba(245, 197, 66, 0.3);
+}
+
+.email-preview__brand-band img,
+.email-preview__footer img {
+  width: 176px;
+  height: auto;
+  filter: invert(1);
+}
+
+.email-preview__heading {
+  padding: 35px 24px 29px;
+  text-align: center;
+}
+
+.email-preview__heading h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.email-preview__name {
+  padding: 13px 20px;
+  color: #121212;
+  background: #f5c542;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 32px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.email-preview__body {
+  padding: 34px 24px 0;
+}
+
+.email-preview__intro,
+.email-preview__copy {
+  margin: 0;
+  color: #e0e0e0;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.72;
+}
+
+.email-preview__copy {
+  margin-top: 12px;
+  text-align: justify;
+}
+
+.email-preview__card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 30px;
+  padding: 32px 26px;
+  border: 1px solid #f5c542;
+  border-radius: 8px;
+  background-color: #1e1e1e;
+  background-image: var(--email-card-watermark);
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  background-size: 58% auto;
+}
+
+.email-preview__card h2 {
+  position: relative;
+  margin: 0;
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  line-height: 1.46;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.email-preview__facts {
+  position: relative;
+  margin: 22px 0 0;
+}
+
+.email-preview__facts > div {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+.email-preview__facts dt {
+  color: #f5c542;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+  line-height: 18px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.email-preview__facts dd {
+  margin: 0;
+  color: #e0e0e0;
+  font-size: 13px;
+  line-height: 21px;
+  text-align: center;
+}
+
+.email-preview__facts dd strong {
+  color: #ffffff;
+}
+
+.email-preview__facts s {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.email-preview__note {
+  position: relative;
+  margin: 24px 0 0;
+  color: #e0e0e0;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 23px;
+  text-align: justify;
+}
+
+.email-preview__actions {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.email-preview__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid #ffd24a;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.email-preview__action span {
+  font-family: inherit;
+}
+
+.email-preview__action--secondary {
+  color: #ffd24a;
+  background: #121212;
+}
+
+.email-preview__action--primary {
+  border-top-color: #ffe9a8;
+  color: #121212;
+  background: #ffd24a;
+}
+
+.email-preview__action-label--short {
+  display: none;
+}
+
+.email-preview__footer {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 52px 24px 42px;
+  text-align: center;
+}
+
+.email-preview__footer img {
+  width: 126px;
+  margin-bottom: 8px;
+  opacity: 0.72;
+}
+
+.email-preview__footer p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  line-height: 18px;
+}
+
+@media (max-width: 720px) {
+  .invitation-film__brand img {
+    width: min(68vw, 310px);
+  }
+
+  .invitation-film__vehicle {
+    width: 142vw;
+    max-width: none;
+  }
+
+  .invitation-film__streak:nth-child(1) { --streak-y: -58px; }
+  .invitation-film__streak:nth-child(3) { --streak-y: 68px; }
+
+  .invitation-film__message {
+    width: calc(100vw - 40px);
+  }
+
+  .invitation-header {
+    width: min(100% - 28px, 620px);
+    min-height: 76px;
+  }
+
+  .invitation-header__logo {
+    width: 128px;
+  }
+
+  .invitation-header__home,
+  .invitation-header__replay {
+    width: 44px;
+    justify-content: center;
+  }
+
+  .invitation-header__home span,
+  .invitation-header__replay span {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .invitation-main {
+    width: min(100% - 28px, 620px);
+    padding: 58px 0 48px;
+  }
+
+  .invitation-title p {
+    margin-bottom: 13px;
+    font-size: 0.9rem;
+    letter-spacing: 0.11em;
+  }
+
+  .invitation-title h1 {
+    max-width: 11ch;
+    margin-inline: auto;
+    font-size: clamp(2.55rem, 12vw, 3.55rem);
+    line-height: 0.94;
+  }
+
+  .invitation-guest {
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .invitation-guest strong {
+    max-width: 17ch;
+    font-size: 1.22rem;
+  }
+
+  .invitation-vehicle {
+    grid-template-rows: auto auto;
+    gap: 16px;
+    min-height: 0;
+    margin-top: 42px;
+    padding-top: 20px;
+  }
+
+  .invitation-vehicle__model {
+    top: 32%;
+    font-size: clamp(5rem, 24vw, 7rem);
+  }
+
+  .invitation-vehicle__image {
+    width: 100%;
+    max-width: 620px;
+    max-height: 230px;
+  }
+
+  .invitation-vehicle__visual::after {
+    bottom: 2%;
+    width: 78%;
+    height: 28px;
+  }
+
+  .invitation-vehicle__caption {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    justify-self: center;
+    width: min(82%, 280px);
+    padding: 13px 0 0;
+    border-top: 1px solid #f5c542;
+    border-left: 0;
+    text-align: center;
+  }
+
+  .invitation-card {
+    margin-top: 40px;
+    padding: 32px 22px;
+  }
+
+  .invitation-card__schedule {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    text-align: center;
+  }
+
+  .invitation-card__time strong {
+    font-size: clamp(4.5rem, 25vw, 6.5rem);
+  }
+
+  .invitation-card__date {
+    padding: 26px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 0;
+  }
+
+  .invitation-card__showroom {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .invitation-card__showroom svg {
+    margin: 0;
+  }
+
+  .invitation-card__showroom p {
+    margin-inline: auto;
+  }
+
+  .invitation-card__meta {
+    text-align: center;
+  }
+
+  .invitation-footer {
+    gap: 11px;
+  }
+
+  .invitation-footer p {
+    max-width: 20ch;
+  }
+
+  .email-preview-page {
+    padding: 14px 0 40px;
+  }
+
+  .email-preview-toolbar {
+    grid-template-columns: 44px 1fr 44px;
+    padding: 0 12px;
+  }
+
+  .email-preview-toolbar > a {
+    width: 44px;
+    justify-content: center;
+    font-size: 0;
+  }
+
+  .email-preview-tabs {
+    width: min(100%, 260px);
+    justify-self: center;
+  }
+
+  .email-preview-tabs button {
+    padding-inline: 9px;
+    font-size: 0.66rem;
+  }
+
+  .email-preview-caption {
+    padding-inline: 24px;
+  }
+
+  .email-preview {
+    width: 100%;
+  }
+
+  .email-preview__brand-band {
+    min-height: 88px;
+  }
+
+  .email-preview__brand-band img {
+    width: 148px;
+  }
+
+  .email-preview__heading {
+    padding: 28px 18px 24px;
+  }
+
+  .email-preview__heading h1 {
+    font-size: 30px;
+    line-height: 1.34;
+  }
+
+  .email-preview__name {
+    padding: 12px 16px;
+    font-size: 19px;
+    line-height: 28px;
+  }
+
+  .email-preview__body {
+    padding: 28px 16px 0;
+  }
+
+  .email-preview__copy,
+  .email-preview__note {
+    text-align: left;
+  }
+
+  .email-preview__card {
+    padding: 28px 17px;
+  }
+
+  .email-preview__facts > div {
+    grid-template-columns: 38% 62%;
+    padding: 17px 0;
+  }
+
+  .email-preview__facts dt {
+    padding-right: 7px;
+    font-size: 10.5px;
+    letter-spacing: 1px;
+  }
+
+  .email-preview__facts dd {
+    font-size: 12px;
+    line-height: 19px;
+  }
+
+  .email-preview__actions {
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 7px;
+  }
+
+  .email-preview__action {
+    min-height: 46px;
+    padding-inline: 7px;
+    font-size: 11px;
+    letter-spacing: 0.15px;
+    white-space: nowrap;
+  }
+
+  .email-preview__action-label--full {
+    display: none;
+  }
+
+  .email-preview__action-label--short {
+    display: inline;
+  }
+}
+
+@media (max-width: 360px) {
+  .invitation-title h1 {
+    font-size: 2.45rem;
+  }
+
+  .invitation-card {
+    padding-inline: 17px;
+  }
+
+  .email-preview__action {
+    font-size: 10.5px;
+    letter-spacing: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .invitation-state__loader {
+    animation: none;
+  }
+
+  .invitation-preview *,
+  .email-preview-page * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
